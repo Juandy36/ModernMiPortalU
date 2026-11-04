@@ -49,8 +49,22 @@ btnAvisos.addEventListener('click', () => {
   pintarAvisos();
 });
 
-// Sin backend: el PDF se genera con el diálogo de impresión del navegador.
-document.getElementById('btn-pdf').addEventListener('click', () => window.print());
+// PDF: se imprime solo una tabla con el horario de toda la semana (sin estados, que cambian a diario).
+document.getElementById('btn-pdf').addEventListener('click', () => {
+  const filas = DIAS.flatMap((dia) =>
+    MPU.horarioSemana[dia].map(
+      (c, i) => `<tr><td>${i === 0 ? `<strong>${dia}</strong>` : ''}</td><td>${c.hora}</td><td>${c.asignatura}</td><td>${c.salon}</td><td>${c.docente}</td></tr>`
+    )
+  );
+  MPU.imprimir(
+    'Horario de clases',
+    `<table>
+      <thead><tr><th>Día</th><th>Hora</th><th>Asignatura</th><th>Salón</th><th>Docente</th></tr></thead>
+      <tbody>${filas.join('')}</tbody>
+    </table>
+    <p style="margin-top: 12px; font-size: 13px;">Horas libres entre clases: ${String(horas).replace('.', ',')} h por semana.</p>`
+  );
+});
 
 pintarDias();
 pintarClases();

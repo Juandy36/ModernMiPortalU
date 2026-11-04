@@ -9,8 +9,15 @@ body { background: #F4F4F4; color: #333333; font-family: 'Montserrat', 'Segoe UI
 .badge-danger { background: #D64545; }
 .badge-pending { background: #FFA400; color: #333; }
 
-/* Impresión de un comprobante: solo se ve ese bloque */
+/* Impresión con MPU.imprimir(): solo se ve #zona-impresion */
+@media screen { #zona-impresion { display: none; } }
 @media print {
-  body.imprimiendo > *:not(#comprobante) { display: none !important; }
-  body.imprimiendo #comprobante { display: block !important; }
+  @page { margin: 15mm; }
+  body.imprimiendo { background: #fff; }
+  body.imprimiendo > *:not(#zona-impresion) { display: none !important; }
+  #zona-impresion { display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #zona-impresion table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  #zona-impresion th { background: #FFF3D6; text-align: left; padding: 6px 8px; border: 1px solid #ddd; }
+  #zona-impresion td { padding: 6px 8px; border: 1px solid #ddd; }
+  #zona-impresion tr { break-inside: avoid; }
 }
