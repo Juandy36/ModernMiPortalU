@@ -6,13 +6,14 @@ tailwind.config = {
       colors: {
         unab: {
           DEFAULT: '#FFA400', // naranja principal
-          dark: '#E58E00',    // naranja oscuro
+          dark: '#E58E00',    // naranja oscuro (fondos, bordes, hover)
+          text: '#A35F00',    // naranja para texto sobre blanco o crema (contraste ≥ 4,5:1)
           cream: '#FFF3D6',   // fondos suaves
         },
         ink: '#333333',       // texto
         surface: '#F4F4F4',   // fondo claro
-        // Solo para estados de clase / solicitudes
-        ok: '#2E9E5B',
+        // Solo para estados de clase / solicitudes (verde oscurecido para contraste con blanco)
+        ok: '#23794A',
         danger: '#D64545',
         pending: '#FFA400',
       },

@@ -15,12 +15,12 @@ function pintarLista() {
     .map(
       (n, i) => `<article class="card">
         <div class="flex justify-between text-small">
-          <span class="font-bold text-unab-dark">${n.categoria}</span><span>${n.fecha}</span>
+          <span class="font-bold text-unab-text">${n.categoria}</span><span>${n.fecha}</span>
         </div>
         <h2 class="text-h3 mt-2">${n.titulo}</h2>
         <p class="mt-2">${n.resumen}</p>
         <p id="texto-${i}" class="mt-2 hidden">${n.texto}</p>
-        <button type="button" data-leer="${i}" aria-expanded="false" class="mt-3 font-bold text-unab-dark hover:underline">Leer más →</button>
+        <button type="button" data-leer="${i}" aria-expanded="false" class="mt-3 font-bold text-unab-text hover:underline">Leer más →</button>
       </article>`
     )
     .join('');

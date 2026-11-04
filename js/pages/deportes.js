@@ -16,7 +16,7 @@ function pintar() {
 
   const proximos = D.proximos.filter((p) => p.torneo === torneo);
   document.getElementById('proximos').innerHTML = proximos.length
-    ? proximos.map((p) => `<li class="flex gap-4"><span class="font-bold text-unab-dark w-16">${p.fecha}</span>
+    ? proximos.map((p) => `<li class="flex gap-4"><span class="font-bold text-unab-text w-28 shrink-0">${p.fecha}</span>
         <span>${p.disciplina} · ${p.encuentro}</span></li>`).join('')
     : '<li>No hay partidos programados.</li>';
 

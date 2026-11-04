@@ -2,7 +2,7 @@
 .btn { display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; border: 2px solid transparent; text-align: center; transition: background .15s; }
 .btn-primary { background: #FFA400; color: #333; }
 .btn-primary:hover { background: #E58E00; }
-.btn-secondary { background: #fff; color: #E58E00; border-color: #FFA400; }
+.btn-secondary { background: #fff; color: #A35F00; border-color: #FFA400; }
 .btn-secondary:hover { background: #FFF3D6; }
 .btn:disabled { opacity: .5; cursor: not-allowed; }
 
@@ -12,6 +12,6 @@
 .table th { text-align: left; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #FFF3D6; padding: 10px 12px; }
 .table td { padding: 12px; border-bottom: 1px solid #F4F4F4; }
 
-.field { width: 100%; border: 1px solid #ccc; border-radius: 8px; padding: 10px 12px; font-size: 16px; background: #fff; }
+.field { width: 100%; border: 1px solid #8C8C8C; border-radius: 8px; padding: 10px 12px; font-size: 16px; background: #fff; }
 .field:focus { border-color: #FFA400; }
 .label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
