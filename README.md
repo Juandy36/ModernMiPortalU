@@ -28,3 +28,8 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | 8 | `pages/parqueadero.html` | Listo |
 | 9 | `pages/semilleros.html` | Listo |
 | 10 | `pages/deportes.html` | Listo |
+
+## Accesibilidad y guía de estilo
+- Navegación: Servicios (Matrícula y turnos, Becas) y Bienestar (Reservas CSU, Parqueadero, Semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.
+- El naranja `#FFA400` se usa en fondos y bordes. Para texto naranja se usa `unab-text` (`#A35F00`), que cumple contraste 4,5:1 sobre blanco y crema. El verde de estado se oscureció a `#23794A` por la misma razón.
+- Todas las fechas siguen el formato «21 oct 2026».

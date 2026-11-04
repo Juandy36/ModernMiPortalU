@@ -4,16 +4,16 @@ window.MPU = window.MPU || {};
 MPU.deportes = {
   torneos: ['ASCUN', 'Interoscas'],
   resultados: [
-    { torneo: 'ASCUN', fecha: '18 oct', disciplina: 'Fútbol sala', encuentro: 'UNAB vs. por definir', resultado: '—' },
-    { torneo: 'ASCUN', fecha: '11 oct', disciplina: 'Baloncesto', encuentro: 'UNAB vs. por definir', resultado: '—' },
-    { torneo: 'ASCUN', fecha: '04 oct', disciplina: 'Voleibol', encuentro: 'UNAB vs. por definir', resultado: '—' },
-    { torneo: 'Interoscas', fecha: '20 oct', disciplina: 'Fútbol sala', encuentro: 'Ingenierías vs. por definir', resultado: '—' },
-    { torneo: 'Interoscas', fecha: '13 oct', disciplina: 'Baloncesto', encuentro: 'Ingenierías vs. por definir', resultado: '—' },
+    { torneo: 'ASCUN', fecha: '18 oct 2026', disciplina: 'Fútbol sala', encuentro: 'UNAB vs. por definir', resultado: '—' },
+    { torneo: 'ASCUN', fecha: '11 oct 2026', disciplina: 'Baloncesto', encuentro: 'UNAB vs. por definir', resultado: '—' },
+    { torneo: 'ASCUN', fecha: '04 oct 2026', disciplina: 'Voleibol', encuentro: 'UNAB vs. por definir', resultado: '—' },
+    { torneo: 'Interoscas', fecha: '20 oct 2026', disciplina: 'Fútbol sala', encuentro: 'Ingenierías vs. por definir', resultado: '—' },
+    { torneo: 'Interoscas', fecha: '13 oct 2026', disciplina: 'Baloncesto', encuentro: 'Ingenierías vs. por definir', resultado: '—' },
   ],
   proximos: [
-    { torneo: 'ASCUN', fecha: '08 nov', disciplina: 'Fútbol sala', encuentro: 'UNAB vs. por definir' },
-    { torneo: 'ASCUN', fecha: '15 nov', disciplina: 'Baloncesto', encuentro: 'UNAB vs. por definir' },
-    { torneo: 'Interoscas', fecha: '10 nov', disciplina: 'Voleibol', encuentro: 'Ingenierías vs. por definir' },
+    { torneo: 'ASCUN', fecha: '08 nov 2026', disciplina: 'Fútbol sala', encuentro: 'UNAB vs. por definir' },
+    { torneo: 'ASCUN', fecha: '15 nov 2026', disciplina: 'Baloncesto', encuentro: 'UNAB vs. por definir' },
+    { torneo: 'Interoscas', fecha: '10 nov 2026', disciplina: 'Voleibol', encuentro: 'Ingenierías vs. por definir' },
   ],
   posiciones: {
     ASCUN: [

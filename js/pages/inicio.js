@@ -23,7 +23,7 @@ document.getElementById('noticias-inicio').innerHTML = MPU.noticias
 
 const b = MPU.beca;
 document.getElementById('beca-inicio').innerHTML = `
-  <div class="text-h1 text-unab-dark">${MPU.nota(b.promedioActual)}</div>
+  <div class="text-h1 text-unab-text">${MPU.nota(b.promedioActual)}</div>
   <div>promedio actual</div>
   <div class="text-small">Promedio mínimo para mantener la beca: ${MPU.nota(b.minimoRequerido)}</div>
   <div class="text-small">Rendimiento: ${b.rendimiento} %</div>

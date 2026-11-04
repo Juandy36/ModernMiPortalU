@@ -34,7 +34,7 @@ document.getElementById('form-turno').addEventListener('submit', (e) => {
   const soporte = document.getElementById('soporte').files[0];
   MPU.storage.set('turnos:solicitudes', [
     {
-      fecha: MPU.fecha(new Date(), false),
+      fecha: MPU.fecha(),
       turno,
       estado: 'En revisión',
       motivo: document.getElementById('motivo').value.trim(),

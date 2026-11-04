@@ -20,7 +20,7 @@ const msg = document.getElementById('mensaje-beca');
 if (margen > 0) {
   msg.innerHTML = `<strong>${B.rendimiento} %</strong> · Estás ${MPU.nota(margen)} por encima del promedio mínimo para mantener tu beca.`;
 } else if (margen === 0) {
-  msg.innerHTML = `<strong>${B.rendimiento} %</strong> · Estás justo en el promedio mínimo. <span class="text-unab-dark font-semibold">Cuida tus próximas notas.</span>`;
+  msg.innerHTML = `<strong>${B.rendimiento} %</strong> · Estás justo en el promedio mínimo. <span class="text-unab-text font-semibold">Cuida tus próximas notas.</span>`;
 } else {
   msg.innerHTML = `<strong>${B.rendimiento} %</strong> · <span class="text-danger font-semibold">Estás ${MPU.nota(-margen)} por debajo del mínimo para mantener tu beca.</span> Habla con tu secretaría.`;
 }

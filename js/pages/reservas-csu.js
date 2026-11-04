@@ -50,7 +50,7 @@ function pintarFranjas() {
       const clase = elegida
         ? 'bg-unab border-unab'
         : mia
-          ? 'bg-unab-cream border-unab-dark text-unab-dark cursor-not-allowed'
+          ? 'bg-unab-cream border-unab-dark text-unab-text cursor-not-allowed'
           : ocupada
             ? 'bg-gray-300 text-gray-500 cursor-not-allowed border-gray-300'
             : 'bg-white border-unab hover:bg-unab-cream';

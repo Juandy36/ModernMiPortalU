@@ -23,7 +23,7 @@ function pintar() {
 
   document.getElementById('historial').innerHTML = historial()
     .map((h, i) => `<tr><td>${h.fecha}</td><td>${h.mes}</td><td>${MPU.pesos(h.valor)}</td><td>${MPU.badge(h.estado)}</td>
-      <td><button type="button" data-comprobante="${i}" class="font-bold text-unab-dark hover:underline">Descargar PDF</button></td></tr>`)
+      <td><button type="button" data-comprobante="${i}" class="font-bold text-unab-text hover:underline">Descargar PDF</button></td></tr>`)
     .join('');
 }
 

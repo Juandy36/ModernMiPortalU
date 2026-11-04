@@ -41,7 +41,7 @@ MPU.imprimir = function (titulo, contenidoHtml) {
   }
   zona.innerHTML = `
     <header style="border-bottom: 3px solid #FFA400; padding-bottom: 12px; margin-bottom: 20px;">
-      <div style="font-size: 14px; font-weight: 700; color: #E58E00;">Universidad Autónoma de Bucaramanga · MiPortalU</div>
+      <div style="font-size: 14px; font-weight: 700; color: #A35F00;">Universidad Autónoma de Bucaramanga · MiPortalU</div>
       <h1 style="font-size: 28px; font-weight: 800; margin-top: 4px;">${titulo}</h1>
       <div style="font-size: 14px;">Generado el ${MPU.fecha()} · Estudiante · Ingenierías</div>
     </header>
