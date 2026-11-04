@@ -50,25 +50,41 @@ function navItem(l) {
     </div>`;
 }
 
+// Menú para móvil y tablet (< 1024 px): lista vertical; los grupos se muestran con sus opciones.
+function menuMovil() {
+  const enlace = (l, sub) => `<li><a href="${root}${l.href}"${actual(l.id === active)}
+    class="block ${sub ? 'pl-8' : 'px-4'} pr-4 py-3 rounded-md font-semibold hover:bg-unab-cream ${l.id === active ? 'bg-unab-cream text-unab-text' : ''}">${l.label}</a></li>`;
+  const items = NAV_LINKS.map((l) => (l.items
+    ? `<li class="px-4 pt-3 pb-1 text-small font-bold uppercase">${l.label}</li>${l.items.map((i) => enlace(i, true)).join('')}`
+    : enlace(l, false))).join('');
+  return `<nav id="menu-movil" hidden class="lg:hidden border-t border-surface max-h-[calc(100vh-4rem)] overflow-y-auto" aria-label="Menú principal">
+    <ul class="max-w-page mx-auto px-2 py-2">${items}</ul></nav>`;
+}
+
 function navbar() {
   const links = NAV_LINKS.map(navItem).join('');
   return `
   <header class="bg-white shadow-sm relative z-40">
-    <div class="max-w-page mx-auto px-6 h-16 flex items-center justify-between">
+    <div class="max-w-page mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       <a href="${root}index.html" class="text-h3 text-unab-text">MiPortalU</a>
-      <nav class="flex items-center gap-1" aria-label="Principal">${links}</nav>
+      <nav class="hidden lg:flex items-center gap-1" aria-label="Principal">${links}</nav>
       <div class="flex items-center gap-3 text-small">
         <span class="w-9 h-9 rounded-full bg-unab text-ink font-bold flex items-center justify-center" aria-hidden="true">DR</span>
-        <div class="leading-tight"><div class="font-semibold">Estudiante</div><div>Ingenierías</div></div>
+        <div class="leading-tight hidden sm:block"><div class="font-semibold">Estudiante</div><div>Ingenierías</div></div>
+        <button id="btn-menu-movil" type="button" aria-expanded="false" aria-controls="menu-movil"
+          class="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
+          <span aria-hidden="true" data-icono>☰</span> Menú
+        </button>
       </div>
     </div>
+    ${menuMovil()}
   </header>`;
 }
 
 function footer() {
   return `
   <footer class="bg-ink text-white mt-16">
-    <div class="max-w-page mx-auto px-6 py-8 text-small space-y-1">
+    <div class="max-w-page mx-auto px-4 sm:px-6 pt-8 pb-24 sm:pb-8 text-small space-y-1">
       <div class="font-bold text-body">Universidad Autónoma de Bucaramanga</div>
       <div>Avenida 42 No. 48 - 11 · Bucaramanga, Colombia</div>
       <div>PBX: (607) 643 6111 · Centro de Contacto: 01 8000 931 170</div>
@@ -81,7 +97,7 @@ function footer() {
 function chatButton() {
   if (active === 'chat') return '';
   return `<a href="${root}pages/chat.html"
-    class="fixed bottom-6 right-6 bg-unab hover:bg-unab-dark text-ink font-bold px-5 py-3 rounded-full shadow-lg">
+    class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-30 bg-unab hover:bg-unab-dark text-ink font-bold text-small sm:text-body px-4 py-2.5 sm:px-5 sm:py-3 rounded-full shadow-lg">
     Chat con mi secretaría</a>`;
 }
 
@@ -108,10 +124,33 @@ menus.forEach((menu) => {
 document.addEventListener('click', (e) => {
   menus.forEach((m) => { if (!m.contains(e.target)) abrirMenu(m, false); });
 });
+// Menú móvil: el botón "Menú" abre/cierra el panel.
+const btnMovil = document.getElementById('btn-menu-movil');
+const panelMovil = document.getElementById('menu-movil');
+function abrirMovil(abrir) {
+  if (!btnMovil) return;
+  btnMovil.setAttribute('aria-expanded', String(abrir));
+  btnMovil.querySelector('[data-icono]').textContent = abrir ? '✕' : '☰';
+  panelMovil.hidden = !abrir;
+}
+btnMovil?.addEventListener('click', () => abrirMovil(panelMovil.hidden));
+// Si la ventana se agranda a escritorio, el panel queda cerrado.
+window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) abrirMovil(false); });
+
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;
   const abierto = menus.find((m) => m.querySelector('button').getAttribute('aria-expanded') === 'true');
   if (abierto) { abrirMenu(abierto, false); abierto.querySelector('button').focus(); }
+  else if (btnMovil && !panelMovil.hidden) { abrirMovil(false); btnMovil.focus(); }
+});
+
+// Tablas: en pantallas chicas se desplazan de lado dentro de su tarjeta.
+document.querySelectorAll('table.table').forEach((t) => {
+  if (t.parentElement.classList.contains('tabla-scroll')) return;
+  const envoltorio = document.createElement('div');
+  envoltorio.className = 'tabla-scroll';
+  t.replaceWith(envoltorio);
+  envoltorio.appendChild(t);
 });
 document.getElementById('app-footer')?.insertAdjacentHTML('afterbegin', footer());
 document.body.insertAdjacentHTML('beforeend', chatButton());

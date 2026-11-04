@@ -34,7 +34,7 @@ function pintar() {
 
   const mios = MPU.semilleros.filter((s) => estaInscrito(s.id));
   document.getElementById('mis-inscripciones').innerHTML = mios
-    .map((s) => `<li class="flex items-center justify-between gap-4">
+    .map((s) => `<li class="flex flex-wrap items-center justify-between gap-4">
       <span><strong>${s.nombre}</strong> · ${MPU.badge('Inscrito')}</span>
       <button type="button" data-cancelar="${s.id}" class="font-bold text-danger hover:underline">Cancelar inscripción</button></li>`)
     .join('');

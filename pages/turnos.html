@@ -14,11 +14,11 @@
 <body data-root="../" data-active="turnos">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
     <h1 class="text-h1">Solicitar cambio de turno de matrícula</h1>
 
-    <div class="grid grid-cols-5 gap-6 items-start">
-      <form id="form-turno" class="card col-span-3 space-y-5" novalidate>
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
+      <form id="form-turno" class="card lg:col-span-3 space-y-5" novalidate>
         <div>
           <span class="label">Turno actual</span>
           <p id="turno-actual" class="text-h3"></p>
@@ -43,7 +43,7 @@
         <p id="ok-turno" class="hidden font-semibold text-ok" role="status"></p>
       </form>
 
-      <section class="card col-span-2">
+      <section class="card lg:col-span-2">
         <h2 class="text-h3 mb-4">Mis solicitudes</h2>
         <table class="table">
           <thead><tr><th>Fecha</th><th>Turno</th><th>Estado</th></tr></thead>
