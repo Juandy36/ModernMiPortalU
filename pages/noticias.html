@@ -14,13 +14,19 @@
 <body data-root="../" data-active="noticias">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10">
+  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
     <h1 class="text-h1">Noticias y actividades</h1>
-    <p class="mt-2 text-body">Apartado aislado con noticias, eventos y filtros por categoría.</p>
-    <!-- TODO: implementar Wireframe 3 de 10 -->
+
+    <div id="filtros" class="flex gap-2" role="group" aria-label="Filtrar por categoría"></div>
+
+    <div id="lista" class="grid grid-cols-2 gap-6"></div>
+    <p id="sin-noticias" class="hidden text-center py-10">No hay noticias en esta categoría.</p>
   </main>
 
   <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/noticias.js"></script>
   <script src="../js/components.js"></script>
+  <script src="../js/pages/noticias.js"></script>
 </body>
 </html>

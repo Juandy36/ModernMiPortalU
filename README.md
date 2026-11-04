@@ -18,10 +18,10 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 ## Estado de las pantallas
 | Wireframe | Página | Estado |
 |---|---|---|
-| 1 | `index.html` | Esqueleto |
-| 2 | `pages/chat.html` | Esqueleto |
-| 3 | `pages/noticias.html` | Esqueleto |
-| 4 | `pages/horario.html` | Esqueleto |
+| 1 | `index.html` | Listo |
+| 2 | `pages/chat.html` | Listo |
+| 3 | `pages/noticias.html` | Listo |
+| 4 | `pages/horario.html` | Listo |
 | 5 | `pages/turnos.html` | Esqueleto |
 | 6 | `pages/reservas-csu.html` | Esqueleto |
 | 7 | `pages/becas.html` | Esqueleto |
