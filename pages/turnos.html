@@ -14,13 +14,50 @@
 <body data-root="../" data-active="servicios">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10">
+  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
     <h1 class="text-h1">Solicitar cambio de turno de matrícula</h1>
-    <p class="mt-2 text-body">Formulario para solicitar a la secretaría el cambio de turno.</p>
-    <!-- TODO: implementar Wireframe 5 de 10 -->
+
+    <div class="grid grid-cols-5 gap-6 items-start">
+      <form id="form-turno" class="card col-span-3 space-y-5" novalidate>
+        <div>
+          <span class="label">Turno actual</span>
+          <p id="turno-actual" class="text-h3"></p>
+        </div>
+        <div>
+          <label class="label" for="turno-deseado">Turno deseado</label>
+          <select id="turno-deseado" class="field" required aria-describedby="err-turno"></select>
+          <p id="err-turno" class="hidden text-small text-danger mt-1">Selecciona el turno que quieres.</p>
+        </div>
+        <div>
+          <label class="label" for="motivo">Motivo de la solicitud</label>
+          <textarea id="motivo" class="field" rows="4" maxlength="400" required aria-describedby="err-motivo"
+            placeholder="Describe brevemente tu motivo"></textarea>
+          <p id="err-motivo" class="hidden text-small text-danger mt-1">Cuéntale a la secretaría por qué necesitas el cambio.</p>
+        </div>
+        <div>
+          <label class="label" for="soporte">Soporte (opcional)</label>
+          <input id="soporte" type="file" class="field" accept=".pdf,image/*">
+          <p class="text-small mt-1">Adjunta un archivo PDF o una imagen.</p>
+        </div>
+        <button class="btn btn-primary" type="submit">Enviar a mi secretaría</button>
+        <p id="ok-turno" class="hidden font-semibold text-ok" role="status"></p>
+      </form>
+
+      <section class="card col-span-2">
+        <h2 class="text-h3 mb-4">Mis solicitudes</h2>
+        <table class="table">
+          <thead><tr><th>Fecha</th><th>Turno</th><th>Estado</th></tr></thead>
+          <tbody id="solicitudes"></tbody>
+        </table>
+        <p class="text-small mt-4">Te avisaremos por correo institucional cuando la secretaría responda.</p>
+      </section>
+    </div>
   </main>
 
   <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/turnos.js"></script>
   <script src="../js/components.js"></script>
+  <script src="../js/pages/turnos.js"></script>
 </body>
 </html>

@@ -11,10 +11,6 @@ function guardar(conv, mensajes) {
 }
 const convActiva = () => MPU.conversaciones.find((c) => c.id === activa);
 
-function esc(s) {
-  return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-}
-
 function pintarLista() {
   document.getElementById('conversaciones').innerHTML = MPU.conversaciones
     .map(
@@ -38,7 +34,7 @@ function pintarChat() {
     ? mensajesDe(c)
         .map(
           (m) => `<div class="flex ${m.de === 'yo' ? 'justify-end' : ''}">
-            <p class="max-w-md px-4 py-2 rounded-2xl ${m.de === 'yo' ? 'bg-unab text-ink' : 'bg-surface'}">${esc(m.texto)}</p></div>`
+            <p class="max-w-md px-4 py-2 rounded-2xl ${m.de === 'yo' ? 'bg-unab text-ink' : 'bg-surface'}">${MPU.esc(m.texto)}</p></div>`
         )
         .join('')
     : '<p class="text-center text-small">Aún no hay mensajes. Escribe el primero.</p>';

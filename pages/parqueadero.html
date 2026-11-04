@@ -14,13 +14,50 @@
 <body data-root="../" data-active="parqueadero">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10">
+  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
     <h1 class="text-h1">Membresía del parqueadero</h1>
-    <p class="mt-2 text-body">Renovación mensual con historial de pagos.</p>
-    <!-- TODO: implementar Wireframe 8 de 10 -->
+
+    <div class="grid grid-cols-2 gap-6 items-start">
+      <section class="card space-y-2">
+        <h2 class="text-h3">Estado actual</h2>
+        <p id="estado-membresia"></p>
+        <p id="vencimiento"></p>
+        <p id="vehiculo"></p>
+      </section>
+
+      <section class="card space-y-4">
+        <h2 class="text-h3">Renovar membresía</h2>
+        <div>
+          <span class="label">Mes a renovar</span>
+          <p id="mes-renovar" class="font-semibold"></p>
+        </div>
+        <div>
+          <label class="label" for="tipo">Tipo de vehículo</label>
+          <select id="tipo" class="field"></select>
+        </div>
+        <p id="linea-valor">Valor a pagar: <strong id="valor"></strong> <span class="text-small">(valor de ejemplo)</span></p>
+        <button id="pagar" type="button" class="btn btn-primary">Pagar y renovar</button>
+        <p class="text-small">Simulación: no se realiza ningún cobro.</p>
+        <p id="ok-pago" class="hidden font-semibold text-ok" role="status"></p>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2 class="text-h3 mb-4">Historial de pagos</h2>
+      <table class="table">
+        <thead><tr><th>Fecha</th><th>Mes</th><th>Valor</th><th>Estado</th><th>Comprobante</th></tr></thead>
+        <tbody id="historial"></tbody>
+      </table>
+    </section>
   </main>
 
+  <!-- Solo visible al imprimir un comprobante -->
+  <div id="comprobante" class="hidden p-10"></div>
+
   <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/parqueadero.js"></script>
   <script src="../js/components.js"></script>
+  <script src="../js/pages/parqueadero.js"></script>
 </body>
 </html>

@@ -22,9 +22,9 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | 2 | `pages/chat.html` | Listo |
 | 3 | `pages/noticias.html` | Listo |
 | 4 | `pages/horario.html` | Listo |
-| 5 | `pages/turnos.html` | Esqueleto |
-| 6 | `pages/reservas-csu.html` | Esqueleto |
+| 5 | `pages/turnos.html` | Listo |
+| 6 | `pages/reservas-csu.html` | Listo |
 | 7 | `pages/becas.html` | Esqueleto |
-| 8 | `pages/parqueadero.html` | Esqueleto |
-| 9 | `pages/semilleros.html` | Esqueleto |
+| 8 | `pages/parqueadero.html` | Listo |
+| 9 | `pages/semilleros.html` | Listo |
 | 10 | `pages/deportes.html` | Esqueleto |
