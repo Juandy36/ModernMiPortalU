@@ -22,6 +22,7 @@ MPU.storage = {
 
 // Insignia de estado reutilizable: MPU.badge('Iniciada') -> HTML
 MPU.badge = function (text) {
-  const kind = /inici|aprob|pagad/i.test(text) ? 'ok' : /cancel|rechaz/i.test(text) ? 'danger' : 'pending';
+  // "Por iniciar" también contiene "inici": solo es verde si EMPIEZA por "Iniciada".
+  const kind = /^(iniciad|aprobad|pagad)/i.test(text) ? 'ok' : /^(cancelad|rechazad)/i.test(text) ? 'danger' : 'pending';
   return `<span class="badge badge-${kind}">${text}</span>`;
 };
