@@ -9,6 +9,19 @@ body { background: #F4F4F4; color: #333333; font-family: 'Montserrat', 'Segoe UI
 .badge-danger { background: #D64545; }
 .badge-pending { background: #FFA400; color: #333; }
 
+/* Responsivo. La guía de estilo es para escritorio (1280 px); en pantallas chicas se reducen
+   los títulos y las tablas se desplazan de lado dentro de su tarjeta (envoltorio .tabla-scroll
+   que agrega components.js). "body" sube la especificidad sobre las clases de Tailwind. */
+.tabla-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table td:first-child, .table .badge { white-space: nowrap; }
+@media (max-width: 767px) {
+  body .text-h1 { font-size: 30px; }
+  body .text-h2 { font-size: 24px; }
+  body .card:not(.p-0) { padding: 16px; }
+  .tabla-scroll { margin: 0 -16px; padding: 0 16px; }
+  .table th, .table td { white-space: nowrap; }
+}
+
 /* Impresión con MPU.imprimir(): solo se ve #zona-impresion */
 @media screen { #zona-impresion { display: none; } }
 @media print {

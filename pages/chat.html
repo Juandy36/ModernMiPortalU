@@ -14,16 +14,16 @@
 <body data-root="../" data-active="chat">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
     <h1 class="text-h1">Chat con mi secretaría</h1>
 
-    <div class="grid grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <aside class="card p-4">
         <h2 class="text-h3 mb-3">Conversaciones</h2>
         <ul id="conversaciones" class="space-y-2"></ul>
       </aside>
 
-      <section class="card col-span-2 flex flex-col p-0 overflow-hidden" style="min-height: 480px">
+      <section class="card md:col-span-2 flex flex-col p-0 overflow-hidden" style="min-height: 480px">
         <header class="px-6 py-4 bg-unab-cream">
           <h2 id="chat-titulo" class="text-h3"></h2>
           <p id="chat-estado" class="text-small"></p>
