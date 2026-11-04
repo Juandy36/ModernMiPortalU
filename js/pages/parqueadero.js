@@ -45,17 +45,18 @@ document.getElementById('historial').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-comprobante]');
   if (!btn) return;
   const h = historial()[Number(btn.dataset.comprobante)];
-  document.getElementById('comprobante').innerHTML = `
-    <h1 class="text-h2">Comprobante de pago · Parqueadero UNAB</h1>
-    <p class="mt-4">Fecha de pago: ${h.fecha}</p>
-    <p>Mes: ${h.mes}</p>
-    <p>Vehículo: ${P.vehiculo}</p>
-    <p>Valor: ${MPU.pesos(h.valor)}</p>
-    <p>Estado: ${h.estado}</p>
-    <p class="mt-6 text-small">Documento de ejemplo generado por Modern MiPortalU.</p>`;
-  document.body.classList.add('imprimiendo');
-  window.print();
-  document.body.classList.remove('imprimiendo');
+  MPU.imprimir(
+    `Comprobante de pago · Parqueadero ${h.mes}`,
+    `<table>
+      <tbody>
+        <tr><th>Fecha de pago</th><td>${h.fecha}</td></tr>
+        <tr><th>Mes</th><td>${h.mes}</td></tr>
+        <tr><th>Vehículo</th><td>${P.vehiculo}${h.tipo ? ' · ' + h.tipo : ''}</td></tr>
+        <tr><th>Valor</th><td>${MPU.pesos(h.valor)}</td></tr>
+        <tr><th>Estado</th><td>${h.estado}</td></tr>
+      </tbody>
+    </table>`
+  );
 });
 
 pintar();

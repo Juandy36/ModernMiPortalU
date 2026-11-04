@@ -30,6 +30,37 @@ MPU.fecha = function (d = new Date(), conAnio = true) {
 MPU.esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+// Imprime (o "Guardar como PDF") SOLO el HTML indicado, sin navbar, botones ni footer.
+// Usa un contenedor oculto en pantalla; base.css oculta todo lo demás al imprimir.
+MPU.imprimir = function (titulo, contenidoHtml) {
+  let zona = document.getElementById('zona-impresion');
+  if (!zona) {
+    zona = document.createElement('div');
+    zona.id = 'zona-impresion';
+    document.body.appendChild(zona);
+  }
+  zona.innerHTML = `
+    <header style="border-bottom: 3px solid #FFA400; padding-bottom: 12px; margin-bottom: 20px;">
+      <div style="font-size: 14px; font-weight: 700; color: #E58E00;">Universidad Autónoma de Bucaramanga · MiPortalU</div>
+      <h1 style="font-size: 28px; font-weight: 800; margin-top: 4px;">${titulo}</h1>
+      <div style="font-size: 14px;">Generado el ${MPU.fecha()} · Estudiante · Ingenierías</div>
+    </header>
+    ${contenidoHtml}
+    <p style="margin-top: 24px; font-size: 12px; color: #666;">Documento de ejemplo generado por Modern MiPortalU.</p>`;
+
+  // El título del documento se usa como nombre sugerido del PDF
+  const tituloAnterior = document.title;
+  document.title = titulo;
+  document.body.classList.add('imprimiendo');
+  const limpiar = () => {
+    document.body.classList.remove('imprimiendo');
+    document.title = tituloAnterior;
+    window.removeEventListener('afterprint', limpiar);
+  };
+  window.addEventListener('afterprint', limpiar);
+  window.print();
+};
+
 // Insignia de estado reutilizable: MPU.badge('Iniciada') -> HTML
 MPU.badge = function (text) {
   // "Por iniciar" también contiene "inici": solo es verde si EMPIEZA por "Iniciada".
