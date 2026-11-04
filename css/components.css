@@ -1,0 +1,17 @@
+/* Clases reutilizables (botones, tarjetas, tablas, formularios). Valores de la guía de estilo. */
+.btn { display: inline-block; padding: 10px 20px; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; border: 2px solid transparent; text-align: center; transition: background .15s; }
+.btn-primary { background: #FFA400; color: #333; }
+.btn-primary:hover { background: #E58E00; }
+.btn-secondary { background: #fff; color: #E58E00; border-color: #FFA400; }
+.btn-secondary:hover { background: #FFF3D6; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+.table { width: 100%; border-collapse: collapse; font-size: 16px; }
+.table th { text-align: left; font-size: 14px; font-weight: 700; text-transform: uppercase; background: #FFF3D6; padding: 10px 12px; }
+.table td { padding: 12px; border-bottom: 1px solid #F4F4F4; }
+
+.field { width: 100%; border: 1px solid #ccc; border-radius: 8px; padding: 10px 12px; font-size: 16px; background: #fff; }
+.field:focus { border-color: #FFA400; }
+.label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
