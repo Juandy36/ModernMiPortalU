@@ -14,13 +14,34 @@
 <body data-root="../" data-active="chat">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10">
-    <h1 class="text-h1">Chat con la secretaría</h1>
-    <p class="mt-2 text-body">Conversación directa con la secretaria delegada de cada facultad.</p>
-    <!-- TODO: implementar Wireframe 2 de 10 -->
+  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
+    <h1 class="text-h1">Chat con mi secretaría</h1>
+
+    <div class="grid grid-cols-3 gap-6">
+      <aside class="card p-4">
+        <h2 class="text-h3 mb-3">Conversaciones</h2>
+        <ul id="conversaciones" class="space-y-2"></ul>
+      </aside>
+
+      <section class="card col-span-2 flex flex-col p-0 overflow-hidden" style="min-height: 480px">
+        <header class="px-6 py-4 bg-unab-cream">
+          <h2 id="chat-titulo" class="text-h3"></h2>
+          <p id="chat-estado" class="text-small"></p>
+        </header>
+        <div id="mensajes" class="flex-1 p-6 space-y-3 overflow-y-auto" style="max-height: 360px" aria-live="polite"></div>
+        <form id="form-chat" class="flex gap-3 p-4 border-t border-surface">
+          <label for="texto" class="sr-only">Mensaje</label>
+          <input id="texto" class="field" placeholder="Escribe tu mensaje…" autocomplete="off">
+          <button class="btn btn-primary" type="submit">Enviar</button>
+        </form>
+      </section>
+    </div>
   </main>
 
   <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/chat.js"></script>
   <script src="../js/components.js"></script>
+  <script src="../js/pages/chat.js"></script>
 </body>
 </html>

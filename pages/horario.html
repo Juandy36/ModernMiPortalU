@@ -14,13 +14,40 @@
 <body data-root="../" data-active="horario">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10">
+  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
     <h1 class="text-h1">Mi horario y estado de clase</h1>
-    <p class="mt-2 text-body">Salón, hora y docente, con aviso de inicio o cancelación.</p>
-    <!-- TODO: implementar Wireframe 4 de 10 -->
+
+    <div id="dias" class="flex gap-2" role="tablist" aria-label="Día de la semana"></div>
+
+    <section class="card">
+      <table class="table">
+        <thead><tr><th>Hora</th><th>Asignatura</th><th>Salón</th><th>Docente</th><th>Estado</th></tr></thead>
+        <tbody id="clases"></tbody>
+      </table>
+      <p id="sin-clases" class="hidden py-6 text-center">No tienes clases este día.</p>
+    </section>
+
+    <div class="grid grid-cols-2 gap-6">
+      <section class="card">
+        <h2 class="text-h3">Horas libres del semestre</h2>
+        <p class="mt-2 text-small">Cálculo de tus horas libres a partir de tu horario de clases.</p>
+        <p id="horas-libres" class="mt-4 text-h2 text-unab-dark"></p>
+      </section>
+      <section class="card">
+        <h2 class="text-h3">Avisos y descarga</h2>
+        <p class="mt-2 text-small">Recibe una notificación cuando el docente inicie o cancele la clase.</p>
+        <div class="mt-4 flex gap-3">
+          <button id="btn-avisos" class="btn btn-primary" type="button" aria-pressed="false">Activar avisos</button>
+          <button id="btn-pdf" class="btn btn-secondary" type="button">Descargar horario en PDF</button>
+        </div>
+      </section>
+    </div>
   </main>
 
   <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/horario.js"></script>
   <script src="../js/components.js"></script>
+  <script src="../js/pages/horario.js"></script>
 </body>
 </html>

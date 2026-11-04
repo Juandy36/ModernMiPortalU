@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { id: 'noticias', label: 'Noticias', href: 'pages/noticias.html' },
   { id: 'servicios', label: 'Servicios', href: 'pages/turnos.html' },
   { id: 'bienestar', label: 'Bienestar', href: 'pages/reservas-csu.html' },
-  { id: 'contacto', label: 'Contacto', href: 'pages/chat.html' },
+  { id: 'chat', label: 'Contacto', href: 'pages/chat.html' },
 ];
 
 const root = document.body.dataset.root || '';
