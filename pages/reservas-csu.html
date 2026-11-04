@@ -14,13 +14,56 @@
 <body data-root="../" data-active="bienestar">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10">
+  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
     <h1 class="text-h1">Reservas de espacios CSU</h1>
-    <p class="mt-2 text-body">Reserva de espacios recreacionales con calendario y franjas.</p>
-    <!-- TODO: implementar Wireframe 6 de 10 -->
+
+    <div class="grid grid-cols-2 gap-6 items-start">
+      <section class="card space-y-5">
+        <div>
+          <label class="label" for="espacio">Espacio</label>
+          <select id="espacio" class="field"></select>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <button id="mes-ant" type="button" class="btn btn-secondary text-h3 leading-none" aria-label="Mes anterior">‹</button>
+            <h2 id="mes-titulo" class="text-h3"></h2>
+            <button id="mes-sig" type="button" class="btn btn-secondary text-h3 leading-none" aria-label="Mes siguiente">›</button>
+          </div>
+          <div class="grid grid-cols-7 gap-1 text-center text-small font-bold mb-1" aria-hidden="true">
+            <span>L</span><span>M</span><span>M</span><span>J</span><span>V</span><span>S</span><span>D</span>
+          </div>
+          <div id="calendario" class="grid grid-cols-7 gap-1" role="grid" aria-label="Días del mes"></div>
+        </div>
+      </section>
+
+      <section class="card space-y-4">
+        <h2 id="franjas-titulo" class="text-h3"></h2>
+        <div id="franjas" class="grid grid-cols-4 gap-2"></div>
+        <p class="text-small">
+          <span class="inline-block w-3 h-3 rounded bg-unab align-middle"></span> Elegida ·
+          <span class="inline-block w-3 h-3 rounded bg-gray-300 align-middle"></span> Ocupada ·
+          <span class="inline-block w-3 h-3 rounded bg-unab-cream border border-unab-dark align-middle"></span> Tu reserva
+        </p>
+        <p id="resumen" class="font-semibold"></p>
+        <button id="confirmar" type="button" class="btn btn-primary" disabled>Confirmar reserva</button>
+        <p id="ok-reserva" class="hidden font-semibold text-ok" role="status"></p>
+      </section>
+    </div>
+
+    <section class="card">
+      <h2 class="text-h3 mb-4">Mis reservas</h2>
+      <table class="table">
+        <thead><tr><th>Espacio</th><th>Fecha</th><th>Hora</th><th></th></tr></thead>
+        <tbody id="mis-reservas"></tbody>
+      </table>
+      <p id="sin-reservas" class="hidden py-4 text-center">Aún no tienes reservas.</p>
+    </section>
   </main>
 
   <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/reservas.js"></script>
   <script src="../js/components.js"></script>
+  <script src="../js/pages/reservas-csu.js"></script>
 </body>
 </html>
