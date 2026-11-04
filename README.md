@@ -24,7 +24,7 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | 4 | `pages/horario.html` | Listo |
 | 5 | `pages/turnos.html` | Listo |
 | 6 | `pages/reservas-csu.html` | Listo |
-| 7 | `pages/becas.html` | Esqueleto |
+| 7 | `pages/becas.html` | Listo |
 | 8 | `pages/parqueadero.html` | Listo |
 | 9 | `pages/semilleros.html` | Listo |
-| 10 | `pages/deportes.html` | Esqueleto |
+| 10 | `pages/deportes.html` | Listo |

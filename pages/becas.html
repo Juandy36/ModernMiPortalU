@@ -14,13 +14,48 @@
 <body data-root="../" data-active="becas">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10">
+  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
     <h1 class="text-h1">Mi beca y rendimiento</h1>
-    <p class="mt-2 text-body">Promedio actual, mínimo requerido, semestre anterior y rendimiento.</p>
-    <!-- TODO: implementar Wireframe 7 de 10 -->
+
+    <div class="grid grid-cols-3 gap-6">
+      <section class="card">
+        <h2 class="text-small font-bold uppercase">Promedio actual</h2>
+        <p id="prom-actual" class="text-h1 text-unab-dark mt-2"></p>
+      </section>
+      <section class="card">
+        <h2 class="text-small font-bold uppercase">Mínimo requerido</h2>
+        <p id="prom-minimo" class="text-h1 mt-2"></p>
+      </section>
+      <section class="card">
+        <h2 class="text-small font-bold uppercase">Semestre anterior</h2>
+        <p id="prom-anterior" class="text-h1 mt-2"></p>
+        <p id="tendencia" class="text-small mt-1"></p>
+      </section>
+    </div>
+
+    <section class="card space-y-3">
+      <h2 class="text-h3">Porcentaje de rendimiento</h2>
+      <div class="h-4 rounded-full bg-surface overflow-hidden" role="progressbar" id="barra"
+        aria-valuemin="0" aria-valuemax="100" aria-label="Porcentaje de rendimiento">
+        <div id="barra-relleno" class="h-full bg-unab rounded-full"></div>
+      </div>
+      <p id="mensaje-beca"></p>
+    </section>
+
+    <section class="card">
+      <h2 class="text-h3 mb-4">Notas registradas</h2>
+      <table class="table">
+        <thead><tr><th>Asignatura</th><th>Corte 1</th><th>Corte 2</th><th>Corte 3</th><th>Definitiva</th></tr></thead>
+        <tbody id="notas"></tbody>
+      </table>
+      <p class="text-small mt-4">Datos de ejemplo; se conectarán con el sistema académico.</p>
+    </section>
   </main>
 
   <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/beca.js"></script>
   <script src="../js/components.js"></script>
+  <script src="../js/pages/becas.js"></script>
 </body>
 </html>

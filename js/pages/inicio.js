@@ -30,6 +30,7 @@ document.getElementById('beca-inicio').innerHTML = `
   <a class="btn btn-secondary mt-3" href="pages/becas.html">Ver detalle</a>`;
 
 document.getElementById('deportes-inicio').innerHTML = MPU.deportes.resultados
+  .slice(0, 3)
   .map((r) => `<tr><td>${r.torneo}</td><td>${r.disciplina}</td><td>${r.encuentro}</td><td>${r.resultado}</td></tr>`)
   .join('');
 

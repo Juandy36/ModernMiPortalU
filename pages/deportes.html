@@ -14,13 +14,40 @@
 <body data-root="../" data-active="deportes">
   <div id="app-navbar"></div>
 
-  <main class="max-w-page mx-auto px-6 py-10">
+  <main class="max-w-page mx-auto px-6 py-10 space-y-6">
     <h1 class="text-h1">Resultados ASCUN e Interoscas</h1>
-    <p class="mt-2 text-body">Tabla sencilla con los resultados recientes.</p>
-    <!-- TODO: implementar Wireframe 10 de 10 -->
+
+    <div id="torneos" class="flex gap-2" role="tablist" aria-label="Torneo"></div>
+
+    <section class="card">
+      <h2 class="text-h3 mb-4">Resultados recientes</h2>
+      <table class="table">
+        <thead><tr><th>Fecha</th><th>Disciplina</th><th>Encuentro</th><th>Resultado</th></tr></thead>
+        <tbody id="resultados"></tbody>
+      </table>
+      <p class="text-small mt-4">Los resultados reales los publicará Bienestar Universitario.</p>
+    </section>
+
+    <div class="grid grid-cols-2 gap-6 items-start">
+      <section class="card">
+        <h2 class="text-h3 mb-4">Próximos partidos</h2>
+        <ul id="proximos" class="space-y-3"></ul>
+      </section>
+      <section class="card">
+        <h2 class="text-h3 mb-4">Tabla de posiciones</h2>
+        <table class="table">
+          <thead><tr><th>Equipo</th><th>PJ</th><th>G</th><th>PTS</th></tr></thead>
+          <tbody id="posiciones"></tbody>
+        </table>
+        <p class="text-small mt-2">PJ: partidos jugados · G: ganados · PTS: puntos</p>
+      </section>
+    </div>
   </main>
 
   <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/deportes.js"></script>
   <script src="../js/components.js"></script>
+  <script src="../js/pages/deportes.js"></script>
 </body>
 </html>
