@@ -1,0 +1,8 @@
+{
+  "name": "modern-miportalu",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rediseño de MiPortalU con backend sencillo (Node + SQLite)",
+  "scripts": { "start": "node server/server.js" },
+  "engines": { "node": ">=22.5" }
+}

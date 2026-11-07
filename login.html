@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ingresar · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="js/tailwind-config.js"></script>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body class="bg-unab-cream min-h-screen">
+  <main class="max-w-md mx-auto px-4 py-10 sm:py-16">
+    <p class="text-small font-bold tracking-widest text-unab-text text-center">MODERN MIPORTALU</p>
+    <h1 id="titulo" class="text-h2 text-center mt-1 mb-6">Ingresa a tu portal</h1>
+
+    <div class="card">
+      <div class="grid grid-cols-2 gap-2 mb-6" role="tablist" aria-label="Acceso">
+        <button type="button" id="tab-login" role="tab" aria-selected="true" aria-controls="form-login" class="btn btn-primary">Ingresar</button>
+        <button type="button" id="tab-registro" role="tab" aria-selected="false" aria-controls="form-registro" class="btn btn-secondary">Crear cuenta</button>
+      </div>
+
+      <p id="error" role="alert" class="hidden mb-4 px-3 py-2 rounded-md font-semibold" style="background:#FDECEA;color:#B42318;"></p>
+
+      <form id="form-login" role="tabpanel" aria-labelledby="tab-login" class="space-y-4" novalidate>
+        <div>
+          <label class="label" for="l-usuario">Usuario</label>
+          <input id="l-usuario" name="usuario" class="field" autocomplete="username" required>
+        </div>
+        <div>
+          <label class="label" for="l-clave">Contraseña</label>
+          <input id="l-clave" name="clave" type="password" class="field" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-full">Ingresar</button>
+      </form>
+
+      <form id="form-registro" role="tabpanel" aria-labelledby="tab-registro" class="space-y-4" hidden novalidate>
+        <div>
+          <label class="label" for="r-nombre">Nombre completo</label>
+          <input id="r-nombre" name="nombre" class="field" autocomplete="name" required>
+        </div>
+        <div>
+          <label class="label" for="r-usuario">Usuario</label>
+          <input id="r-usuario" name="usuario" class="field" autocomplete="username" aria-describedby="ayuda-usuario" required>
+          <p id="ayuda-usuario" class="text-small mt-1">3 a 30 caracteres: letras, números, punto, guion o guion bajo.</p>
+        </div>
+        <div>
+          <label class="label" for="r-programa">Programa académico</label>
+          <input id="r-programa" name="programa" class="field" placeholder="Ingeniería de Sistemas">
+        </div>
+        <div>
+          <label class="label" for="r-clave">Contraseña</label>
+          <input id="r-clave" name="clave" type="password" class="field" autocomplete="new-password" aria-describedby="ayuda-clave" required>
+          <p id="ayuda-clave" class="text-small mt-1">Mínimo 8 caracteres, con letras y números.</p>
+        </div>
+        <div>
+          <label class="label" for="r-clave2">Repite la contraseña</label>
+          <input id="r-clave2" type="password" class="field" autocomplete="new-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-full">Crear cuenta</button>
+      </form>
+    </div>
+  </main>
+  <script src="js/login.js"></script>
+</body>
+</html>

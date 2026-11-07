@@ -1,6 +1,20 @@
 # Modern MiPortalU
 
-Rediseño frontend de MiPortalU (UNAB) para el curso de Diseño de Interfaces. Sin backend: los datos son de ejemplo y el estado se guarda en `localStorage`.
+Rediseño frontend de MiPortalU (UNAB) para el curso de Diseño de Interfaces. Los datos de las pantallas son de ejemplo (estado en `localStorage`); los **usuarios, el login y el registro** van contra un backend sencillo con base de datos SQLite.
+
+## Cómo ejecutarlo
+Requiere Node 22.5 o superior (sin `npm install`, no tiene dependencias):
+
+```
+npm start
+```
+
+Abre http://localhost:3000. Abrir `index.html` directo ya no sirve, porque las páginas piden sesión al servidor.
+
+- La base `data/portal.db` se crea sola al primer arranque, con 4 usuarios de prueba (contraseña `Unab2026*`): `jortiz`, `jmartinez`, `drueda` y `estudiante`.
+- En `login.html` se puede ingresar o crear una cuenta nueva (mínimo 8 caracteres, con letras y números).
+- Las contraseñas se guardan con scrypt + sal; la sesión es una cookie `HttpOnly` de 8 horas.
+- API: `POST /api/login`, `POST /api/register`, `POST /api/logout`, `GET /api/me`. Código en `server/`.
 
 **Integrantes:** Juan David Martinez Cepeda · Juan Diego Ortiz · Diego Andrés Rueda Campos
 

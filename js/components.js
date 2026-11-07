@@ -62,6 +62,8 @@ function menuMovil() {
 }
 
 function navbar() {
+  const u = MPU.usuario || {};
+  const iniciales = MPU.esc((u.nombre || 'E').split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join('').toUpperCase());
   const links = NAV_LINKS.map(navItem).join('');
   return `
   <header class="bg-white shadow-sm relative z-40">
@@ -69,8 +71,9 @@ function navbar() {
       <a href="${root}index.html" class="text-h3 text-unab-text">MiPortalU</a>
       <nav class="hidden lg:flex items-center gap-1" aria-label="Principal">${links}</nav>
       <div class="flex items-center gap-3 text-small">
-        <span class="w-9 h-9 rounded-full bg-unab text-ink font-bold flex items-center justify-center" aria-hidden="true">DR</span>
-        <div class="leading-tight hidden sm:block"><div class="font-semibold">Estudiante</div><div>Ingenierías</div></div>
+        <span class="w-9 h-9 rounded-full bg-unab text-ink font-bold flex items-center justify-center" aria-hidden="true">${iniciales}</span>
+        <div class="leading-tight hidden sm:block"><div class="font-semibold">${MPU.esc(u.nombre || 'Estudiante')}</div><div>${MPU.esc(u.facultad || '')}</div></div>
+        <button type="button" data-cerrar-sesion class="px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">Cerrar sesión</button>
         <button id="btn-menu-movil" type="button" aria-expanded="false" aria-controls="menu-movil"
           class="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
           <span aria-hidden="true" data-icono>☰</span> Menú
@@ -102,6 +105,8 @@ function chatButton() {
 }
 
 document.getElementById('app-navbar')?.insertAdjacentHTML('afterbegin', navbar());
+
+document.querySelector('[data-cerrar-sesion]')?.addEventListener('click', () => MPU.cerrarSesion());
 
 // Menús desplegables: clic abre/cierra; Escape, clic fuera o salir con Tab los cierra.
 const menus = [...document.querySelectorAll('[data-menu]')];

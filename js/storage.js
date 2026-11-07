@@ -43,7 +43,7 @@ MPU.imprimir = function (titulo, contenidoHtml) {
     <header style="border-bottom: 3px solid #FFA400; padding-bottom: 12px; margin-bottom: 20px;">
       <div style="font-size: 14px; font-weight: 700; color: #A35F00;">Universidad Autónoma de Bucaramanga · MiPortalU</div>
       <h1 style="font-size: 28px; font-weight: 800; margin-top: 4px;">${titulo}</h1>
-      <div style="font-size: 14px;">Generado el ${MPU.fecha()} · Estudiante · Ingenierías</div>
+      <div style="font-size: 14px;">Generado el ${MPU.fecha()} · ${MPU.esc((MPU.usuario && MPU.usuario.nombre) || 'Estudiante')} · ${MPU.esc((MPU.usuario && MPU.usuario.facultad) || 'Ingenierías')}</div>
     </header>
     ${contenidoHtml}
     <p style="margin-top: 24px; font-size: 12px; color: #666;">Documento de ejemplo generado por Modern MiPortalU.</p>`;
