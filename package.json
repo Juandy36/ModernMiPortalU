@@ -2,7 +2,14 @@
   "name": "modern-miportalu",
   "version": "1.0.0",
   "private": true,
-  "description": "Rediseño de MiPortalU con backend sencillo (Node + SQLite)",
-  "scripts": { "start": "node server/server.js" },
-  "engines": { "node": ">=22.5" }
+  "description": "Rediseño de MiPortalU con backend sencillo (funciones de Vercel + Neon Postgres)",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.2.0"
+  }
 }
