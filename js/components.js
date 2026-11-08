@@ -20,6 +20,7 @@ const NAV_LINKS = [
       { id: 'solicitudes', label: 'Solicitudes', href: 'pages/solicitudes.html' },
       { id: 'pagos', label: 'Pagos y fechas', href: 'pages/pagos.html' },
       { id: 'espacios', label: 'Aulas y equipos', href: 'pages/espacios.html' },
+      { id: 'ayuda', label: 'Ayuda y Punto U', href: 'pages/ayuda.html' },
     ],
   },
   {
@@ -36,10 +37,34 @@ const NAV_LINKS = [
   { id: 'nosotros', label: 'Quiénes somos', href: 'pages/quienes-somos.html' },
 ];
 
+// Índice del buscador global: páginas del menú + trámites y temas frecuentes.
+const SITE_EXTRA = [
+  ['Certificado de notas', 'pages/calificaciones.html', 'certificado constancia notas calificaciones pdf'],
+  ['Promedio acumulado (PGA)', 'pages/calificaciones.html', 'pga promedio notas cortes corte'],
+  ['Proyección de cursos', 'pages/cursos.html#proyeccion', 'proyeccion matricula recomendada inscripcion proximo periodo'],
+  ['Cursos inscritos', 'pages/cursos.html', 'cursos inscritos avance curricular plan de estudios creditos'],
+  ['Paz y salvo financiero', 'pages/solicitudes.html', 'paz y salvo certificado valor adeudado tramite cesaf'],
+  ['Cupón de pago de matrícula', 'pages/pagos.html', 'cupon pago matricula recibo valor adeudado'],
+  ['Multa de biblioteca', 'pages/pagos.html', 'multa biblioteca repeticion de curso pagar'],
+  ['Mecanismos de financiación (Flexi-UNAB, ICETEX)', 'pages/pagos.html', 'financiacion flexi icetex cesantias horizontes credito'],
+  ['Mi carné UNAB', 'pages/perfil.html#carne', 'carne unab qr identificacion'],
+  ['Cambiar contraseña', 'pages/perfil.html#clave', 'contrasena clave cambiar password'],
+  ['Solicitud de grado', 'pages/grado.html', 'grado graduacion requisitos solicitud proyecto de grado'],
+  ['Turno de inscripción de cursos', 'pages/turnos.html', 'turno inscripcion matricula cursos'],
+  ['Beca y promedio mínimo', 'pages/becas.html', 'beca descuento promedio fondo de becas'],
+  ['Disponibilidad de aulas', 'pages/espacios.html#aulas', 'aulas salones laboratorios salas auditorios bloque campus disponibilidad'],
+  ['Reserva de equipos', 'pages/espacios.html#equipos', 'equipos video beam portatil sede reserva'],
+  ['Cronograma de fechas de pago', 'pages/pagos.html', 'fechas de pago cronograma recargo'],
+  ['Actividades de horas libres', 'pages/horas-libres.html', 'horas libres 42 actividades qr asistencia bienestar'],
+  ['Punto U: canales y citas', 'pages/ayuda.html', 'punto u atencion estudiante cita agendar whatsapp telefono horario de atencion'],
+  ['Preguntas frecuentes', 'pages/ayuda.html', 'faq ayuda dudas como donde lo encuentro'],
+  ['Estado de clases de hoy', 'pages/horario.html', 'horario clases docente salon hoy'],
+];
+
 const root = document.body.dataset.root || '';
 const active = document.body.dataset.active || '';
 
-const NAV_BASE = 'px-3 py-2 rounded-md text-body font-semibold hover:bg-unab-cream';
+const NAV_BASE = 'px-3 py-2 rounded-md text-body font-semibold whitespace-nowrap hover:bg-unab-cream';
 const navEstado = (on) => (on ? 'text-unab-text border-b-2 border-unab' : 'text-ink');
 const actual = (on) => (on ? ' aria-current="page"' : '');
 
@@ -84,7 +109,7 @@ function menuPerfil(u, iniciales) {
       <button type="button" aria-expanded="false" aria-controls="menu-perfil" aria-label="Menú de perfil de ${MPU.esc(u.nombre || 'Estudiante')}"
         class="flex items-center gap-2 rounded-full pr-2 hover:bg-unab-cream text-left">
         <span class="w-9 h-9 rounded-full bg-unab text-ink font-bold flex items-center justify-center" aria-hidden="true">${iniciales}</span>
-        <span class="leading-tight hidden sm:block"><span class="block font-semibold">${MPU.esc(u.nombre || 'Estudiante')}</span><span class="block">${MPU.esc(u.facultad || '')}</span></span>
+        <span class="leading-tight hidden 2xl:block whitespace-nowrap max-w-[220px] truncate"><span class="block font-semibold">${MPU.esc(u.nombre || 'Estudiante')}</span><span class="block">${MPU.esc(u.facultad || '')}</span></span>
         <span aria-hidden="true" class="text-small transition-transform" data-flecha>▾</span>
       </button>
       <ul id="menu-perfil" hidden class="absolute right-0 top-full mt-2 w-72 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-lg p-2 z-50">
@@ -108,6 +133,30 @@ function menuPerfil(u, iniciales) {
     </div>`;
 }
 
+MPU.plano = (t) => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+// Buscador global: devuelve [{titulo, href, seccion}] ordenados por coincidencia.
+MPU.buscar = function (consulta) {
+  const q = MPU.plano(consulta).trim();
+  if (!q) return [];
+  const palabras = q.split(/\s+/);
+  const entradas = NAV_LINKS.flatMap((l) => (l.items ? l.items.map((i) => ({ titulo: i.label, href: i.href, seccion: l.label, claves: '' })) : [{ titulo: l.label, href: l.href, seccion: 'Menú', claves: '' }]))
+    .concat(SITE_EXTRA.map(([titulo, href, claves]) => ({ titulo, href, seccion: 'Trámite o tema', claves })));
+  const vistos = new Set();
+  return entradas
+    .map((e) => {
+      const t = MPU.plano(e.titulo);
+      const todo = `${t} ${e.claves}`;
+      const ok = palabras.every((p) => todo.includes(p));
+      return { e, puntaje: ok ? (t.includes(q) ? 2 : 1) : 0 };
+    })
+    .filter((x) => x.puntaje)
+    .sort((a, b) => b.puntaje - a.puntaje)
+    .map((x) => x.e)
+    .filter((e) => { const k = e.titulo + e.href; if (vistos.has(k)) return false; vistos.add(k); return true; })
+    .slice(0, 8);
+};
+
 function navbar() {
   const u = MPU.usuario || {};
   const iniciales = MPU.esc((u.nombre || 'E').split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join('').toUpperCase());
@@ -118,6 +167,11 @@ function navbar() {
       <a href="${root}index.html" class="text-h3 text-unab-text">MiPortalU</a>
       <nav class="hidden xl:flex items-center gap-1" aria-label="Principal">${links}</nav>
       <div class="flex items-center gap-3 text-small">
+        <button type="button" data-buscar aria-label="Buscar en el portal" aria-haspopup="dialog"
+          class="inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span class="hidden 2xl:inline">Buscar</span>
+        </button>
         ${menuPerfil(u, iniciales)}
         <button id="btn-menu-movil" type="button" aria-expanded="false" aria-controls="menu-movil"
           class="xl:hidden inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
@@ -204,3 +258,29 @@ document.querySelectorAll('table.table').forEach((t) => {
 });
 document.getElementById('app-footer')?.insertAdjacentHTML('afterbegin', footer());
 document.body.insertAdjacentHTML('beforeend', chatButton());
+
+// Diálogo de búsqueda global (botón «Buscar» o tecla «/»)
+document.body.insertAdjacentHTML('beforeend', `
+  <dialog id="dlg-busqueda" aria-labelledby="busq-titulo" class="rounded-xl p-6 w-[min(94vw,560px)] shadow-lg backdrop:bg-black/40 mt-16 mx-auto">
+    <h2 id="busq-titulo" class="text-h3">¿Qué estás buscando?</h2>
+    <label class="label mt-3" for="busq-input">Trámite, página o tema</label>
+    <input id="busq-input" type="search" class="field" placeholder="Ej. paz y salvo, horario, cupón…" autocomplete="off">
+    <ul id="busq-resultados" class="mt-3 space-y-1" aria-live="polite"></ul>
+    <div class="mt-4 text-right"><button type="button" id="busq-cerrar" class="btn btn-secondary">Cerrar</button></div>
+  </dialog>`);
+const dlgBusq = document.getElementById('dlg-busqueda');
+const inputBusq = document.getElementById('busq-input');
+function pintarBusqueda() {
+  const r = MPU.buscar(inputBusq.value);
+  document.getElementById('busq-resultados').innerHTML = !inputBusq.value.trim() ? ''
+    : r.length ? r.map((x) => `<li><a href="${root}${x.href}" class="block px-3 py-2 rounded-md hover:bg-unab-cream"><span class="font-bold">${MPU.esc(x.titulo)}</span><span class="block text-small">${x.seccion}</span></a></li>`).join('')
+      : '<li class="px-3 py-2">No encontramos resultados. Prueba con otra palabra o escribe a <a class="font-bold underline" href="' + root + 'pages/chat.html">Contacto</a>.</li>';
+}
+function abrirBusqueda() { inputBusq.value = ''; pintarBusqueda(); dlgBusq.showModal(); inputBusq.focus(); }
+document.querySelector('[data-buscar]')?.addEventListener('click', abrirBusqueda);
+inputBusq.addEventListener('input', pintarBusqueda);
+inputBusq.addEventListener('keydown', (e) => { if (e.key === 'Enter') document.querySelector('#busq-resultados a')?.click(); });
+document.getElementById('busq-cerrar').addEventListener('click', () => dlgBusq.close());
+document.addEventListener('keydown', (e) => {
+  if (e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName) && !dlgBusq.open) { e.preventDefault(); abrirBusqueda(); }
+});

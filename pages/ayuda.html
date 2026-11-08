@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ayuda y Punto U · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="ayuda">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Ayuda y Punto U</h1>
+      <p class="mt-2">Resuelve tus dudas frecuentes o contacta al equipo de atención al estudiante.</p>
+    </div>
+
+    <!-- Preguntas frecuentes -->
+    <section aria-labelledby="faq-titulo" class="space-y-3">
+      <h2 id="faq-titulo" class="text-h2">Preguntas frecuentes</h2>
+      <div class="max-w-xl">
+        <label class="label" for="faq-buscar">Buscar en las preguntas</label>
+        <input id="faq-buscar" type="search" class="field" placeholder="Ej. cupón, contraseña, horario" autocomplete="off">
+      </div>
+      <p id="faq-contador" class="text-small" role="status"></p>
+      <div id="faq" class="space-y-3"></div>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Canales -->
+      <section class="card" aria-labelledby="canales-titulo">
+        <h2 id="canales-titulo" class="text-h3 mb-3">Canales de atención</h2>
+        <dl class="space-y-3">
+          <div><dt class="text-small font-bold">Horario</dt><dd>Lunes a viernes de 7:00 a. m. a 7:00 p. m. · Sábados de 8:00 a. m. a 12:00 m.</dd></div>
+          <div><dt class="text-small font-bold">Teléfono</dt><dd>607 643 6111 ext. 1751</dd></div>
+          <div><dt class="text-small font-bold">Correo</dt><dd><a class="font-bold text-unab-text underline" href="mailto:agentedeservicios@unab.edu.co">agentedeservicios@unab.edu.co</a></dd></div>
+          <div><dt class="text-small font-bold">WhatsApp</dt><dd>322 905 7020</dd></div>
+          <div><dt class="text-small font-bold">Sedes</dt><dd>Campus El Jardín (1.er piso, edificio administrativo), El Bosque, CSU y La Casona.</dd></div>
+        </dl>
+        <a href="chat.html" class="btn btn-primary mt-4">Escribir a mi secretaría</a>
+      </section>
+
+      <!-- Agendar -->
+      <section class="card" aria-labelledby="cita-titulo">
+        <h2 id="cita-titulo" class="text-h3 mb-3">Agenda atención personalizada</h2>
+        <p id="cita-aviso" class="hidden mb-3 px-3 py-2 rounded-md font-semibold" role="status"></p>
+        <form id="form-cita" class="space-y-4" novalidate>
+          <div><label class="label" for="c-sede">Sede</label>
+            <select id="c-sede" class="field"><option>Campus El Jardín</option><option>El Bosque</option><option>CSU</option><option>La Casona</option></select></div>
+          <div class="grid grid-cols-2 gap-4">
+            <div><label class="label" for="c-fecha">Fecha</label><input id="c-fecha" type="date" class="field"></div>
+            <div><label class="label" for="c-hora">Hora</label><select id="c-hora" class="field"></select></div>
+          </div>
+          <div><label class="label" for="c-motivo">Motivo</label><input id="c-motivo" class="field" placeholder="Ej. Certificado, pagos, matrícula"></div>
+          <button type="submit" class="btn btn-primary">Agendar cita</button>
+        </form>
+        <h3 class="font-bold mt-6">Mis citas</h3>
+        <ul id="citas" class="mt-2 space-y-2"></ul>
+        <p id="sin-citas" class="hidden text-small">Aún no tienes citas agendadas.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/ayuda.js"></script>
+</body>
+</html>

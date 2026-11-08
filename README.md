@@ -42,6 +42,10 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | — | `pages/cronogramas.html` | Listo (filtros por modalidad, nivel y estado) |
 | — | `pages/grado.html` | Listo (requisitos de grado; widget también en el inicio) |
 | — | `pages/espacios.html` | Listo (disponibilidad de aulas y reserva de equipos) |
+| — | `pages/ayuda.html` | Listo (preguntas frecuentes, canales y citas de Punto U) |
+
+## Buscador
+Botón «Buscar» en el header (o tecla `/`) y buscador del inicio: encuentran páginas, trámites y temas (sin importar tildes). El índice vive en `js/components.js` (`SITE_EXTRA`).
 
 ## Accesibilidad y guía de estilo
 - Navegación: Académico (horario, cursos, calificaciones, cronogramas, grado), Servicios (turnos, becas, solicitudes, pagos) y Bienestar (horas libres, reservas CSU, parqueadero, semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.

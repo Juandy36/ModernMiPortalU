@@ -36,12 +36,21 @@ document.getElementById('deportes-inicio').innerHTML = MPU.deportes.resultados
   .map((r) => `<tr><td>${r.torneo}</td><td>${r.disciplina}</td><td>${r.encuentro}</td><td>${r.resultado}</td></tr>`)
   .join('');
 
-// El buscador filtra los accesos rápidos por texto.
+// El buscador del inicio usa el buscador global y además filtra los accesos rápidos.
 document.getElementById('buscador').addEventListener('input', (e) => {
   const q = e.target.value.trim().toLowerCase();
   document.querySelectorAll('#accesos a').forEach((a) => {
     a.style.display = !q || a.textContent.toLowerCase().includes(q) ? '' : 'none';
   });
+  const lista = document.getElementById('resultados-busqueda');
+  const r = MPU.buscar(e.target.value);
+  lista.classList.toggle('hidden', !q);
+  lista.innerHTML = r.length
+    ? r.map((x) => `<li><a href="${x.href}" class="block px-3 py-2 rounded-md hover:bg-unab-cream"><span class="font-bold">${MPU.esc(x.titulo)}</span> <span class="text-small">· ${x.seccion}</span></a></li>`).join('')
+    : '<li class="px-3 py-2">No encontramos resultados. Prueba con otra palabra.</li>';
+});
+document.getElementById('buscador').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.querySelector('#resultados-busqueda a')?.click();
 });
 
 // Progreso para el grado
