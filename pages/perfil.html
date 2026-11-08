@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mi perfil · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="perfil">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <h1 class="text-h1">Mi perfil</h1>
+    <p id="aviso" class="hidden px-3 py-2 rounded-md font-semibold" role="status"></p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Datos personales -->
+      <section class="card scroll-mt-4" id="datos" aria-labelledby="datos-titulo">
+        <h2 id="datos-titulo" class="text-h3 mb-4">Mis datos</h2>
+        <dl id="datos-lista" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 mb-6"></dl>
+        <form id="form-datos" class="space-y-4 border-t border-surface pt-4" novalidate>
+          <h3 class="font-bold">Actualizar información</h3>
+          <div>
+            <label class="label" for="p-nombre">Nombre completo</label>
+            <input id="p-nombre" class="field" autocomplete="name" required>
+          </div>
+          <div>
+            <label class="label" for="p-programa">Programa académico</label>
+            <input id="p-programa" class="field" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </form>
+      </section>
+
+      <!-- Carné UNAB -->
+      <section class="card scroll-mt-4" id="carne" aria-labelledby="carne-titulo">
+        <h2 id="carne-titulo" class="text-h3 mb-4">Mi carné UNAB</h2>
+        <div class="rounded-xl border-2 border-unab bg-unab-cream p-5 flex items-center gap-4">
+          <span id="carne-iniciales" class="w-20 h-20 shrink-0 rounded-full bg-unab text-ink text-h2 flex items-center justify-center" aria-hidden="true"></span>
+          <div class="min-w-0">
+            <p class="text-small font-bold text-unab-text">UNIVERSIDAD AUTÓNOMA DE BUCARAMANGA</p>
+            <p id="carne-nombre" class="font-bold text-h3 break-words"></p>
+            <p id="carne-programa" class="text-small"></p>
+            <p id="carne-id" class="text-small font-semibold"></p>
+          </div>
+        </div>
+        <p class="text-small mt-3">Carné de ejemplo para el rediseño. No reemplaza el carné oficial.</p>
+        <button type="button" id="btn-carne" class="btn btn-secondary mt-4">Descargar carné en PDF</button>
+      </section>
+
+      <!-- Cambiar contraseña -->
+      <section class="card scroll-mt-4" id="clave" aria-labelledby="clave-titulo">
+        <h2 id="clave-titulo" class="text-h3 mb-2">Cambiar contraseña</h2>
+        <p class="text-small mb-4">Mínimo 8 caracteres, con una mayúscula, una minúscula y un número. No puede contener tu nombre, apellido ni usuario.</p>
+        <p id="error-clave" role="alert" class="hidden mb-4 px-3 py-2 rounded-md font-semibold" style="background:#FDECEA;color:#B42318;"></p>
+        <form id="form-clave" class="space-y-4" novalidate>
+          <div>
+            <label class="label" for="c-actual">Contraseña actual</label>
+            <input id="c-actual" type="password" class="field" autocomplete="current-password" required>
+          </div>
+          <div>
+            <label class="label" for="c-nueva">Contraseña nueva</label>
+            <input id="c-nueva" type="password" class="field" autocomplete="new-password" required>
+          </div>
+          <div>
+            <label class="label" for="c-nueva2">Repite la contraseña nueva</label>
+            <input id="c-nueva2" type="password" class="field" autocomplete="new-password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
+        </form>
+      </section>
+
+      <!-- Resumen de trámites -->
+      <section class="card scroll-mt-4" id="tramites" aria-labelledby="tramites-titulo">
+        <h2 id="tramites-titulo" class="text-h3 mb-4">Mis trámites y solicitudes</h2>
+        <ul id="tramites-lista" class="divide-y divide-surface"></ul>
+        <p class="text-small mt-3">El estado se guarda en este navegador.</p>
+      </section>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/perfil.js"></script>
+</body>
+</html>

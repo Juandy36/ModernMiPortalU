@@ -21,6 +21,7 @@ const NAV_LINKS = [
     ],
   },
   { id: 'chat', label: 'Contacto', href: 'pages/chat.html' },
+  { id: 'nosotros', label: 'Quiénes somos', href: 'pages/quienes-somos.html' },
 ];
 
 const root = document.body.dataset.root || '';
@@ -61,6 +62,40 @@ function menuMovil() {
     <ul class="max-w-page mx-auto px-2 py-2">${items}</ul></nav>`;
 }
 
+// Menú del usuario (clic en las iniciales): perfil, carné, contraseña, trámites y accesos UNAB.
+function menuPerfil(u, iniciales) {
+  const item = (href, texto, externo) => `<li><a href="${externo ? href : root + href}"${externo ? ' target="_blank" rel="noopener noreferrer"' : ''}
+    class="block px-4 py-2 rounded-md hover:bg-unab-cream">${texto}${externo ? '<span class="sr-only"> (abre en otra pestaña)</span>' : ''}</a></li>`;
+  const titulo = (t) => `<li class="px-4 pt-2 pb-1 text-small font-bold uppercase" role="presentation">${t}</li>`;
+  return `
+    <div class="relative" data-menu>
+      <button type="button" aria-expanded="false" aria-controls="menu-perfil" aria-label="Menú de perfil de ${MPU.esc(u.nombre || 'Estudiante')}"
+        class="flex items-center gap-2 rounded-full pr-2 hover:bg-unab-cream text-left">
+        <span class="w-9 h-9 rounded-full bg-unab text-ink font-bold flex items-center justify-center" aria-hidden="true">${iniciales}</span>
+        <span class="leading-tight hidden sm:block"><span class="block font-semibold">${MPU.esc(u.nombre || 'Estudiante')}</span><span class="block">${MPU.esc(u.facultad || '')}</span></span>
+        <span aria-hidden="true" class="text-small transition-transform" data-flecha>▾</span>
+      </button>
+      <ul id="menu-perfil" hidden class="absolute right-0 top-full mt-2 w-72 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-lg p-2 z-50">
+        <li class="px-4 py-3 border-b border-surface mb-1">
+          <div class="font-bold">${MPU.esc(u.nombre || 'Estudiante')}</div>
+          <div class="text-small">${MPU.esc(u.programa || '')} · ${MPU.esc(u.rol || 'Estudiante')}</div>
+        </li>
+        ${titulo('Mi cuenta')}
+        ${item('pages/perfil.html', 'Mi perfil')}
+        ${item('pages/perfil.html#carne', 'Mi carné UNAB')}
+        ${item('pages/perfil.html#clave', 'Cambiar contraseña')}
+        ${item('pages/perfil.html#tramites', 'Mis trámites y solicitudes')}
+        ${titulo('Accesos UNAB')}
+        ${item('https://correo.unab.edu.co', 'Correo institucional', true)}
+        ${item('https://biblioteca.unab.edu.co', 'Biblioteca', true)}
+        ${item('https://www.office.com', 'Office 365', true)}
+        <li class="border-t border-surface mt-1 pt-1">
+          <button type="button" data-cerrar-sesion class="block w-full text-left px-4 py-2 rounded-md font-bold hover:bg-unab-cream">Cerrar sesión</button>
+        </li>
+      </ul>
+    </div>`;
+}
+
 function navbar() {
   const u = MPU.usuario || {};
   const iniciales = MPU.esc((u.nombre || 'E').split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join('').toUpperCase());
@@ -71,9 +106,7 @@ function navbar() {
       <a href="${root}index.html" class="text-h3 text-unab-text">MiPortalU</a>
       <nav class="hidden lg:flex items-center gap-1" aria-label="Principal">${links}</nav>
       <div class="flex items-center gap-3 text-small">
-        <span class="w-9 h-9 rounded-full bg-unab text-ink font-bold flex items-center justify-center" aria-hidden="true">${iniciales}</span>
-        <div class="leading-tight hidden sm:block"><div class="font-semibold">${MPU.esc(u.nombre || 'Estudiante')}</div><div>${MPU.esc(u.facultad || '')}</div></div>
-        <button type="button" data-cerrar-sesion class="px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">Cerrar sesión</button>
+        ${menuPerfil(u, iniciales)}
         <button id="btn-menu-movil" type="button" aria-expanded="false" aria-controls="menu-movil"
           class="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
           <span aria-hidden="true" data-icono>☰</span> Menú
