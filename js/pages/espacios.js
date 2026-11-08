@@ -16,7 +16,22 @@ function llenarBloques() {
   $('a-bloque').innerHTML = c.bloques.map((b) => `<option>${b}</option>`).join('');
 }
 
+// Tarjetas por campus: cuántos bloques y cuántos espacios hay disponibles en la fecha elegida
+function pintarCampus() {
+  const fecha = $('a-fecha').value || hoy();
+  $('campus-tarjetas').innerHTML = E.campus.map((c) => {
+    const espacios = c.bloques.flatMap((b) => E.deBloque(c.id, b));
+    const disp = espacios.filter((e) => E.estado(e, fecha) !== 'Reservado').length;
+    const activo = $('a-campus').value === c.id;
+    return `<button type="button" data-campus="${c.id}" aria-pressed="${activo}" class="rounded-lg border-2 p-3 text-left hover:bg-unab-cream ${activo ? 'border-unab bg-unab-cream' : 'border-surface bg-white'}">
+      <span class="block font-bold text-unab-text">${c.nombre}</span>
+      <span class="block text-small">${c.bloques.length} ${c.bloques.length === 1 ? 'bloque' : 'bloques'}</span>
+      <span class="block text-small font-bold" style="color:#23794A">${disp} disponibles</span></button>`;
+  }).join('');
+}
+
 function pintarAulas() {
+  pintarCampus();
   const fecha = $('a-fecha').value || hoy();
   const espacios = E.deBloque($('a-campus').value, $('a-bloque').value);
   const tipo = $('a-tipo').value;
@@ -51,6 +66,13 @@ function pintarAulas() {
 }
 
 $('a-campus').addEventListener('change', () => { llenarBloques(); pintarAulas(); });
+$('campus-tarjetas').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-campus]');
+  if (!b) return;
+  $('a-campus').value = b.dataset.campus;
+  llenarBloques();
+  pintarAulas();
+});
 ['a-bloque', 'a-tipo', 'a-fecha'].forEach((id) => $(id).addEventListener('change', pintarAulas));
 $('a-buscar').addEventListener('input', pintarAulas);
 llenarBloques();

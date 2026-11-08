@@ -2,10 +2,12 @@
 window.MPU = window.MPU || {};
 MPU.espacios = {
   franjas: ['06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00'], // cada una dura 2 h
+  // Campus y cantidad de bloques como en MiPortalU (07-nov-2026)
   campus: [
-    { id: 'jardin', nombre: 'Campus El Jardín', bloques: ['A', 'B', 'C', 'D'] },
-    { id: 'csu', nombre: 'CSU', bloques: ['1', '2'] },
-    { id: 'bosque', nombre: 'Campus El Bosque', bloques: ['E'] },
+    { id: 'central', nombre: 'Campus Central', bloques: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I'] },
+    { id: 'csu', nombre: 'CSU', bloques: ['1', '2', '3'] },
+    { id: 'bosque', nombre: 'Campus El Bosque', bloques: ['J', 'K', 'L'] },
+    { id: 'casona', nombre: 'La Casona', bloques: ['M'] },
   ],
   tipos: ['Salones', 'Laboratorios', 'Salas de informática', 'Auditorios'],
 

@@ -2,7 +2,7 @@
 window.MPU = window.MPU || {};
 MPU.cronogramas = {
   modalidades: ['A distancia virtual', 'Dual', 'Presencial'],
-  niveles: ['Pregrado profesional', 'Tecnología', 'Especialización', 'Maestrías', 'Doctorado'],
+  niveles: ['Técnico laboral', 'Educación continua - CAFE', 'Doctorado', 'Maestrías', 'Curso', 'Diplomado', 'Especializaciones médico quirúrgicas', 'Especialización', 'Pregrado profesional', 'Preuniversitario', 'Tecnología', 'Técnico profesional'],
   eventos: [
     { evento: 'Inicio de clases periodo 202660', inicio: '2026-08-03', fin: '2026-08-03', modalidad: ['Presencial', 'Dual'], nivel: 'Pregrado profesional' },
     { evento: 'Cortes de notas: tercer corte', inicio: '2026-11-02', fin: '2026-11-27', modalidad: ['Presencial', 'Dual', 'A distancia virtual'], nivel: 'Pregrado profesional' },
