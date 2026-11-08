@@ -33,7 +33,7 @@ MPU.solicitudes = {
           { nombre: 'Declaración de renta', desc: 'Certificado de pagos para tu declaración de renta.' },
           { nombre: 'Paz y salvo financiero', desc: 'Trámite para solicitar el certificado que acredita estar al día con la universidad.' },
           { nombre: 'Planes de financiación (Flexis / Horizontes)', desc: 'Certificado de tu plan de financiación.' },
-          { nombre: 'Valor adeudado', desc: 'Consulta el valor que tienes pendiente por pagar.' },
+          { nombre: 'Valor adeudado', href: 'pagos.html', desc: 'Consulta el valor que tienes pendiente por pagar.' },
           { nombre: 'Valor adeudado derechos de grado', desc: 'Consulta el valor pendiente por derechos de grado.' },
           { nombre: 'Valor cancelado', desc: 'Certificado de lo que has pagado en el periodo.' },
           { nombre: 'Valor matrícula', desc: 'Certificado con el valor de tu matrícula.' },
@@ -42,9 +42,9 @@ MPU.solicitudes = {
           { nombre: 'Facturación a terceros', desc: 'Solicita que la factura de tu matrícula se emita a nombre de un tercero.' },
         ] },
         { nombre: 'Pagos y recaudos', servicios: [
-          { nombre: 'Multa biblioteca', desc: 'Consulta y paga multas de la biblioteca.' },
-          { nombre: 'Pago de certificados', desc: 'Paga el valor de los certificados que solicitaste.' },
-          { nombre: 'Pago de servicios académicos', desc: 'Paga cupones y servicios académicos.' },
+          { nombre: 'Multa biblioteca', href: 'pagos.html', desc: 'Consulta y paga multas de la biblioteca.' },
+          { nombre: 'Pago de certificados', href: 'pagos.html', desc: 'Paga el valor de los certificados que solicitaste.' },
+          { nombre: 'Pago de servicios académicos', href: 'pagos.html', desc: 'Paga cupones y servicios académicos.' },
         ] },
         { nombre: 'Saldos y devoluciones', servicios: [
           { nombre: 'Devolución de saldo a favor', desc: 'Solicita la devolución de un saldo a favor.' },

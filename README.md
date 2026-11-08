@@ -38,6 +38,7 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | — | `pages/cursos.html` | Listo (avance curricular, cursos inscritos y proyección) |
 | — | `pages/calificaciones.html` | Listo (PGA, cortes, notas por semestre y certificado) |
 | — | `pages/solicitudes.html` | Listo (CESAF simplificado: catálogo, buscador y seguimiento) |
+| — | `pages/pagos.html` | Listo (cupones, pago simulado, comprobantes, cronograma y financiación) |
 
 ## Accesibilidad y guía de estilo
 - Navegación: Servicios (Matrícula y turnos, Becas) y Bienestar (Reservas CSU, Parqueadero, Semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.

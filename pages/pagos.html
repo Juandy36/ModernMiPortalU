@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pagos y fechas · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="pagos">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Pagos y fechas</h1>
+      <p class="mt-2">Consulta lo que tienes pendiente, descarga tus cupones y revisa las fechas de pago.</p>
+    </div>
+    <p id="aviso" class="hidden px-3 py-2 rounded-md font-semibold" role="status"></p>
+
+    <!-- Pendientes -->
+    <section class="card" aria-labelledby="pend-titulo">
+      <div class="flex flex-wrap items-end justify-between gap-2 mb-4">
+        <h2 id="pend-titulo" class="text-h3">Por pagar</h2>
+        <p class="font-bold">Total pendiente: <span id="total" class="text-unab-text text-h3"></span></p>
+      </div>
+      <table class="table">
+        <thead><tr><th>Concepto</th><th>Tipo</th><th>Vence</th><th>Valor</th><th>Estado</th><th><span class="sr-only">Acciones</span></th></tr></thead>
+        <tbody id="conceptos"></tbody>
+      </table>
+    </section>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Cronograma -->
+      <section class="card" aria-labelledby="cron-titulo">
+        <h2 id="cron-titulo" class="text-h3 mb-4">Cronograma de fechas de pago</h2>
+        <table class="table">
+          <thead><tr><th>Fecha</th><th>Concepto</th><th>Condición</th></tr></thead>
+          <tbody id="cronograma"></tbody>
+        </table>
+        <p class="text-small mt-3">Fechas de ejemplo para estudiantes continuos.</p>
+      </section>
+
+      <!-- Historial -->
+      <section class="card" aria-labelledby="hist-titulo">
+        <h2 id="hist-titulo" class="text-h3 mb-4">Pagos realizados</h2>
+        <table class="table">
+          <thead><tr><th>Fecha</th><th>Concepto</th><th>Valor</th><th>Medio</th><th><span class="sr-only">Comprobante</span></th></tr></thead>
+          <tbody id="historial"></tbody>
+        </table>
+        <p id="sin-historial" class="hidden py-4 text-center">Aún no has realizado pagos desde aquí.</p>
+      </section>
+    </div>
+
+    <!-- Financiación -->
+    <section aria-labelledby="fin-titulo" class="space-y-4">
+      <h2 id="fin-titulo" class="text-h2">Mecanismos de financiación</h2>
+      <div id="financiacion" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+      <p class="text-small">Más información en <a href="https://unab.edu.co/apoyofinanciero/" target="_blank" rel="noopener noreferrer" class="font-bold text-unab-text underline">Apoyo financiero UNAB<span class="sr-only"> (abre en otra pestaña)</span></a>.</p>
+    </section>
+  </main>
+
+  <!-- Pago en línea -->
+  <dialog id="dlg-pago" aria-labelledby="pago-titulo" class="rounded-xl p-6 w-[min(92vw,440px)] shadow-lg backdrop:bg-black/40">
+    <h2 id="pago-titulo" class="text-h3">Pagar en línea</h2>
+    <p id="pago-detalle" class="mt-2"></p>
+    <label class="label mt-4" for="pago-medio">Medio de pago</label>
+    <select id="pago-medio" class="field"></select>
+    <p class="text-small mt-3">Es una simulación del rediseño: no se realiza ningún cobro real.</p>
+    <div class="mt-5 flex flex-wrap gap-3 justify-end">
+      <button type="button" id="pago-confirmar" class="btn btn-primary">Confirmar pago</button>
+      <button type="button" id="pago-cancelar" class="btn btn-secondary">Cancelar</button>
+    </div>
+  </dialog>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/pagos.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/pagos.js"></script>
+</body>
+</html>
