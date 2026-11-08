@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { id: 'noticias', label: 'Noticias', href: 'pages/noticias.html' },
   {
     id: 'servicios', label: 'Servicios', items: [
+      { id: 'cursos', label: 'Cursos y proyección', href: 'pages/cursos.html' },
       { id: 'turnos', label: 'Matrícula y turnos', href: 'pages/turnos.html' },
       { id: 'becas', label: 'Becas y promedio', href: 'pages/becas.html' },
     ],

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cursos y proyección · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="cursos">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Cursos y proyección</h1>
+      <p class="mt-2">Revisa tu avance curricular, tus cursos inscritos y proyecta la inscripción del próximo periodo.</p>
+    </div>
+
+    <!-- Avance -->
+    <section class="card" aria-labelledby="avance-titulo">
+      <h2 id="avance-titulo" class="text-h3 mb-4">Mi avance curricular</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center mb-4">
+        <div><div id="r-semestre" class="text-h2 text-unab-text"></div><div class="text-small">Semestre actual</div></div>
+        <div><div id="r-creditos" class="text-h2"></div><div class="text-small">Créditos aprobados</div></div>
+        <div><div id="r-pga" class="text-h2"></div><div class="text-small">Promedio (PGA)</div></div>
+        <div><div id="r-faltan" class="text-h2"></div><div class="text-small">Créditos por cursar</div></div>
+      </div>
+      <div id="barra" role="progressbar" aria-label="Avance del plan de estudios" aria-valuemin="0" aria-valuemax="100" class="h-4 rounded-full bg-surface overflow-hidden">
+        <div id="barra-relleno" class="h-full bg-unab" style="width:0%"></div>
+      </div>
+      <p id="avance-texto" class="text-small mt-2"></p>
+    </section>
+
+    <!-- Cursos inscritos -->
+    <section class="card" aria-labelledby="inscritos-titulo">
+      <h2 id="inscritos-titulo" class="text-h3 mb-1">Cursos inscritos</h2>
+      <p id="inscritos-sub" class="text-small mb-4"></p>
+      <table class="table">
+        <thead><tr><th>Código</th><th>Curso</th><th>Créditos</th><th>Inicio</th><th>Fin</th></tr></thead>
+        <tbody id="inscritos"></tbody>
+      </table>
+    </section>
+
+    <!-- Proyección -->
+    <section class="card scroll-mt-4" id="proyeccion" aria-labelledby="proy-titulo">
+      <h2 id="proy-titulo" class="text-h3 mb-1">Proyección del próximo periodo</h2>
+      <p id="proy-sub" class="text-small mb-4"></p>
+      <p id="proy-error" role="alert" class="hidden mb-4 px-3 py-2 rounded-md font-semibold" style="background:#FDECEA;color:#B42318;"></p>
+      <fieldset>
+        <legend class="font-bold mb-2">Matrícula recomendada y cursos disponibles</legend>
+        <ul id="proy-lista" class="divide-y divide-surface"></ul>
+      </fieldset>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-4">
+        <p id="proy-total" class="font-bold" role="status"></p>
+        <div class="flex flex-wrap gap-3">
+          <button type="button" id="proy-recomendada" class="btn btn-secondary">Usar matrícula recomendada</button>
+          <button type="button" id="proy-guardar" class="btn btn-primary">Guardar proyección</button>
+        </div>
+      </div>
+      <p id="proy-aviso" class="text-small mt-3" role="status"></p>
+      <p class="text-small mt-3">La proyección es una guía personal. La inscripción oficial se hace en tu turno asignado: <a href="turnos.html" class="font-bold text-unab-text underline">consulta tu turno</a>.</p>
+    </section>
+
+    <!-- Plan de estudios -->
+    <section aria-labelledby="plan-titulo" class="space-y-3">
+      <h2 id="plan-titulo" class="text-h2">Plan de estudios</h2>
+      <div id="plan" class="space-y-3"></div>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/cursos.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/cursos.js"></script>
+</body>
+</html>
