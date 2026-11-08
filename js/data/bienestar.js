@@ -20,6 +20,10 @@ MPU.bienestar = {
     {
       id: 'crea', nombre: 'Cultura', marca: 'Crea U', correo: 'bienestar.creau@unab.edu.co',
       desc: 'Cursos culturales de 16 semanas que equivalen a 1 crédito.',
+      info: [
+        { titulo: 'Nuestros grupos', texto: 'Los grupos representativos son la expresión viva del quehacer universitario: fomentan la interculturalidad, el sentido de pertenencia, el trabajo en equipo y habilidades como la expresión escénica, la disciplina y la comunicación. Permiten desarrollar y proyectar el talento artístico en danza, música y teatro, con presentaciones y eventos institucionales.' },
+        { titulo: 'Clubes estudiantiles', texto: 'Espacios creados, gestionados y administrados por estudiantes alrededor de intereses o temáticas comunes que fortalecen la participación, el liderazgo y la vida universitaria. Se inscriben y articulan con Bienestar Universitario para recibir acompañamiento y apoyo logístico, y pueden vincularse a iniciativas reconocidas como horas libres.' },
+      ],
       programas: [
         { id: 'c1', nombre: 'Danzas', modalidad: 'Presencial', horario: 'Lunes 16:00 – 18:00', cupos: 22 },
         { id: 'c2', nombre: 'Tamboras', modalidad: 'Presencial', horario: 'Martes 16:00 – 18:00', cupos: 15 },

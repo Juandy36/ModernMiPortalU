@@ -51,7 +51,7 @@ function panelExito() {
       <div class="mt-auto">${mon ? `${MPU.badge('Postulado')} <button type="button" data-accion="cancelar-monitoria" class="font-bold text-danger hover:underline ml-2">Retirar postulación</button>`
         : `<button type="button" data-accion="monitoria" class="btn btn-primary" ${eligible ? '' : 'disabled'}>Postularme como monitor</button>`}</div></article>
   </div>
-  <section class="card"><h2 class="text-h3 mb-4">Talleres académicos</h2>
+  <section class="card"><h2 class="text-h3 mb-1">Catálogo de talleres académicos</h2><p class="text-small mb-4">${E.descTalleres}</p>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${E.talleres.map((t) => {
     const ins = talleres().includes(t.id);
     const sin = cuposDe(t) <= 0 && !ins;
@@ -62,9 +62,10 @@ function panelExito() {
         ${ins ? `${MPU.badge('Inscrito')}<button type="button" data-taller-cancelar="${t.id}" class="font-bold text-danger hover:underline text-left">Cancelar inscripción</button>`
         : `<button type="button" data-taller="${t.id}" class="btn btn-primary self-start" ${sin ? 'disabled' : ''}>Inscribirme<span class="sr-only"> en ${MPU.esc(t.nombre)}</span></button>`}</div>`;
   }).join('')}</div></section>
-  <section class="card"><h2 class="text-h3 mb-2">Banco de parciales</h2>
-    <p class="text-small mb-3">Parciales de años anteriores para practicar. Cursos disponibles:</p>
-    <ul class="flex flex-wrap gap-2">${E.parciales.map((c) => `<li class="badge" style="background:#FFF3D6;color:#A35F00;border:1px solid #FFA400">${c}</li>`).join('')}</ul></section>`;
+  <section class="card"><h2 class="text-h3 mb-1">Banco de parciales</h2>
+    <p class="text-small mb-4">${E.descParciales}</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">${E.parciales.map((f) => `<div class="rounded-lg border border-surface p-4"><h3 class="font-bold">${MPU.esc(f.facultad)}</h3>
+      <ul class="mt-2 list-disc pl-5 text-small space-y-0.5">${f.cursos.map((c) => `<li>${MPU.esc(c)}</li>`).join('')}</ul></div>`).join('')}</div></section>`;
 }
 
 function panelLenguas() {
@@ -90,7 +91,12 @@ function panelCompetencias() {
   <section class="card"><h2 class="text-h3 mb-2">Mi avance hacia la insignia</h2>
     <p class="text-h2 text-unab-text">${hechos} de ${C.cursosParaInsignia} cursos</p>
     <div role="progressbar" aria-label="Avance hacia la insignia de competencias digitales" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}" class="h-4 rounded-full bg-surface overflow-hidden mt-2"><div class="h-full bg-unab" style="width:${pct}%"></div></div>
-    <p class="text-small mt-2">Cada curso dura ${C.horasPorCurso} horas y se califica como aprobado o no aprobado. Al completar ${C.cursosParaInsignia} cursos obtienes la Insignia de Competencias Digitales UNAB. Avance de ejemplo.</p></section>
+    <p class="text-small mt-2">Al completar ${C.cursosParaInsignia} cursos obtienes la Insignia de Competencias Digitales UNAB. Avance de ejemplo.</p>
+    <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mt-4 text-small">
+      <div><dt class="font-bold">Intensidad</dt><dd>${C.horasPorCurso} horas por curso</dd></div>
+      <div><dt class="font-bold">Modalidad</dt><dd>${C.modalidad}</dd></div>
+      <div><dt class="font-bold">Evaluación</dt><dd>${C.evaluacion}</dd></div>
+      <div><dt class="font-bold">Metodología</dt><dd>${C.metodologia}</dd></div></dl></section>
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">${C.ruta.map((r, i) => `<article class="card"><h3 class="text-h3">${i + 1}. ${r.nivel}</h3>
     <ul class="mt-3 space-y-2">${r.cursos.map((c) => `<li class="flex items-center justify-between gap-2"><span>${c}</span>${C.aprobados.includes(c) ? MPU.badge('Aprobado') : '<span class="badge" style="background:#F4F4F4;color:#333;border:1px solid #8C8C8C">Pendiente</span>'}</li>`).join('')}</ul></article>`).join('')}</div>
   <p class="text-small">${total.length} cursos en la ruta, alineada a DigComp.</p>`;

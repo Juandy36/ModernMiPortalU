@@ -35,6 +35,7 @@ function pintarPanel() {
     <div class="card"><h2 class="text-h2">${l.marca} · ${l.nombre}</h2>
       <p class="mt-2">${l.desc}</p>
       <p class="text-small mt-2">Contacto: <a class="font-bold text-unab-text underline" href="mailto:${l.correo}">${l.correo}</a></p></div>
+    ${l.info ? `<div class="grid grid-cols-1 md:grid-cols-2 gap-6">${l.info.map((i) => `<div class="card"><h3 class="text-h3">${i.titulo}</h3><p class="mt-2 text-small">${i.texto}</p></div>`).join('')}</div>` : ''}
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">${l.programas.map((p) => {
     const ins = inscritos().includes(p.id);
     const sinCupo = cuposDe(p) <= 0 && !ins;

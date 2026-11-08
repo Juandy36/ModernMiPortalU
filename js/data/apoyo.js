@@ -3,14 +3,23 @@ window.MPU = window.MPU || {};
 MPU.apoyo = {
   exito: {
     mentoria: { correo: 'mentoria_ingenieria@unab.edu.co', desc: 'Acompañamiento de un mentor de tu facultad para organizar tu plan de estudio y resolver dudas del semestre.' },
-    monitoria: { pgaMinimo: 4.0, desc: 'Los monitores apoyan cursos de su programa. Requisito: promedio general acumulado (PGA) de 4,0 o más.' },
+    monitoria: { pgaMinimo: 4.0, desc: 'Acompañamiento académico entre estudiantes para fortalecer el aprendizaje en cursos de mayor complejidad. Requisito: promedio general acumulado (PGA) de 4,0 o más.' },
+    descTalleres: 'Espacios psicoeducativos para fortalecer habilidades y estrategias de aprendizaje.',
+    descParciales: 'Recursos de consulta y práctica para preparar mejor tus evaluaciones.',
     talleres: [
       { id: 't1', nombre: 'Técnicas de estudio y gestión del tiempo', fecha: '2026-11-12', hora: '12:00 – 14:00', cupos: 25 },
       { id: 't2', nombre: 'Preparación de exámenes finales', fecha: '2026-11-18', hora: '14:00 – 16:00', cupos: 30 },
       { id: 't3', nombre: 'Cálculo: repaso para el examen final', fecha: '2026-11-20', hora: '10:00 – 12:00', cupos: 0 },
       { id: 't4', nombre: 'Escritura académica y citación', fecha: '2026-11-25', hora: '16:00 – 18:00', cupos: 20 },
     ],
-    parciales: ['Cálculo diferencial', 'Programación I', 'Física mecánica', 'Estructuras de datos', 'Bases de datos'],
+    // Banco de parciales: cursos con material, por facultad (MiPortalU)
+    parciales: [
+      { facultad: 'Facultad de Ingeniería', cursos: ['Cálculo diferencial', 'Cálculo integral', 'Cálculo en varias variables', 'Ecuaciones diferenciales', 'Álgebra lineal', 'Mecánica y laboratorio', 'Electromagnetismo y laboratorio', 'Circuitos eléctricos', 'Dibujo de ingeniería'] },
+      { facultad: 'Facultad de Economía y Negocios', cursos: ['Matemática I', 'Matemática II', 'Principios de macroeconomía', 'Principios de microeconomía', 'Pensando problemas', 'Introducción a los negocios', 'Estados financieros', 'Estadística descriptiva', 'Estadística inferencial y muestreo'] },
+      { facultad: 'Facultad de Ciencias Jurídicas y Políticas', cursos: ['Argumentación jurídica', 'Derecho penal general I', 'Derecho procesal penal', 'Teoría general del proceso', 'Antropología jurídica'] },
+      { facultad: 'Facultad de Ciencias de la Salud', cursos: ['Teoría de probabilidad y estadística aplicada en psicología', 'Psicometría', 'Diseños de investigación cuantitativos'] },
+      { facultad: 'Facultad de Ciencias Sociales, Humanidades y Artes', cursos: ['Gestión y emprendimiento de establecimientos gastronómicos (7.º semestre en adelante, Gastronomía y Alta Cocina)'] },
+    ],
   },
 
   centros: [
@@ -34,10 +43,13 @@ MPU.apoyo = {
   competencias: {
     horasPorCurso: 32,
     cursosParaInsignia: 3,
+    modalidad: 'Presencial, virtual o remoto',
+    evaluacion: 'Aprobado / No aprobado',
+    metodologia: 'Aprendizaje basado en retos y resolución de problemas reales',
     ruta: [
       { nivel: 'Interacción digital', cursos: ['Interacción digital'] },
-      { nivel: 'Analítica y contenido digital', cursos: ['Narrativas digitales', 'Visualización de datos', 'Identidad digital'] },
-      { nivel: 'Tecnologías transformativas', cursos: ['IA y creatividad generativa', 'Legislación y ética digital', 'Bienestar digital'] },
+      { nivel: 'Analítica y contenido digital', cursos: ['Narrativas Digitales y Comunicación Estratégica', 'Visualización y Analítica de Datos', 'Gestión de la Identidad Digital y Marca Personal'] },
+      { nivel: 'Tecnologías transformativas', cursos: ['Inteligencia Artificial y Creatividad Generativa', 'Legislación y Ética Digital', 'Cuidado y Bienestar Digital'] },
     ],
     aprobados: ['Interacción digital'], // ejemplo
   },
@@ -45,7 +57,7 @@ MPU.apoyo = {
   internacional: [
     { id: 'intercambio', nombre: 'Intercambio académico', pga: 3.5, detalle: 'Cursa hasta el 50 % de tu programa en otra universidad. Para países no hispanohablantes se pide inglés B2. Convocatorias: ago–oct (1.er semestre) y mar–may (2.º semestre).' },
     { id: 'virtual', nombre: 'Intercambio virtual', pga: 3.5, detalle: 'Hasta el 50 % del programa cursado en línea con una universidad aliada.' },
-    { id: 'delfin', nombre: 'Programa Delfín (investigación de verano)', pga: 3.8, detalle: 'Estancia de investigación de verano. Requiere haber aprobado el 30 % del programa.' },
+    { id: 'delfin', nombre: 'Programas de investigación (Delfín)', pga: 3.8, detalle: 'Estancia de investigación de verano. Requiere haber aprobado el 30 % del programa. Modalidad presencial (te trasladas a la institución del investigador) o virtual (trabajas en línea con investigadores que ofertan proyectos a distancia).' },
     { id: 'rotaciones', nombre: 'Rotaciones médicas / internado', pga: 3.8, detalle: 'Solo para Medicina.' },
     { id: 'insignia', nombre: 'Insignia digital intercultural', pga: 0, detalle: 'Niveles Navegante (60 puntos) y Embajador (100 puntos). Contacto: asistente-ori@unab.edu.co.' },
   ],
