@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bienestar universitario · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="bienestar-programas">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Bienestar universitario</h1>
+      <p class="mt-2">Inscríbete a talleres, cursos culturales y deportes, y conoce las Elecciones UNAB.</p>
+    </div>
+    <p id="aviso" class="hidden px-3 py-2 rounded-md font-semibold" role="status"></p>
+
+    <div id="tabs" class="flex flex-wrap gap-2" role="tablist" aria-label="Líneas de bienestar"></div>
+
+    <section id="panel" class="space-y-4" role="tabpanel"></section>
+
+    <section class="card" aria-labelledby="mis-titulo">
+      <h2 id="mis-titulo" class="text-h3 mb-4">Mis inscripciones</h2>
+      <ul id="mis" class="space-y-3"></ul>
+      <p id="sin-mis" class="hidden">Aún no estás inscrito en ningún programa de bienestar. Cuando te inscribas, aparecerá aquí.</p>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/bienestar.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/bienestar.js"></script>
+</body>
+</html>

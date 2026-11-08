@@ -12,13 +12,13 @@ MPU.horasLibres = {
     { codigo: 'K6023', fecha: '2026-11-13', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Cómo evitar los errores más comunes', lugar: 'Sesión en línea', horas: 1 },
     { codigo: 'K6044', fecha: '2026-11-17', inicio: '16:00', fin: '18:00', modalidad: 'Presencial', nombre: 'Tu próxima parada, el inglés', lugar: 'Lugar por confirmar', horas: 2 },
     { codigo: 'K4961', fecha: '2026-11-19', inicio: '13:00', fin: '20:00', modalidad: 'Presencial', nombre: 'Casa del terror', lugar: 'Biblioteca, campus Jardín', horas: 4 },
-    { codigo: 'K7001', fecha: '2026-11-24', inicio: '08:00', fin: '16:00', modalidad: 'Presencial', nombre: 'Elecciones UNAB · Votación', lugar: 'Puestos de votación del campus (votar otorga 4 horas libres)', horas: 4 },
   ],
 
   // Asistencias ya cumplidas en periodos anteriores (ejemplo).
   previas: [
     { codigo: 'K2210', fecha: '2026-09-15', modalidad: 'Virtual', nombre: 'Taller de hábitos de estudio', horas: 2 },
     { codigo: 'K2543', fecha: '2026-09-29', modalidad: 'Presencial', nombre: 'Feria de bienestar universitario', horas: 4 },
+    { codigo: 'K4900', fecha: '2026-10-23', modalidad: 'Presencial', nombre: 'Elecciones UNAB · Votación', horas: 4 },
     { codigo: 'K2876', fecha: '2026-10-08', modalidad: 'Presencial', nombre: 'Torneo relámpago de integración', horas: 4 },
   ],
 };

@@ -25,6 +25,7 @@ const NAV_LINKS = [
   },
   {
     id: 'bienestar', label: 'Bienestar', items: [
+      { id: 'bienestar-programas', label: 'Programas de bienestar', href: 'pages/bienestar.html' },
       { id: 'horaslibres', label: 'Horas libres', href: 'pages/horas-libres.html' },
       { id: 'reservas', label: 'Reservas CSU', href: 'pages/reservas-csu.html' },
       { id: 'parqueadero', label: 'Parqueadero', href: 'pages/parqueadero.html' },
@@ -58,6 +59,10 @@ const SITE_EXTRA = [
   ['Actividades de horas libres', 'pages/horas-libres.html', 'horas libres 42 actividades qr asistencia bienestar'],
   ['Punto U: canales y citas', 'pages/ayuda.html', 'punto u atencion estudiante cita agendar whatsapp telefono horario de atencion'],
   ['Preguntas frecuentes', 'pages/ayuda.html', 'faq ayuda dudas como donde lo encuentro'],
+  ['Potencia U: desarrollo humano (yoga, inteligencia emocional)', 'pages/bienestar.html', 'potencia u desarrollo humano talleres yoga cocina saludable habilidades'],
+  ['Crea U: cultura (teatro, danzas, guitarra)', 'pages/bienestar.html', 'crea u cultura cursos teatro danzas guitarra origami tamboras'],
+  ['Activa U: deportes y acondicionamiento físico', 'pages/bienestar.html', 'activa u deportes baloncesto padel futbol tenis taekwondo ajedrez gimnasio'],
+  ['Elecciones UNAB (4 horas libres)', 'pages/bienestar.html', 'elecciones unab votar voto candidatos representantes'],
   ['Estado de clases de hoy', 'pages/horario.html', 'horario clases docente salon hoy'],
 ];
 
