@@ -34,7 +34,7 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | 8 | `pages/parqueadero.html` | Listo |
 | 9 | `pages/semilleros.html` | Listo |
 | 10 | `pages/deportes.html` | Listo |
-| — | `pages/horas-libres.html` | Listo (requisito de grado de 42 h) |
+| — | `pages/horas-libres.html` | Listo (requisito de grado de 42 h, QR, historial y encuesta de satisfacción) |
 | — | `pages/cursos.html` | Listo (avance curricular, cursos inscritos y proyección) |
 | — | `pages/calificaciones.html` | Listo (PGA, cortes, notas por semestre y certificado) |
 | — | `pages/solicitudes.html` | Listo (CESAF simplificado: catálogo, buscador y seguimiento) |

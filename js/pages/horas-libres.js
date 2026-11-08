@@ -6,11 +6,30 @@ const horasTxt = (n) => `${n} ${n === 1 ? 'hora' : 'horas'}`;
 // Para buscar sin importar tildes ni mayúsculas
 const plano = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
+const encuestas = () => MPU.storage.get('horaslibres:encuestas', {});
+const OPCIONES = {
+  necesario: ['Muy necesario', 'Necesario', 'Poco necesario', 'Nada necesario'],
+  interes: ['Mucho', 'Moderado', 'Poco', 'Nada'],
+  satisfaccion: ['Excelente', 'Bueno', 'Regular', 'Malo'],
+  repetir: ['Sí', 'No'],
+};
+Object.entries(OPCIONES).forEach(([campo, lista]) => {
+  document.querySelector(`[data-opciones="${campo}"]`).innerHTML = lista.map((o) =>
+    `<label class="inline-flex items-center gap-2 cursor-pointer"><input type="radio" name="${campo}" value="${o}" class="w-4 h-4 accent-[#FFA400]"> ${o}</label>`).join('');
+});
+let codigoEncuesta = null;
+
 function guardar(codigo, estado) {
   const otros = H.registros().filter((r) => r.codigo !== codigo);
   MPU.storage.set('horaslibres:registros', [...otros, { codigo, estado }]);
 }
-const anunciar = (msg) => { $('aviso').textContent = msg; };
+function anunciar(msg) {
+  const el = $('aviso');
+  el.textContent = msg;
+  el.className = 'px-3 py-2 rounded-md font-semibold';
+  el.style.background = '#E3F4EA';
+  el.style.color = '#1B5E38';
+}
 
 function pintarProgreso() {
   const r = H.resumen();
@@ -38,7 +57,11 @@ function pintarActividades() {
     ? lista.map((a) => {
       const estado = registros.find((r) => r.codigo === a.codigo)?.estado;
       let accion;
-      if (estado === 'asistio') accion = `${MPU.badge('Asistió')} <span class="text-small">+${horasTxt(a.horas)} sumadas</span>`;
+      if (estado === 'asistio') {
+        const respondida = encuestas()[a.codigo];
+        accion = `${MPU.badge('Asistió')} <span class="text-small">+${horasTxt(a.horas)} sumadas</span>
+          ${respondida ? '<span class="text-small">· Encuesta respondida</span>' : `<button type="button" data-encuesta="${a.codigo}" class="btn btn-secondary">Responder encuesta<span class="sr-only"> de ${MPU.esc(a.nombre)}</span></button>`}`;
+      }
       else if (estado === 'qr') accion = `${MPU.badge('QR generado')} <button type="button" data-qr="${a.codigo}" class="btn btn-secondary">Ver código QR</button>`;
       else if (a.modalidad === 'Virtual') accion = `<button type="button" data-confirmar="${a.codigo}" class="btn btn-primary">Confirmar asistencia</button>`;
       else accion = `<button type="button" data-qr="${a.codigo}" class="btn btn-primary">Generar código QR</button>`;
@@ -94,6 +117,15 @@ function abrirQr(codigo) {
 }
 
 $('lista').addEventListener('click', (e) => {
+  const enc = e.target.closest('[data-encuesta]');
+  if (enc) {
+    codigoEncuesta = enc.dataset.encuesta;
+    $('enc-actividad').textContent = H.actividades.find((x) => x.codigo === codigoEncuesta).nombre;
+    $('form-encuesta').reset();
+    $('enc-error').classList.add('hidden');
+    $('dlg-encuesta').showModal();
+    return;
+  }
   const qr = e.target.closest('[data-qr]');
   const conf = e.target.closest('[data-confirmar]');
   if (qr) abrirQr(qr.dataset.qr);
@@ -113,6 +145,24 @@ $('qr-escanear').addEventListener('click', () => {
 });
 $('qr-cerrar').addEventListener('click', () => dlg.close());
 
+$('enc-cerrar').addEventListener('click', () => $('dlg-encuesta').close());
+$('form-encuesta').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const f = e.target;
+  const faltan = Object.keys(OPCIONES).filter((c) => !f.querySelector(`input[name="${c}"]:checked`));
+  if (faltan.length) {
+    $('enc-error').textContent = 'Responde las preguntas 1 a 4 para enviar la encuesta.';
+    $('enc-error').classList.remove('hidden');
+    return;
+  }
+  const r = Object.fromEntries(Object.keys(OPCIONES).map((c) => [c, f.querySelector(`input[name="${c}"]:checked`).value]));
+  r.tema = $('enc-tema').value.trim();
+  r.comentarios = $('enc-comentarios').value.trim();
+  MPU.storage.set('horaslibres:encuestas', { ...encuestas(), [codigoEncuesta]: r });
+  $('dlg-encuesta').close();
+  anunciar('¡Muchas gracias por tus comentarios!');
+  pintarTodo();
+});
 $('buscar').addEventListener('input', pintarActividades);
 $('modalidad').addEventListener('change', pintarActividades);
 $('limpiar').addEventListener('click', () => { $('buscar').value = ''; $('modalidad').value = ''; pintarActividades(); $('buscar').focus(); });

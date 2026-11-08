@@ -21,6 +21,8 @@
       <p class="mt-2">Requisito de grado: suma 42 horas asistiendo a las actividades de Bienestar Universitario.</p>
     </div>
 
+    <p id="aviso" class="hidden px-3 py-2 rounded-md font-semibold" role="status"></p>
+
     <!-- Progreso -->
     <section class="card" aria-labelledby="progreso-titulo">
       <h2 id="progreso-titulo" class="text-h3 mb-4">Mi progreso</h2>
@@ -81,7 +83,6 @@
         <li>Con la asistencia validada, las horas se suman a tu progreso.</li>
       </ol>
     </section>
-    <p id="aviso" class="sr-only" role="status"></p>
   </main>
 
   <!-- QR de asistencia -->
@@ -95,6 +96,29 @@
       <button type="button" id="qr-cerrar" class="btn btn-secondary">Cerrar</button>
     </div>
     <p class="text-small mt-3">El escaneo es una simulación del rediseño: en el portal real lo hace el organizador.</p>
+  </dialog>
+
+  <!-- Encuesta de satisfacción -->
+  <dialog id="dlg-encuesta" aria-labelledby="enc-titulo" class="rounded-xl p-6 w-[min(94vw,560px)] max-h-[90vh] overflow-y-auto shadow-lg backdrop:bg-black/40">
+    <h2 id="enc-titulo" class="text-h3">Encuesta de satisfacción</h2>
+    <p id="enc-actividad" class="text-small mt-1"></p>
+    <p id="enc-error" role="alert" class="hidden my-3 px-3 py-2 rounded-md font-semibold" style="background:#FDECEA;color:#B42318;"></p>
+    <form id="form-encuesta" class="space-y-4 mt-4" novalidate>
+      <fieldset><legend class="font-bold">1. ¿Qué tan necesario consideras participar en este espacio?</legend>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 mt-1" data-opciones="necesario"></div></fieldset>
+      <fieldset><legend class="font-bold">2. ¿Qué tanto te interesó el espacio?</legend>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 mt-1" data-opciones="interes"></div></fieldset>
+      <fieldset><legend class="font-bold">3. ¿Cuál es tu nivel de satisfacción?</legend>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 mt-1" data-opciones="satisfaccion"></div></fieldset>
+      <fieldset><legend class="font-bold">4. ¿Participarías nuevamente?</legend>
+        <div class="flex flex-wrap gap-x-4 gap-y-1 mt-1" data-opciones="repetir"></div></fieldset>
+      <div><label class="label" for="enc-tema">5. ¿Qué tema recomiendas para próximos espacios?</label><input id="enc-tema" class="field" maxlength="120"></div>
+      <div><label class="label" for="enc-comentarios">6. Comentarios adicionales</label><textarea id="enc-comentarios" class="field" rows="3" maxlength="400"></textarea></div>
+      <div class="flex flex-wrap gap-3 justify-end">
+        <button type="submit" class="btn btn-primary">Enviar encuesta</button>
+        <button type="button" id="enc-cerrar" class="btn btn-secondary">Cancelar</button>
+      </div>
+    </form>
   </dialog>
 
   <div id="app-footer"></div>
