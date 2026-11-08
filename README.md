@@ -39,14 +39,16 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | — | `pages/calificaciones.html` | Listo (PGA, cortes, notas por semestre y certificado) |
 | — | `pages/solicitudes.html` | Listo (CESAF simplificado: catálogo, buscador y seguimiento) |
 | — | `pages/pagos.html` | Listo (cupones, pago simulado, comprobantes, cronograma y financiación) |
+| — | `pages/cronogramas.html` | Listo (filtros por modalidad, nivel y estado) |
+| — | `pages/grado.html` | Listo (requisitos de grado; widget también en el inicio) |
 
 ## Accesibilidad y guía de estilo
-- Navegación: Servicios (Matrícula y turnos, Becas) y Bienestar (Reservas CSU, Parqueadero, Semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.
+- Navegación: Académico (horario, cursos, calificaciones, cronogramas, grado), Servicios (turnos, becas, solicitudes, pagos) y Bienestar (horas libres, reservas CSU, parqueadero, semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.
 - El naranja `#FFA400` se usa en fondos y bordes. Para texto naranja se usa `unab-text` (`#A35F00`), que cumple contraste 4,5:1 sobre blanco y crema. El verde de estado se oscureció a `#23794A` por la misma razón.
 - Todas las fechas siguen el formato «21 oct 2026».
 
 ## Responsivo
 La guía de estilo es para escritorio (1280 px), pero el sitio se adapta desde 320 px:
-- **Menos de 1024 px:** el navbar se reemplaza por un botón «Menú» que abre la lista completa (Escape lo cierra).
+- **Menos de 1280 px:** el navbar se reemplaza por un botón «Menú» que abre la lista completa (Escape lo cierra).
 - **Menos de 768 px:** las grillas pasan a una columna, los títulos se reducen (40 → 30 px, 28 → 24 px) y las tablas se desplazan de lado dentro de su tarjeta.
 - Los accesos rápidos del inicio van en 2, 3 o 6 columnas según el ancho.

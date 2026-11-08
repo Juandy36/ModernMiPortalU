@@ -4,16 +4,21 @@
 // Los grupos con `items` se muestran como menú desplegable (mismo orden que en el inicio).
 const NAV_LINKS = [
   { id: 'inicio', label: 'Inicio', href: 'index.html' },
-  { id: 'horario', label: 'Mi horario', href: 'pages/horario.html' },
-  { id: 'noticias', label: 'Noticias', href: 'pages/noticias.html' },
+  {
+    id: 'academico', label: 'Académico', items: [
+      { id: 'horario', label: 'Mi horario', href: 'pages/horario.html' },
+      { id: 'cursos', label: 'Cursos y proyección', href: 'pages/cursos.html' },
+      { id: 'calificaciones', label: 'Calificaciones', href: 'pages/calificaciones.html' },
+      { id: 'cronogramas', label: 'Cronogramas académicos', href: 'pages/cronogramas.html' },
+      { id: 'grado', label: 'Mi grado', href: 'pages/grado.html' },
+    ],
+  },
   {
     id: 'servicios', label: 'Servicios', items: [
-      { id: 'cursos', label: 'Cursos y proyección', href: 'pages/cursos.html' },
-      { id: 'pagos', label: 'Pagos y fechas', href: 'pages/pagos.html' },
-      { id: 'solicitudes', label: 'Solicitudes', href: 'pages/solicitudes.html' },
-      { id: 'calificaciones', label: 'Calificaciones', href: 'pages/calificaciones.html' },
       { id: 'turnos', label: 'Matrícula y turnos', href: 'pages/turnos.html' },
       { id: 'becas', label: 'Becas y promedio', href: 'pages/becas.html' },
+      { id: 'solicitudes', label: 'Solicitudes', href: 'pages/solicitudes.html' },
+      { id: 'pagos', label: 'Pagos y fechas', href: 'pages/pagos.html' },
     ],
   },
   {
@@ -25,6 +30,7 @@ const NAV_LINKS = [
       { id: 'deportes', label: 'ASCUN e Interoscas', href: 'pages/deportes.html' },
     ],
   },
+  { id: 'noticias', label: 'Noticias', href: 'pages/noticias.html' },
   { id: 'chat', label: 'Contacto', href: 'pages/chat.html' },
   { id: 'nosotros', label: 'Quiénes somos', href: 'pages/quienes-somos.html' },
 ];
@@ -56,14 +62,14 @@ function navItem(l) {
     </div>`;
 }
 
-// Menú para móvil y tablet (< 1024 px): lista vertical; los grupos se muestran con sus opciones.
+// Menú para móvil y tablet (< 1280 px): lista vertical; los grupos se muestran con sus opciones.
 function menuMovil() {
   const enlace = (l, sub) => `<li><a href="${root}${l.href}"${actual(l.id === active)}
     class="block ${sub ? 'pl-8' : 'px-4'} pr-4 py-3 rounded-md font-semibold hover:bg-unab-cream ${l.id === active ? 'bg-unab-cream text-unab-text' : ''}">${l.label}</a></li>`;
   const items = NAV_LINKS.map((l) => (l.items
     ? `<li class="px-4 pt-3 pb-1 text-small font-bold uppercase">${l.label}</li>${l.items.map((i) => enlace(i, true)).join('')}`
     : enlace(l, false))).join('');
-  return `<nav id="menu-movil" hidden class="lg:hidden border-t border-surface max-h-[calc(100vh-4rem)] overflow-y-auto" aria-label="Menú principal">
+  return `<nav id="menu-movil" hidden class="xl:hidden border-t border-surface max-h-[calc(100vh-4rem)] overflow-y-auto" aria-label="Menú principal">
     <ul class="max-w-page mx-auto px-2 py-2">${items}</ul></nav>`;
 }
 
@@ -109,11 +115,11 @@ function navbar() {
   <header class="bg-white shadow-sm relative z-40">
     <div class="max-w-page mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
       <a href="${root}index.html" class="text-h3 text-unab-text">MiPortalU</a>
-      <nav class="hidden lg:flex items-center gap-1" aria-label="Principal">${links}</nav>
+      <nav class="hidden xl:flex items-center gap-1" aria-label="Principal">${links}</nav>
       <div class="flex items-center gap-3 text-small">
         ${menuPerfil(u, iniciales)}
         <button id="btn-menu-movil" type="button" aria-expanded="false" aria-controls="menu-movil"
-          class="lg:hidden inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
+          class="xl:hidden inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
           <span aria-hidden="true" data-icono>☰</span> Menú
         </button>
       </div>
@@ -178,7 +184,7 @@ function abrirMovil(abrir) {
 }
 btnMovil?.addEventListener('click', () => abrirMovil(panelMovil.hidden));
 // Si la ventana se agranda a escritorio, el panel queda cerrado.
-window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => { if (e.matches) abrirMovil(false); });
+window.matchMedia('(min-width: 1280px)').addEventListener('change', (e) => { if (e.matches) abrirMovil(false); });
 
 document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return;

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cronogramas académicos · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="cronogramas">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Cronogramas académicos</h1>
+      <p class="mt-2">Fechas importantes del periodo: clases, notas, pagos, inscripción y grado.</p>
+    </div>
+
+    <section class="card" aria-labelledby="filtros-titulo">
+      <h2 id="filtros-titulo" class="sr-only">Filtros</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label class="label" for="f-modalidad">Modalidad</label>
+          <select id="f-modalidad" class="field"><option value="">Todas</option></select>
+        </div>
+        <div>
+          <label class="label" for="f-nivel">Nivel de formación</label>
+          <select id="f-nivel" class="field"><option value="">Todos</option></select>
+        </div>
+        <div>
+          <label class="label" for="f-activos">Activos</label>
+          <select id="f-activos" class="field">
+            <option value="si">Sí (próximos y en curso)</option>
+            <option value="no">No (finalizados)</option>
+            <option value="">Todos</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section class="card" aria-labelledby="tabla-titulo">
+      <h2 id="tabla-titulo" class="text-h3 mb-1">Fechas del periodo</h2>
+      <p id="contador" class="text-small mb-4" role="status"></p>
+      <table class="table">
+        <thead><tr><th>Evento</th><th>Inicio</th><th>Fin</th><th>Modalidad</th><th>Nivel</th><th>Estado</th></tr></thead>
+        <tbody id="eventos"></tbody>
+      </table>
+      <p id="vacio" class="hidden py-6 text-center">No hay fechas con esos filtros.</p>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/cronogramas.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/cronogramas.js"></script>
+</body>
+</html>

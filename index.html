@@ -26,7 +26,7 @@
 
   <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-10">
     <!-- Accesos rápidos -->
-    <nav id="accesos" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3" aria-label="Accesos rápidos"></nav>
+    <nav id="accesos" class="grid grid-cols-2 sm:grid-cols-4 xl:grid-cols-8 gap-3" aria-label="Accesos rápidos"></nav>
 
     <!-- Horario de hoy -->
     <section class="card">
@@ -36,6 +36,29 @@
         <tbody id="horario-hoy"></tbody>
       </table>
     </section>
+
+    <!-- Progreso hacia el grado y horas libres -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <section class="card" aria-labelledby="grado-titulo">
+        <h2 id="grado-titulo" class="text-h2 mb-2">Mi progreso para el grado</h2>
+        <p id="grado-pct" class="text-h1 text-unab-text"></p>
+        <div id="grado-barra" role="progressbar" aria-label="Progreso general para el grado" aria-valuemin="0" aria-valuemax="100" class="h-4 rounded-full bg-surface overflow-hidden mt-2">
+          <div id="grado-relleno" class="h-full bg-unab" style="width:0%"></div>
+        </div>
+        <ul id="grado-lista" class="mt-4 space-y-1 text-small"></ul>
+        <a class="btn btn-secondary mt-4" href="pages/grado.html">Ver mi grado</a>
+      </section>
+      <section class="card" aria-labelledby="hl-titulo">
+        <h2 id="hl-titulo" class="text-h2 mb-2">Mis horas libres</h2>
+        <p id="hl-total" class="text-h1 text-unab-text"></p>
+        <div id="hl-barra" role="progressbar" aria-label="Avance de horas libres" aria-valuemin="0" aria-valuemax="42" class="h-4 rounded-full bg-surface overflow-hidden mt-2">
+          <div id="hl-relleno" class="h-full bg-unab" style="width:0%"></div>
+        </div>
+        <h3 class="font-bold mt-4">Próximas actividades</h3>
+        <ul id="hl-proximas" class="mt-1 space-y-1 text-small"></ul>
+        <a class="btn btn-secondary mt-4" href="pages/horas-libres.html">Ver actividades</a>
+      </section>
+    </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Noticias -->
@@ -90,6 +113,11 @@
   <script src="js/data/noticias.js"></script>
   <script src="js/data/beca.js"></script>
   <script src="js/data/deportes.js"></script>
+  <script src="js/data/cursos.js"></script>
+  <script src="js/data/horas-libres.js"></script>
+  <script src="js/data/pagos.js"></script>
+  <script src="js/data/cronogramas.js"></script>
+  <script src="js/data/grado.js"></script>
   <script src="js/components.js"></script>
   <script src="js/pages/inicio.js"></script>
 </body>

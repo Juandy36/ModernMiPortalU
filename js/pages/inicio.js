@@ -1,11 +1,13 @@
 // Pantalla de inicio (Wireframe 1): arma las secciones con los datos de ejemplo.
 const ACCESOS = [
-  { label: 'Matrícula y turnos', href: 'pages/turnos.html' },
-  { label: 'Certificados', href: 'pages/chat.html' },
   { label: 'Mi horario', href: 'pages/horario.html' },
+  { label: 'Cursos y proyección', href: 'pages/cursos.html' },
+  { label: 'Calificaciones', href: 'pages/calificaciones.html' },
+  { label: 'Matrícula y turnos', href: 'pages/turnos.html' },
+  { label: 'Solicitudes', href: 'pages/solicitudes.html' },
+  { label: 'Pagos y fechas', href: 'pages/pagos.html' },
+  { label: 'Horas libres', href: 'pages/horas-libres.html' },
   { label: 'Becas y promedio', href: 'pages/becas.html' },
-  { label: 'Reservas CSU', href: 'pages/reservas-csu.html' },
-  { label: 'Semilleros', href: 'pages/semilleros.html' },
 ];
 
 document.getElementById('accesos').innerHTML = ACCESOS.map(
@@ -41,3 +43,24 @@ document.getElementById('buscador').addEventListener('input', (e) => {
     a.style.display = !q || a.textContent.toLowerCase().includes(q) ? '' : 'none';
   });
 });
+
+// Progreso para el grado
+const pctGrado = MPU.grado.porcentaje();
+document.getElementById('grado-pct').textContent = pctGrado + ' %';
+document.getElementById('grado-barra').setAttribute('aria-valuenow', pctGrado);
+document.getElementById('grado-barra').setAttribute('aria-valuetext', pctGrado + ' % del camino al grado');
+document.getElementById('grado-relleno').style.width = pctGrado + '%';
+document.getElementById('grado-lista').innerHTML = MPU.grado.requisitos()
+  .map((r) => `<li>${r.estado === 'ok' ? '✔' : '○'} ${r.nombre}: ${MPU.esc(r.detalle)}</li>`).join('');
+
+// Horas libres: progreso y próximas actividades
+const hlr = MPU.horasLibres.resumen();
+document.getElementById('hl-total').textContent = `${hlr.cumplidas} de ${hlr.meta} h`;
+document.getElementById('hl-barra').setAttribute('aria-valuenow', Math.min(hlr.cumplidas, hlr.meta));
+document.getElementById('hl-barra').setAttribute('aria-valuetext', `${hlr.cumplidas} de ${hlr.meta} horas`);
+document.getElementById('hl-relleno').style.width = hlr.pct + '%';
+const hoyIso = new Date().toISOString().slice(0, 10);
+document.getElementById('hl-proximas').innerHTML = MPU.horasLibres.actividades
+  .filter((a) => a.fecha >= hoyIso).slice(0, 3)
+  .map((a) => `<li><strong>${MPU.fecha(new Date(a.fecha + 'T00:00:00'))}</strong> · ${MPU.esc(a.nombre)} · ${a.horas} h (${a.modalidad})</li>`).join('')
+  || '<li>No hay actividades próximas.</li>';

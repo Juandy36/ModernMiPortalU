@@ -114,6 +114,7 @@ $('form-clave').addEventListener('submit', async (e) => {
 const tramites = [
   ['Matrícula y turnos', cantidad('turnos:solicitudes'), 'solicitudes', 'turnos.html'],
   ['Reservas CSU', cantidad('reservas:mias'), 'reservas', 'reservas-csu.html'],
+  ['Progreso para el grado', MPU.grado.porcentaje(), '% completado', 'grado.html'],
   ['Pagos pendientes', MPU.pagos.conceptos.length - cantidad('pagos:pagados'), 'por pagar', 'pagos.html'],
   ['Solicitudes en trámite', MPU.storage.get('solicitudes:mias', []).filter((s) => s.estado === 'En trámite').length, 'solicitudes', 'solicitudes.html'],
   ['Proyección de cursos', cantidad('cursos:proyeccion'), 'cursos proyectados', 'cursos.html#proyeccion'],
