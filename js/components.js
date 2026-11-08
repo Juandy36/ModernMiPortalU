@@ -72,6 +72,9 @@ const SITE_EXTRA = [
   ['Competencias digitales (insignia)', 'pages/apoyo.html#competencias', 'competencias digitales insignia digcomp curso'],
   ['Intercambio e internacionalización', 'pages/apoyo.html#internacional', 'intercambio internacionalizacion delfin rotaciones movilidad exterior'],
   ['Investigación: grupos, convocatorias y Apolo', 'pages/investigacion.html', 'investigacion grupos convocatorias apolo investigandoando transferencia de conocimiento'],
+  ['Espacios UNAB: reservar espacios para eventos', 'pages/espacios.html', 'espacios unab reservas eventos auditorio reservar espacio'],
+  ['CLIC: mesa de ayuda tecnológica', 'pages/ayuda.html', 'clic kayako mesa de ayuda soporte tecnico tecnologica'],
+  ['Centros: EHLE y Bioeconomía Circular', 'pages/apoyo.html#centros', 'centros ehle escritura habla lectura bioeconomia circular'],
   ['Estado de clases de hoy', 'pages/horario.html', 'horario clases docente salon hoy'],
 ];
 

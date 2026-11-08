@@ -13,6 +13,12 @@ MPU.apoyo = {
     parciales: ['Cálculo diferencial', 'Programación I', 'Física mecánica', 'Estructuras de datos', 'Bases de datos'],
   },
 
+  centros: [
+    { nombre: 'EHLE', desc: 'Centro de Escritura, Habla y Lectura de la UNAB: acompañamiento para comunicarte mejor.', href: 'https://unab.edu.co/centro-ehle/' },
+    { nombre: 'Centro de Competencias Digitales', desc: 'Ruta de cursos de competencias digitales con insignia UNAB.', interno: 'competencias' },
+    { nombre: 'Centro de Bioeconomía Circular', desc: 'Centro de investigación en bioeconomía circular, con su producción en Apolo.', href: 'https://apolo.unab.edu.co/es/organisations/centro-de-investigaci%C3%B3n-en-bio-econom%C3%ADa-circular/' },
+  ],
+
   lenguas: {
     idiomas: [
       { nombre: 'Inglés', nota: 'Es requisito de grado.' },

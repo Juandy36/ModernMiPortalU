@@ -14,6 +14,7 @@ const TABS = [
   { id: 'lenguas', nombre: 'Lenguas' },
   { id: 'competencias', nombre: 'Competencias digitales' },
   { id: 'internacional', nombre: 'Internacionalización' },
+  { id: 'centros', nombre: 'Centros' },
 ];
 const hash = location.hash.slice(1);
 let tab = TABS.some((t) => t.id === hash) ? hash : 'exito';
@@ -101,9 +102,17 @@ function panelInternacional() {
     <p>${o.pga ? cumple(pga >= o.pga, `PGA mínimo ${num(o.pga.toFixed(1))}; el tuyo es ${num(pga.toFixed(2))}.`) : '<span class="badge badge-ok">Abierto a todos</span>'}</p></article>`).join('')}</div>`;
 }
 
+function panelCentros() {
+  return `<div class="grid grid-cols-1 md:grid-cols-3 gap-6">${A.centros.map((c) => `<article class="card flex flex-col gap-2">
+    <h2 class="text-h3">${MPU.esc(c.nombre)}</h2><p class="text-small">${MPU.esc(c.desc)}</p>
+    <div class="mt-auto pt-2">${c.interno
+    ? `<button type="button" data-tab="${c.interno}" class="btn btn-primary">Ver en esta página</button>`
+    : `<a href="${c.href}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Ir al sitio<span class="sr-only"> de ${MPU.esc(c.nombre)} (abre en otra pestaña)</span></a>`}</div></article>`).join('')}</div>`;
+}
+
 function pintar() {
   pintarTabs();
-  $('panel').innerHTML = { exito: panelExito, lenguas: panelLenguas, competencias: panelCompetencias, internacional: panelInternacional }[tab]();
+  $('panel').innerHTML = { exito: panelExito, lenguas: panelLenguas, competencias: panelCompetencias, internacional: panelInternacional, centros: panelCentros }[tab]();
 }
 
 $('tabs').addEventListener('click', (e) => {
@@ -115,6 +124,8 @@ $('tabs').addEventListener('click', (e) => {
 });
 $('panel').addEventListener('click', (e) => {
   const t = (s) => e.target.closest(s);
+  const ir = t('[data-tab]');
+  if (ir) { tab = ir.dataset.tab; history.replaceState(null, '', '#' + tab); pintar(); return; }
   if (t('[data-accion="mentoria"]')) { MPU.storage.set('apoyo:mentoria', { fecha: MPU.fecha() }); aviso('Solicitaste mentoría. Un mentor de tu facultad te contactará.'); }
   else if (t('[data-accion="cancelar-mentoria"]')) { MPU.storage.set('apoyo:mentoria', null); aviso('Cancelaste tu solicitud de mentoría.'); }
   else if (t('[data-accion="monitoria"]')) { MPU.storage.set('apoyo:monitoria', { fecha: MPU.fecha() }); aviso('Te postulaste como monitor.'); }
