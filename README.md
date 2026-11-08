@@ -5,7 +5,7 @@ Rediseño frontend de MiPortalU (UNAB) para el curso de Diseño de Interfaces. L
 ## Despliegue y ejecución
 La versión de referencia es la de Vercel: https://modernmiportalu.vercel.app/ (se redespliega con cada push a `main`).
 
-- **Backend:** funciones serverless en `api/` (`login`, `register`, `logout`, `me`) con base **Neon Postgres**. Necesita la variable de entorno `DATABASE_URL` (se crea al conectar Neon en Vercel → Storage).
+- **Backend:** funciones serverless en `api/` (`login`, `register`, `logout`, `me`, `perfil`, `password`) con base **Neon Postgres**. Necesita la variable de entorno `DATABASE_URL` (se crea al conectar Neon en Vercel → Storage).
 - **Primer uso:** las tablas y 4 usuarios de prueba (contraseña `Unab2026*`: `jortiz`, `jmartinez`, `drueda`, `estudiante`) se crean solos en la primera petición.
 - **Local:** `vercel link`, `vercel env pull .env.local` y `npm run dev` (usa `vercel dev`, abre http://localhost:3000). Abrir `index.html` directo ya no sirve: las páginas piden sesión a la API.
 - En `login.html` se puede ingresar o crear cuenta (mínimo 8 caracteres, con letras y números). Las contraseñas se guardan con scrypt + sal; la sesión es una cookie `HttpOnly` de 8 horas.
@@ -53,6 +53,13 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 - Foto de perfil (se guarda en el navegador) que se ve en el header y en el carné.
 - «¿Olvidaste tu contraseña?» orienta a Punto U (no hay servidor de correo configurado).
 
+## Seguridad (auditoría)
+- Contraseñas con scrypt + sal; la sesión es una cookie `HttpOnly; Secure; SameSite=Lax` de 8 horas.
+- Política de contraseña única (registro y cambio): mínimo 8 caracteres, mayúscula, minúscula y número, sin nombre, apellido ni usuario.
+- Límite de 5 intentos fallidos de login cada 15 minutos por usuario e IP (respuesta 429).
+- Cabeceras en `vercel.json`: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`; las respuestas de `/api` no se guardan en caché.
+- Pendiente a futuro: Content-Security-Policy (hoy Tailwind por CDN exige permitir scripts en línea).
+
 ## Buscador
 Botón «Buscar» en el header (o tecla `/`) y buscador del inicio: encuentran páginas, trámites y temas (sin importar tildes). El índice vive en `js/components.js` (`SITE_EXTRA`).
 
@@ -60,6 +67,7 @@ Botón «Buscar» en el header (o tecla `/`) y buscador del inicio: encuentran p
 - Navegación: Académico (horario, cursos, calificaciones, cronogramas, grado), Servicios (turnos, becas, solicitudes, pagos) y Bienestar (horas libres, reservas CSU, parqueadero, semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.
 - El naranja `#FFA400` se usa en fondos y bordes. Para texto naranja se usa `unab-text` (`#A35F00`), que cumple contraste 4,5:1 sobre blanco y crema. El verde de estado se oscureció a `#23794A` por la misma razón.
 - Todas las fechas siguen el formato «21 oct 2026».
+- Colores de estado verificados con contraste ≥ 4,5:1: rojo `#C62828`, verde `#23794A`, texto naranja `#A35F00`.
 
 ## Responsivo
 La guía de estilo es para escritorio (1280 px), pero el sitio se adapta desde 320 px:
