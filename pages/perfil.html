@@ -41,15 +41,7 @@
       <!-- Carné UNAB -->
       <section class="card scroll-mt-4" id="carne" aria-labelledby="carne-titulo">
         <h2 id="carne-titulo" class="text-h3 mb-4">Mi carné UNAB</h2>
-        <div class="rounded-xl border-2 border-unab bg-unab-cream p-5 flex items-center gap-4">
-          <span id="carne-iniciales" class="w-20 h-20 shrink-0 rounded-full bg-unab text-ink text-h2 flex items-center justify-center" aria-hidden="true"></span>
-          <div class="min-w-0">
-            <p class="text-small font-bold text-unab-text">UNIVERSIDAD AUTÓNOMA DE BUCARAMANGA</p>
-            <p id="carne-nombre" class="font-bold text-h3 break-words"></p>
-            <p id="carne-programa" class="text-small"></p>
-            <p id="carne-id" class="text-small font-semibold"></p>
-          </div>
-        </div>
+        <div id="carne-vista"></div>
         <p class="text-small mt-3">Carné de ejemplo para el rediseño. No reemplaza el carné oficial.</p>
         <button type="button" id="btn-carne" class="btn btn-secondary mt-4">Descargar carné en PDF</button>
       </section>
@@ -86,6 +78,7 @@
   </main>
 
   <div id="app-footer"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
   <script src="../js/storage.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/pages/perfil.js"></script>
