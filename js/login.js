@@ -22,6 +22,8 @@ function cambiarTab(registro) {
   $('tab-registro').className = 'btn ' + (registro ? 'btn-primary' : 'btn-secondary');
   $('titulo').textContent = registro ? 'Crea tu cuenta' : 'Ingresa a tu portal';
   mostrarError('');
+  $('olvido').hidden = true;
+  $('btn-olvido').setAttribute('aria-expanded', 'false');
   $(registro ? 'r-nombre' : 'l-usuario').focus();
 }
 $('btn-olvido').addEventListener('click', () => {
