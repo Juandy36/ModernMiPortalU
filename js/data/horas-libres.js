@@ -5,13 +5,20 @@ MPU.horasLibres = {
   meta: 42,
 
   // Actividades disponibles (cada una otorga `horas`).
+  // Actividades publicadas en MiPortalU (07-nov-2026). Las horas que otorgan se calculan con la duración.
   actividades: [
-    { codigo: 'K3950', fecha: '2026-11-10', inicio: '14:00', fin: '18:00', modalidad: 'Presencial', nombre: 'Convivir es incluir', lugar: 'Auditorio menor, campus Jardín (foro, música, cortometrajes y cuentería)', horas: 4 },
-    { codigo: 'K4017', fecha: '2026-11-11', inicio: '14:00', fin: '16:00', modalidad: 'Presencial', nombre: 'Miradas que incluyen', lugar: 'Salones D-21 y D-25, campus Jardín', horas: 2 },
-    { codigo: 'K3948', fecha: '2026-11-12', inicio: '14:00', fin: '18:00', modalidad: 'Presencial', nombre: 'Elige estar bien', lugar: 'Entrada bloque D, campus Jardín', horas: 4 },
-    { codigo: 'K6023', fecha: '2026-11-13', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Cómo evitar los errores más comunes', lugar: 'Sesión en línea', horas: 1 },
-    { codigo: 'K6044', fecha: '2026-11-17', inicio: '16:00', fin: '18:00', modalidad: 'Presencial', nombre: 'Tu próxima parada, el inglés', lugar: 'Lugar por confirmar', horas: 2 },
-    { codigo: 'K4961', fecha: '2026-11-19', inicio: '13:00', fin: '20:00', modalidad: 'Presencial', nombre: 'Casa del terror', lugar: 'Biblioteca, campus Jardín', horas: 4 },
+    { codigo: 'K6023', fecha: '2026-11-03', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Cómo evitar los errores más comunes', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6044', fecha: '2026-11-03', inicio: '16:00', fin: '18:00', modalidad: 'Presencial', nombre: 'Tu próxima parada, el inglés', lugar: 'Lugar por confirmar', horas: 2 },
+    { codigo: 'K6046', fecha: '2026-11-04', inicio: '15:00', fin: '19:00', modalidad: 'Presencial', nombre: 'Fitness challenge', lugar: 'Lugar por confirmar', horas: 4 },
+    { codigo: 'K6024', fecha: '2026-11-04', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Territorio diverso', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6025', fecha: '2026-11-05', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Mi Navidad interior: los adornos de mi año', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6026', fecha: '2026-11-09', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'IA: ¿tu mejor aliada o tu mayor competencia en el mundo profesional?', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6029', fecha: '2026-11-11', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Conéctate con SIBU', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6032', fecha: '2026-11-12', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Que el cierre del semestre no te coja por sorpresa', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6036', fecha: '2026-11-17', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: '¿Deuda mala? Ya veremos', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6037', fecha: '2026-11-18', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Historias que transforman', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6039', fecha: '2026-11-25', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Escuchar, comprender y cuidar', lugar: 'Sesión en línea', horas: 1 },
+    { codigo: 'K6040', fecha: '2026-11-26', inicio: '13:00', fin: '14:00', modalidad: 'Virtual', nombre: 'Tu voz construye', lugar: 'Sesión en línea', horas: 1 },
   ],
 
   // Asistencias ya cumplidas en periodos anteriores (ejemplo).

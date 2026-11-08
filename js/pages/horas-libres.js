@@ -44,6 +44,19 @@ function pintarProgreso() {
     : `Llevas el ${r.pct} % del requisito. Te faltan ${horasTxt(r.faltan)} para graduarte.`;
 }
 
+const POR_PAGINA = 6;
+let pagina = 1;
+$('fecha-hoy').textContent = new Date().toLocaleDateString('es-CO', { day: '2-digit', month: 'long', year: 'numeric' });
+
+function pintarPaginacion(total) {
+  const n = Math.max(1, Math.ceil(total / POR_PAGINA));
+  pagina = Math.min(pagina, n);
+  $('paginacion').innerHTML = total <= POR_PAGINA ? '' :
+    `<button type="button" data-pag="${pagina - 1}" class="btn btn-secondary" ${pagina === 1 ? 'disabled' : ''}>« Anterior</button>` +
+    Array.from({ length: n }, (_, i) => `<button type="button" data-pag="${i + 1}" class="btn ${i + 1 === pagina ? 'btn-primary' : 'btn-secondary'}" ${i + 1 === pagina ? 'aria-current="page"' : ''}>${i + 1}</button>`).join('') +
+    `<button type="button" data-pag="${pagina + 1}" class="btn btn-secondary" ${pagina === n ? 'disabled' : ''}>Siguiente »</button>`;
+}
+
 function pintarActividades() {
   const texto = plano($('buscar').value.trim());
   const mod = $('modalidad').value;
@@ -53,8 +66,9 @@ function pintarActividades() {
     (!texto || plano(`${a.nombre} ${a.lugar} ${a.codigo}`).includes(texto)));
 
   $('contador').textContent = `${lista.length} ${lista.length === 1 ? 'actividad' : 'actividades'}`;
+  pintarPaginacion(lista.length);
   $('lista').innerHTML = lista.length
-    ? lista.map((a) => {
+    ? lista.slice((pagina - 1) * POR_PAGINA, pagina * POR_PAGINA).map((a) => {
       const estado = registros.find((r) => r.codigo === a.codigo)?.estado;
       let accion;
       if (estado === 'asistio') {
@@ -163,8 +177,15 @@ $('form-encuesta').addEventListener('submit', (e) => {
   anunciar('¡Muchas gracias por tus comentarios!');
   pintarTodo();
 });
-$('buscar').addEventListener('input', pintarActividades);
-$('modalidad').addEventListener('change', pintarActividades);
-$('limpiar').addEventListener('click', () => { $('buscar').value = ''; $('modalidad').value = ''; pintarActividades(); $('buscar').focus(); });
+$('paginacion').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-pag]');
+  if (!b || b.disabled) return;
+  pagina = Number(b.dataset.pag);
+  pintarActividades();
+  $('actividades-titulo').scrollIntoView({ behavior: 'smooth' });
+});
+$('buscar').addEventListener('input', () => { pagina = 1; pintarActividades(); });
+$('modalidad').addEventListener('change', () => { pagina = 1; pintarActividades(); });
+$('limpiar').addEventListener('click', () => { $('buscar').value = ''; $('modalidad').value = ''; pagina = 1; pintarActividades(); $('buscar').focus(); });
 
 pintarTodo();

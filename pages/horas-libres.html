@@ -43,7 +43,9 @@
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 id="actividades-titulo" class="text-h2">Actividades disponibles</h2>
-          <p id="contador" class="text-small" role="status"></p>
+          <p class="text-small mt-1"><span id="fecha-hoy" class="badge" style="background:#FFF3D6;color:#A35F00;border:1px solid #FFA400"></span>
+            <a href="#como-titulo" class="font-bold text-unab-text underline ml-2">¿Cómo funciona?</a></p>
+          <p id="contador" class="text-small mt-1" role="status"></p>
         </div>
         <div class="flex flex-wrap gap-3 items-end">
           <div>
@@ -62,6 +64,7 @@
         </div>
       </div>
       <div id="lista" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      <nav id="paginacion" class="flex flex-wrap items-center justify-center gap-2" aria-label="Paginación de actividades"></nav>
     </section>
 
     <!-- Historial -->
@@ -74,7 +77,7 @@
     </section>
 
     <!-- Cómo funciona -->
-    <section class="card" aria-labelledby="como-titulo">
+    <section class="card scroll-mt-4" aria-labelledby="como-titulo">
       <h2 id="como-titulo" class="text-h3 mb-3">¿Cómo funciona?</h2>
       <ol class="list-decimal pl-6 space-y-1">
         <li>Explora las actividades: fecha, horario, modalidad y horas que otorgan.</li>
