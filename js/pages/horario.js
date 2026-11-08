@@ -61,8 +61,7 @@ document.getElementById('btn-pdf').addEventListener('click', () => {
     `<table>
       <thead><tr><th>Día</th><th>Hora</th><th>Asignatura</th><th>Salón</th><th>Docente</th></tr></thead>
       <tbody>${filas.join('')}</tbody>
-    </table>
-    <p style="margin-top: 12px; font-size: 13px;">Horas libres entre clases: ${String(horas).replace('.', ',')} h por semana.</p>`
+    </table>`
   );
 });
 

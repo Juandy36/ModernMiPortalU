@@ -25,10 +25,12 @@ body { background: #F4F4F4; color: #333333; font-family: 'Montserrat', 'Segoe UI
 /* Impresión con MPU.imprimir(): solo se ve #zona-impresion */
 @media screen { #zona-impresion { display: none; } }
 @media print {
-  @page { margin: 15mm; }
+  /* margin 0 elimina el encabezado y pie que añade el navegador (fecha, título, URL);
+     el espacio de borde lo da el padding de #zona-impresion */
+  @page { margin: 0; }
   body.imprimiendo { background: #fff; }
   body.imprimiendo > *:not(#zona-impresion) { display: none !important; }
-  #zona-impresion { display: block; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  #zona-impresion { display: block; padding: 15mm; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   #zona-impresion table { width: 100%; border-collapse: collapse; font-size: 13px; }
   #zona-impresion th { background: #FFF3D6; text-align: left; padding: 6px 8px; border: 1px solid #ddd; }
   #zona-impresion td { padding: 6px 8px; border: 1px solid #ddd; }
