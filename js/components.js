@@ -139,9 +139,9 @@ function menuPerfil(u, iniciales) {
         class="flex items-center gap-2 rounded-full pr-2 hover:bg-unab-cream text-left">
         ${avatarHtml(iniciales)}
         <span class="leading-tight hidden 2xl:block whitespace-nowrap max-w-[220px] truncate"><span class="block font-semibold">${MPU.esc(u.nombre || 'Estudiante')}</span><span class="block">${MPU.esc(u.facultad || '')}</span></span>
-        <span aria-hidden="true" class="text-small transition-transform" data-flecha>▾</span>
+        <span aria-hidden="true" class="hidden sm:inline text-small transition-transform" data-flecha>▾</span>
       </button>
-      <ul id="menu-perfil" hidden class="absolute right-0 top-full mt-2 w-72 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-lg p-2 z-50">
+      <ul id="menu-perfil" hidden class="fixed sm:absolute left-2 right-2 sm:left-auto sm:right-0 top-[4.25rem] sm:top-full sm:mt-2 sm:w-72 bg-white rounded-xl shadow-lg p-2 z-50">
         <li class="px-4 py-3 border-b border-surface mb-1">
           <div class="font-bold">${MPU.esc(u.nombre || 'Estudiante')}</div>
           <div class="text-small">${MPU.esc(u.programa || '')} · ${MPU.esc(u.rol || 'Estudiante')}</div>
@@ -192,31 +192,31 @@ function navbar() {
   const links = NAV_LINKS.map(navItem).join('');
   return `
   <header class="bg-white shadow-sm relative z-40">
-    <div class="max-w-page mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+    <div class="max-w-page mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
       <a href="${root}index.html" class="text-h3 text-unab-text">MiPortalU</a>
       <nav class="hidden xl:flex items-center gap-1" aria-label="Principal">${links}</nav>
-      <div class="flex items-center gap-3 text-small">
+      <div class="flex items-center gap-2 sm:gap-3 text-small">
         <div class="relative" data-menu>
           <button type="button" aria-expanded="false" aria-controls="menu-notif" id="btn-notif" aria-label="Notificaciones"
-            class="relative inline-flex items-center px-3 py-2 rounded-md border-2 border-unab hover:bg-unab-cream">
+            class="relative inline-flex items-center px-2.5 sm:px-3 py-2 rounded-md border-2 border-unab hover:bg-unab-cream">
             <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
             <span id="notif-n" hidden class="absolute -top-2 -right-2 min-w-[20px] h-5 px-1 rounded-full bg-danger text-white text-small font-bold flex items-center justify-center" style="background:#B42318"></span>
           </button>
-          <div id="menu-notif" data-panel hidden class="absolute right-0 top-full mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-lg p-2 z-50">
+          <div id="menu-notif" data-panel hidden class="fixed sm:absolute left-2 right-2 sm:left-auto sm:right-0 top-[4.25rem] sm:top-full sm:mt-2 sm:w-80 bg-white rounded-xl shadow-lg p-2 z-50">
             <div class="flex items-center justify-between px-3 py-2"><h2 class="font-bold">Notificaciones</h2>
               <button type="button" id="notif-leer" class="text-small font-bold text-unab-text hover:underline">Marcar como leídas</button></div>
             <ul id="notif-lista" class="max-h-96 overflow-y-auto"></ul>
           </div>
         </div>
         <button type="button" data-buscar aria-label="Buscar en el portal" aria-haspopup="dialog"
-          class="inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
+          class="inline-flex items-center gap-2 px-2.5 sm:px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           <span class="hidden 2xl:inline">Buscar</span>
         </button>
         ${menuPerfil(u, iniciales)}
-        <button id="btn-menu-movil" type="button" aria-expanded="false" aria-controls="menu-movil"
+        <button id="btn-menu-movil" type="button" aria-label="Menú" aria-expanded="false" aria-controls="menu-movil"
           class="xl:hidden inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
-          <span aria-hidden="true" data-icono>☰</span> Menú
+          <span aria-hidden="true" data-icono>☰</span><span class="hidden sm:inline">Menú</span>
         </button>
       </div>
     </div>

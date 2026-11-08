@@ -1,4 +1,4 @@
-const { sql, hashClave, buscarPorUsuario, crearSesion, ruta } = require('./_lib');
+const { sql, hashClave, validarClave, crearSesion, ruta } = require('./_lib');
 
 module.exports = ruta('POST', async (req, res) => {
   const d = req.body || {};
@@ -11,9 +11,8 @@ module.exports = ruta('POST', async (req, res) => {
     return res.status(400).json({ error: 'El usuario debe tener 3 a 30 caracteres (letras, números, . _ -).' });
   }
   if (nombre.length < 3 || nombre.length > 80) return res.status(400).json({ error: 'Escribe tu nombre completo.' });
-  if (clave.length < 8 || !/\d/.test(clave) || !/[a-zA-Z]/.test(clave)) {
-    return res.status(400).json({ error: 'La contraseña debe tener mínimo 8 caracteres, con letras y números.' });
-  }
+  const errorClave = validarClave(clave, nombre, usuario);
+  if (errorClave) return res.status(400).json({ error: errorClave });
 
   const filas = await sql`INSERT INTO usuarios (usuario, clave_hash, nombre, programa)
     VALUES (${usuario}, ${hashClave(clave)}, ${nombre}, ${programa})

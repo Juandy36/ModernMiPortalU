@@ -39,7 +39,7 @@ function pintarAulas() {
     const chips = E.franjas.map((f) => {
       const pasada = fecha < hoy() || (fecha === hoy() && Number(f.slice(0, 2)) + 2 <= hh);
       const ocup = E.ocupada(e, fecha, f);
-      const estilo = pasada ? 'background:#F4F4F4;color:#333;border:1px solid #8C8C8C' : ocup ? 'background:#D64545;color:#fff' : 'background:#23794A;color:#fff';
+      const estilo = pasada ? 'background:#F4F4F4;color:#333;border:1px solid #8C8C8C' : ocup ? 'background:#C62828;color:#fff' : 'background:#23794A;color:#fff';
       const txt = pasada ? 'Finalizada' : ocup ? 'Ocupada' : 'Libre';
       return `<span class="badge" style="${estilo}" title="${txt}"><span class="sr-only">${franjaTxt(f)}: ${txt}. </span><span aria-hidden="true">${f}</span></span>`;
     }).join(' ');

@@ -28,7 +28,7 @@ if (margen > 0) {
 // Tabla de notas. Las definitivas por debajo del mínimo de la beca se resaltan.
 document.getElementById('notas').innerHTML = B.notas
   .map((n) => {
-    const bajo = n.definitiva < B.minimoRequerido;
+    const bajo = n.definitiva !== null && n.definitiva < B.minimoRequerido;
     return `<tr><td>${n.asignatura}</td><td>${MPU.nota(n.corte1)}</td><td>${MPU.nota(n.corte2)}</td><td>${MPU.nota(n.corte3)}</td>
       <td class="font-bold ${bajo ? 'text-danger' : ''}">${MPU.nota(n.definitiva)}</td></tr>`;
   })

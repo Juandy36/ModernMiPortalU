@@ -1,17 +1,25 @@
+// Beca y promedio. Los promedios y las notas salen de los datos de Calificaciones (js/data/cursos.js),
+// que debe cargarse antes: así Becas, Calificaciones y Perfil siempre muestran las mismas cifras.
 window.MPU = window.MPU || {};
-MPU.beca = {
-  minimoRequerido: 3.8,
-  semestreAnterior: 4.0,
-  rendimiento: 82, // porcentaje de rendimiento (dato del sistema académico)
-  notas: [
-    { asignatura: 'Diseño de Interfaces', corte1: 4.2, corte2: 4.0, corte3: 4.1, definitiva: 4.1 },
-    { asignatura: 'Programación Web', corte1: 4.5, corte2: 4.1, corte3: 4.3, definitiva: 4.3 },
-    { asignatura: 'Bases de Datos', corte1: 3.6, corte2: 3.9, corte3: 3.8, definitiva: 3.8 },
-  ],
-};
-// Promedio actual = promedio de las definitivas (sin créditos, porque no los tenemos).
-MPU.beca.promedioActual =
-  Math.round((MPU.beca.notas.reduce((s, n) => s + n.definitiva, 0) / MPU.beca.notas.length) * 10) / 10;
+(function () {
+  const C = MPU.cursos;
+  const r1 = (n) => Math.round(n * 10) / 10;
+  MPU.beca = {
+    minimoRequerido: 3.8,
+    rendimiento: 82, // porcentaje de rendimiento (dato del sistema académico)
+    promedioActual: r1(C.resumen().pga), // promedio acumulado (PGA)
+    semestreAnterior: r1(C.promedioSemestre(C.semestreActual - 1)),
+    // Cursos del periodo actual: cortes calificados y promedio de lo calificado hasta hoy
+    notas: C.lista.filter((c) => c.estado === 'curso').map((c) => {
+      const a = C.avanceCortes(c);
+      return {
+        asignatura: c.nombre,
+        corte1: c.cortes[0], corte2: c.cortes[1], corte3: c.cortes[2],
+        definitiva: a.pesoCalif ? r1(a.acum / a.pesoCalif) : null,
+      };
+    }),
+  };
+})();
 
-// Formato colombiano: coma decimal
-MPU.nota = (n) => n.toFixed(1).replace('.', ',');
+// Formato colombiano: coma decimal (— si aún no hay nota)
+MPU.nota = (n) => (n === null || n === undefined ? '—' : n.toFixed(1).replace('.', ','));

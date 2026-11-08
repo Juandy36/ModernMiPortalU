@@ -14,7 +14,7 @@ tailwind.config = {
         surface: '#F4F4F4',   // fondo claro
         // Solo para estados de clase / solicitudes (verde oscurecido para contraste con blanco)
         ok: '#23794A',
-        danger: '#D64545',
+        danger: '#C62828',
         pending: '#FFA400',
       },
       fontFamily: {

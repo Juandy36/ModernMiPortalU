@@ -2,19 +2,22 @@
 html { scroll-behavior: smooth; }
 /* El atributo hidden siempre oculta, aunque el elemento tenga clases de display de Tailwind (flex, block…) */
 [hidden] { display: none !important; }
+/* Los hijos de una grilla pueden encogerse: así una tabla ancha se desplaza dentro de su tarjeta y no ensancha la página */
+.grid > * { min-width: 0; }
 body { background: #F4F4F4; color: #333333; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; }
 :focus-visible { outline: 3px solid #E58E00; outline-offset: 2px; }
 
 /* Insignias de estado (verde, rojo y naranja solo para estados) */
 .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 14px; font-weight: 600; color: #fff; }
 .badge-ok { background: #23794A; }
-.badge-danger { background: #D64545; }
+.badge-danger { background: #C62828; }
 .badge-pending { background: #FFA400; color: #333; }
 
 /* Responsivo. La guía de estilo es para escritorio (1280 px); en pantallas chicas se reducen
    los títulos y las tablas se desplazan de lado dentro de su tarjeta (envoltorio .tabla-scroll
    que agrega components.js). "body" sube la especificidad sobre las clases de Tailwind. */
-.tabla-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* position: relative hace que los textos .sr-only (absolutos) de las celdas queden recortados aquí y no ensanchen la página */
+.tabla-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative; }
 .table td:first-child, .table .badge { white-space: nowrap; }
 @media (max-width: 767px) {
   body .text-h1 { font-size: 30px; }
