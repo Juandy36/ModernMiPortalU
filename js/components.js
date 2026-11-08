@@ -11,6 +11,7 @@ const NAV_LINKS = [
       { id: 'calificaciones', label: 'Calificaciones', href: 'pages/calificaciones.html' },
       { id: 'cronogramas', label: 'Cronogramas académicos', href: 'pages/cronogramas.html' },
       { id: 'syllabus', label: 'Syllabus', href: 'pages/syllabus.html' },
+      { id: 'investigacion', label: 'Investigación', href: 'pages/investigacion.html' },
       { id: 'apoyo', label: 'Apoyo académico', href: 'pages/apoyo.html' },
       { id: 'grado', label: 'Mi grado', href: 'pages/grado.html' },
     ],
@@ -70,6 +71,7 @@ const SITE_EXTRA = [
   ['Cursos de inglés y otros idiomas', 'pages/apoyo.html#lenguas', 'ingles frances portugues aleman lenguas toefl ielts club de conversacion'],
   ['Competencias digitales (insignia)', 'pages/apoyo.html#competencias', 'competencias digitales insignia digcomp curso'],
   ['Intercambio e internacionalización', 'pages/apoyo.html#internacional', 'intercambio internacionalizacion delfin rotaciones movilidad exterior'],
+  ['Investigación: grupos, convocatorias y Apolo', 'pages/investigacion.html', 'investigacion grupos convocatorias apolo investigandoando transferencia de conocimiento'],
   ['Estado de clases de hoy', 'pages/horario.html', 'horario clases docente salon hoy'],
 ];
 
@@ -111,6 +113,21 @@ function menuMovil() {
     <ul class="max-w-page mx-auto px-2 py-2">${items}</ul></nav>`;
 }
 
+// Avatar del header: foto del perfil si existe; si no, las iniciales.
+function avatarHtml(iniciales) {
+  const foto = MPU.storage.get('perfil:foto', null);
+  return foto
+    ? `<img data-avatar src="${foto}" alt="" class="w-9 h-9 rounded-full object-cover border-2 border-unab">`
+    : `<span data-avatar class="w-9 h-9 rounded-full bg-unab text-ink font-bold flex items-center justify-center" aria-hidden="true">${iniciales}</span>`;
+}
+// La página de perfil lo llama al cambiar la foto.
+MPU.refrescarAvatar = function () {
+  const actual = document.querySelector('[data-avatar]');
+  if (!actual) return;
+  const n = (MPU.usuario && MPU.usuario.nombre) || 'E';
+  actual.outerHTML = avatarHtml(n.split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join('').toUpperCase());
+};
+
 // Menú del usuario (clic en las iniciales): perfil, carné, contraseña, trámites y accesos UNAB.
 function menuPerfil(u, iniciales) {
   const item = (href, texto, externo) => `<li><a href="${externo ? href : root + href}"${externo ? ' target="_blank" rel="noopener noreferrer"' : ''}
@@ -120,7 +137,7 @@ function menuPerfil(u, iniciales) {
     <div class="relative" data-menu>
       <button type="button" aria-expanded="false" aria-controls="menu-perfil" aria-label="Menú de perfil de ${MPU.esc(u.nombre || 'Estudiante')}"
         class="flex items-center gap-2 rounded-full pr-2 hover:bg-unab-cream text-left">
-        <span class="w-9 h-9 rounded-full bg-unab text-ink font-bold flex items-center justify-center" aria-hidden="true">${iniciales}</span>
+        ${avatarHtml(iniciales)}
         <span class="leading-tight hidden 2xl:block whitespace-nowrap max-w-[220px] truncate"><span class="block font-semibold">${MPU.esc(u.nombre || 'Estudiante')}</span><span class="block">${MPU.esc(u.facultad || '')}</span></span>
         <span aria-hidden="true" class="text-small transition-transform" data-flecha>▾</span>
       </button>
@@ -179,6 +196,18 @@ function navbar() {
       <a href="${root}index.html" class="text-h3 text-unab-text">MiPortalU</a>
       <nav class="hidden xl:flex items-center gap-1" aria-label="Principal">${links}</nav>
       <div class="flex items-center gap-3 text-small">
+        <div class="relative" data-menu>
+          <button type="button" aria-expanded="false" aria-controls="menu-notif" id="btn-notif" aria-label="Notificaciones"
+            class="relative inline-flex items-center px-3 py-2 rounded-md border-2 border-unab hover:bg-unab-cream">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+            <span id="notif-n" hidden class="absolute -top-2 -right-2 min-w-[20px] h-5 px-1 rounded-full bg-danger text-white text-small font-bold flex items-center justify-center" style="background:#B42318"></span>
+          </button>
+          <div id="menu-notif" data-panel hidden class="absolute right-0 top-full mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white rounded-xl shadow-lg p-2 z-50">
+            <div class="flex items-center justify-between px-3 py-2"><h2 class="font-bold">Notificaciones</h2>
+              <button type="button" id="notif-leer" class="text-small font-bold text-unab-text hover:underline">Marcar como leídas</button></div>
+            <ul id="notif-lista" class="max-h-96 overflow-y-auto"></ul>
+          </div>
+        </div>
         <button type="button" data-buscar aria-label="Buscar en el portal" aria-haspopup="dialog"
           class="inline-flex items-center gap-2 px-3 py-2 rounded-md border-2 border-unab font-bold text-body hover:bg-unab-cream">
           <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -224,8 +253,9 @@ const menus = [...document.querySelectorAll('[data-menu]')];
 function abrirMenu(menu, abrir) {
   const btn = menu.querySelector('button');
   btn.setAttribute('aria-expanded', String(abrir));
-  menu.querySelector('ul').hidden = !abrir;
-  menu.querySelector('[data-flecha]').style.transform = abrir ? 'rotate(180deg)' : '';
+  menu.querySelector('[data-panel], ul').hidden = !abrir;
+  const flecha = menu.querySelector('[data-flecha]');
+  if (flecha) flecha.style.transform = abrir ? 'rotate(180deg)' : '';
 }
 menus.forEach((menu) => {
   menu.querySelector('button').addEventListener('click', () => {
@@ -296,3 +326,95 @@ document.getElementById('busq-cerrar').addEventListener('click', () => dlgBusq.c
 document.addEventListener('keydown', (e) => {
   if (e.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName) && !dlgBusq.open) { e.preventDefault(); abrirBusqueda(); }
 });
+
+// ===== Notificaciones =====
+// Se calculan con los datos de ejemplo y el estado guardado. Los datos se cargan solo si la página no los trae.
+const NOTIF_DATOS = [['cursos', 'cursos.js'], ['pagos', 'pagos.js'], ['horasLibres', 'horas-libres.js'], ['cronogramas', 'cronogramas.js']];
+function cargarScript(src) {
+  return new Promise((ok) => {
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = ok;
+    s.onerror = ok; // si falla, solo se omiten esas notificaciones
+    document.head.appendChild(s);
+  });
+}
+const hoyLocal = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
+const diasHasta = (iso) => Math.round((new Date(iso + 'T00:00:00') - new Date(hoyLocal() + 'T00:00:00')) / 86400000);
+const fechaCorta = (iso) => MPU.fecha(new Date(iso + 'T00:00:00'));
+
+MPU.calcularNotificaciones = function () {
+  const n = [];
+  if (MPU.pagos) {
+    const pagados = MPU.storage.get('pagos:pagados', []).map((p) => p.id);
+    MPU.pagos.conceptos.filter((c) => !pagados.includes(c.id)).forEach((c) => {
+      const d = diasHasta(c.vence);
+      if (d < 0) n.push({ id: `pago-vencido:${c.id}`, titulo: `Pago vencido: ${c.concepto}`, detalle: `Venció el ${fechaCorta(c.vence)}`, href: 'pages/pagos.html', urgente: true });
+      else if (d <= 14) n.push({ id: `pago:${c.id}`, titulo: `Vence pronto: ${c.concepto}`, detalle: d === 0 ? 'Vence hoy' : `Vence en ${d} ${d === 1 ? 'día' : 'días'} (${fechaCorta(c.vence)})`, href: 'pages/pagos.html', urgente: d <= 3 });
+    });
+  }
+  if (MPU.cursos) {
+    if (MPU.storage.get('cursos:proyeccion', null) === null) {
+      n.push({ id: 'proyeccion:' + MPU.cursos.periodoSiguiente, titulo: 'Proyecta tu próximo periodo', detalle: `Aún no guardas tu proyección del periodo ${MPU.cursos.periodoSiguiente}`, href: 'pages/cursos.html#proyeccion' });
+    }
+    MPU.cursos.lista.filter((c) => c.estado === 'curso' && c.cortes).forEach((c) => {
+      const a = MPU.cursos.avanceCortes(c);
+      if (a.necesita !== null && a.necesita > 3.5 && a.necesita <= 5) {
+        n.push({ id: `riesgo:${c.codigo}:${a.pesoCalif}`, titulo: `${c.nombre}: ponte al día`, detalle: `Necesitas ${String(a.necesita.toFixed(1)).replace('.', ',')} en lo que resta para aprobar`, href: 'pages/calificaciones.html', urgente: true });
+      }
+    });
+  }
+  if (MPU.horasLibres) {
+    const r = MPU.horasLibres.resumen();
+    if (r.faltan > 0) {
+      const reg = MPU.horasLibres.registros().map((x) => x.codigo);
+      MPU.horasLibres.actividades.filter((a) => !reg.includes(a.codigo) && diasHasta(a.fecha) >= 0 && diasHasta(a.fecha) <= 2).forEach((a) => {
+        n.push({ id: `hl:${a.codigo}`, titulo: `Horas libres: ${a.nombre}`, detalle: `${diasHasta(a.fecha) === 0 ? 'Hoy' : diasHasta(a.fecha) === 1 ? 'Mañana' : fechaCorta(a.fecha)} · +${a.horas} h`, href: 'pages/horas-libres.html' });
+      });
+    }
+  }
+  if (MPU.cronogramas) {
+    MPU.cronogramas.eventos.filter((e) => e.nivel === 'Pregrado profesional' && diasHasta(e.fin) >= 0 && diasHasta(e.fin) <= 7 && diasHasta(e.inicio) <= 0).forEach((e) => {
+      n.push({ id: `cron:${e.evento}`, titulo: e.evento, detalle: `Termina el ${fechaCorta(e.fin)}`, href: 'pages/cronogramas.html' });
+    });
+  }
+  MPU.storage.get('solicitudes:mias', []).filter((s) => s.estado === 'En trámite').forEach((s) => {
+    n.push({ id: `sol:${s.id}`, titulo: `Solicitud en trámite: ${s.servicio}`, detalle: s.radicado, href: 'pages/solicitudes.html' });
+  });
+  MPU.storage.get('ayuda:citas', []).filter((c) => diasHasta(c.fecha) >= 0 && diasHasta(c.fecha) <= 1).forEach((c) => {
+    n.push({ id: `cita:${c.id}`, titulo: `Cita en Punto U (${c.sede})`, detalle: `${diasHasta(c.fecha) === 0 ? 'Hoy' : 'Mañana'} a las ${c.hora}`, href: 'pages/ayuda.html', urgente: true });
+  });
+  return n;
+};
+
+async function iniciarNotificaciones() {
+  const base = root + 'js/data/';
+  await Promise.all(NOTIF_DATOS.filter(([k]) => !MPU[k]).map(([, f]) => cargarScript(base + f)));
+  // pagos.js, horas-libres.js y cronogramas.js necesitan MPU.storage (ya cargado) y cursos.js nada más
+  const leidas = () => MPU.storage.get('notif:leidas', []);
+  function pintar() {
+    const todas = MPU.calcularNotificaciones();
+    const sinLeer = todas.filter((x) => !leidas().includes(x.id));
+    const cont = document.getElementById('notif-n');
+    cont.hidden = sinLeer.length === 0;
+    cont.textContent = sinLeer.length;
+    document.getElementById('btn-notif').setAttribute('aria-label', sinLeer.length ? `Notificaciones, ${sinLeer.length} sin leer` : 'Notificaciones');
+    document.getElementById('notif-lista').innerHTML = todas.length
+      ? todas.sort((a, b) => (leidas().includes(a.id) - leidas().includes(b.id)) || (b.urgente === true) - (a.urgente === true)).map((x) => {
+        const leida = leidas().includes(x.id);
+        return `<li><a href="${root}${x.href}" data-notif="${MPU.esc(x.id)}" class="block px-3 py-2 rounded-md hover:bg-unab-cream ${leida ? 'opacity-70' : ''}">
+          <span class="${leida ? '' : 'font-bold'}">${x.urgente && !leida ? '⚠ ' : ''}${MPU.esc(x.titulo)}</span><span class="block text-small">${MPU.esc(x.detalle)}</span></a></li>`;
+      }).join('')
+      : '<li class="px-3 py-4 text-center text-small">No tienes notificaciones.</li>';
+  }
+  document.getElementById('notif-leer').addEventListener('click', () => {
+    MPU.storage.set('notif:leidas', [...new Set([...leidas(), ...MPU.calcularNotificaciones().map((x) => x.id)])]);
+    pintar();
+  });
+  document.getElementById('notif-lista').addEventListener('click', (e) => {
+    const a = e.target.closest('[data-notif]');
+    if (a) MPU.storage.set('notif:leidas', [...new Set([...leidas(), a.dataset.notif])]);
+  });
+  pintar();
+}
+iniciarNotificaciones();

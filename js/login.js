@@ -24,6 +24,11 @@ function cambiarTab(registro) {
   mostrarError('');
   $(registro ? 'r-nombre' : 'l-usuario').focus();
 }
+$('btn-olvido').addEventListener('click', () => {
+  const abrir = $('olvido').hidden;
+  $('olvido').hidden = !abrir;
+  $('btn-olvido').setAttribute('aria-expanded', String(abrir));
+});
 $('tab-login').addEventListener('click', () => cambiarTab(false));
 $('tab-registro').addEventListener('click', () => cambiarTab(true));
 

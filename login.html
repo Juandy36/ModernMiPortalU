@@ -24,6 +24,13 @@
 
       <p id="error" role="alert" class="hidden mb-4 px-3 py-2 rounded-md font-semibold" style="background:#FDECEA;color:#B42318;"></p>
 
+      <div id="olvido" hidden class="mb-4 px-3 py-3 rounded-md" style="background:#FFF3D6;" role="status">
+        <p class="font-bold">¿Olvidaste tu contraseña?</p>
+        <p class="text-small mt-1">Por seguridad, el restablecimiento lo hace el equipo de Punto U: escribe a
+          <a class="font-bold underline" href="mailto:agentedeservicios@unab.edu.co">agentedeservicios@unab.edu.co</a>
+          o llama al 607 643 6111 ext. 1751 indicando tu usuario.</p>
+      </div>
+
       <form id="form-login" role="tabpanel" aria-labelledby="tab-login" class="space-y-4" novalidate>
         <div>
           <label class="label" for="l-usuario">Usuario</label>
@@ -34,6 +41,7 @@
           <input id="l-clave" name="clave" type="password" class="field" autocomplete="current-password" required>
         </div>
         <button type="submit" class="btn btn-primary w-full">Ingresar</button>
+        <button type="button" id="btn-olvido" aria-expanded="false" aria-controls="olvido" class="block mx-auto font-bold text-unab-text underline">¿Olvidaste tu contraseña?</button>
       </form>
 
       <form id="form-registro" role="tabpanel" aria-labelledby="tab-registro" class="space-y-4" hidden novalidate>

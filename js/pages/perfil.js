@@ -23,6 +23,7 @@ async function api(url, datos) {
 // Carné horizontal (misma distribución del carné real). Todo con estilos en línea para que
 // salga igual en pantalla y al imprimir; las medidas escalan con el ancho del carné (cqw).
 function carneHtml() {
+  const foto = MPU.storage.get('perfil:foto', null);
   const id = 'U' + String(u.id).padStart(8, '0'); // identificador de ejemplo
   const palabras = u.nombre.trim().toUpperCase().split(/\s+/);
   const mitad = Math.ceil(palabras.length / 2);
@@ -47,7 +48,7 @@ function carneHtml() {
           <div style="font-size:4cqw;font-weight:600;">Universidad</div>
           <div style="font-size:10cqw;font-weight:800;letter-spacing:-.02em;">unab</div>
         </div>
-        <div style="aspect-ratio:1/1;width:88%;background:#FFF3D6;display:flex;align-items:center;justify-content:center;font-size:10cqw;font-weight:800;color:#A35F00;">${MPU.esc(iniciales)}</div>
+        ${foto ? `<img src="${foto}" alt="" style="aspect-ratio:1/1;width:88%;object-fit:cover;">` : `<div style="aspect-ratio:1/1;width:88%;background:#FFF3D6;display:flex;align-items:center;justify-content:center;font-size:10cqw;font-weight:800;color:#A35F00;">${MPU.esc(iniciales)}</div>`}
       </div>
       <div style="flex:1;position:relative;padding:5cqw 4cqw 4cqw 5cqw;min-width:0;">
         <div style="line-height:1.25;">
@@ -79,6 +80,45 @@ function pintarDatos() {
   $('carne-vista').innerHTML = carneHtml();
 }
 
+// --- Foto de perfil: se recorta a cuadrado, se reduce a 256 px y se guarda en este navegador ---
+function pintarFoto() {
+  const foto = MPU.storage.get('perfil:foto', null);
+  const ini = u.nombre.split(/\s+/).filter(Boolean).slice(0, 2).map((p) => p[0]).join('').toUpperCase();
+  $('foto-vista').innerHTML = foto ? `<img src="${foto}" alt="" class="w-full h-full object-cover">` : MPU.esc(ini);
+  $('foto-quitar').classList.toggle('hidden', !foto);
+  $('carne-vista').innerHTML = carneHtml();
+  MPU.refrescarAvatar();
+}
+$('foto-input').addEventListener('change', (e) => {
+  const f = e.target.files[0];
+  if (!f) return;
+  if (!/^image\/(png|jpeg|webp)$/.test(f.type)) return aviso('Elige una imagen JPG, PNG o WebP.', false);
+  if (f.size > 5 * 1024 * 1024) return aviso('La imagen pesa más de 5 MB. Elige una más liviana.', false);
+  const lector = new FileReader();
+  lector.onload = () => {
+    const img = new Image();
+    img.onload = () => {
+      const lado = Math.min(img.width, img.height);
+      const c = document.createElement('canvas');
+      c.width = c.height = 256;
+      c.getContext('2d').drawImage(img, (img.width - lado) / 2, (img.height - lado) / 2, lado, lado, 0, 0, 256, 256);
+      if (!MPU.storage.set('perfil:foto', c.toDataURL('image/jpeg', 0.85))) return aviso('No se pudo guardar la foto en este navegador.', false);
+      pintarFoto();
+      aviso('Foto actualizada.');
+    };
+    img.onerror = () => aviso('No se pudo leer esa imagen.', false);
+    img.src = lector.result;
+  };
+  lector.readAsDataURL(f);
+  e.target.value = '';
+});
+$('foto-quitar').addEventListener('click', () => {
+  MPU.storage.set('perfil:foto', null);
+  pintarFoto();
+  aviso('Foto eliminada.');
+});
+
+
 $('form-datos').addEventListener('submit', async (e) => {
   e.preventDefault();
   const boton = e.target.querySelector('button');
@@ -86,6 +126,7 @@ $('form-datos').addEventListener('submit', async (e) => {
   try {
     Object.assign(u, await api('/api/perfil', { nombre: $('p-nombre').value, programa: $('p-programa').value }));
     pintarDatos();
+    pintarFoto();
     aviso('Datos actualizados. El menú superior se actualizará al recargar la página.');
   } catch (err) { aviso(err.message, false); }
   boton.disabled = false;
@@ -131,3 +172,4 @@ $('tramites-lista').innerHTML = tramites.map(([nombre, n, unidad, href]) => `
   </li>`).join('');
 
 pintarDatos();
+pintarFoto();

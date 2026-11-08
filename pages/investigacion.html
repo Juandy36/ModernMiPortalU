@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Investigación · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="investigacion">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Investigación</h1>
+      <p class="mt-2">Grupos, convocatorias y repositorios para participar en la investigación de la UNAB.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <article class="card flex flex-col gap-2">
+        <h2 class="text-h3">Semilleros de investigación</h2>
+        <p class="text-small">Inscríbete a un semillero de tu facultad según los cupos disponibles.</p>
+        <div class="mt-auto pt-2"><a href="semilleros.html" class="btn btn-primary">Ver semilleros</a></div>
+      </article>
+      <article class="card flex flex-col gap-2">
+        <h2 class="text-h3">Grupos de investigación</h2>
+        <p class="text-small">Conoce los grupos y sus líneas de trabajo.</p>
+        <div class="mt-auto pt-2"><a href="https://unab.edu.co/grupos-de-investigacion/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Ir al sitio<span class="sr-only"> de grupos de investigación (abre en otra pestaña)</span></a></div>
+      </article>
+      <article class="card flex flex-col gap-2">
+        <h2 class="text-h3">Convocatorias</h2>
+        <p class="text-small">Proyectos y convocatorias abiertas para estudiantes y docentes.</p>
+        <div class="mt-auto pt-2"><a href="https://unab.edu.co/proyectos/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Ver convocatorias<span class="sr-only"> (abre en otra pestaña)</span></a></div>
+      </article>
+      <article class="card flex flex-col gap-2">
+        <h2 class="text-h3">Transferencia de conocimiento</h2>
+        <p class="text-small">Cómo la investigación de la UNAB llega a la sociedad y a las empresas.</p>
+        <div class="mt-auto pt-2"><a href="https://unab.edu.co/transferencia-de-conocimiento/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Conocer más<span class="sr-only"> sobre transferencia de conocimiento (abre en otra pestaña)</span></a></div>
+      </article>
+      <article class="card flex flex-col gap-2">
+        <h2 class="text-h3">InvestigandoAndo</h2>
+        <p class="text-small">Programa de fomento para iniciarte en la investigación.</p>
+        <div class="mt-auto pt-2"><a href="https://unab.edu.co/fomento-para-la-investigacion/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Conocer el programa<span class="sr-only"> InvestigandoAndo (abre en otra pestaña)</span></a></div>
+      </article>
+      <article class="card flex flex-col gap-2">
+        <h2 class="text-h3">Apolo</h2>
+        <p class="text-small">Repositorio institucional con la producción investigativa de la universidad.</p>
+        <div class="mt-auto pt-2"><a href="https://apolo.unab.edu.co" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Ir a Apolo<span class="sr-only"> (abre en otra pestaña)</span></a></div>
+      </article>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/components.js"></script>
+</body>
+</html>

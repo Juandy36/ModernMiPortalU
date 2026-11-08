@@ -46,6 +46,12 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | — | `pages/bienestar.html` | Listo (Potencia U, Crea U, Activa U y Elecciones UNAB) |
 | — | `pages/apoyo.html` | Listo (Éxito Estudiantil, Lenguas, Competencias digitales, Internacionalización) |
 | — | `pages/syllabus.html` | Listo (programas con filtros y plan de estudios) |
+| — | `pages/investigacion.html` | Listo (semilleros, grupos, convocatorias y Apolo) |
+
+## Cuenta
+- Notificaciones (campana del header): pagos por vencer, proyección sin guardar, cursos en riesgo, actividades de horas libres próximas, solicitudes en trámite y citas.
+- Foto de perfil (se guarda en el navegador) que se ve en el header y en el carné.
+- «¿Olvidaste tu contraseña?» orienta a Punto U (no hay servidor de correo configurado).
 
 ## Buscador
 Botón «Buscar» en el header (o tecla `/`) y buscador del inicio: encuentran páginas, trámites y temas (sin importar tildes). El índice vive en `js/components.js` (`SITE_EXTRA`).

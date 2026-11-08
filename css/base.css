@@ -1,5 +1,7 @@
 /* Estilos que Tailwind no cubre de forma cómoda. El resto se hace con clases utilitarias. */
 html { scroll-behavior: smooth; }
+/* El atributo hidden siempre oculta, aunque el elemento tenga clases de display de Tailwind (flex, block…) */
+[hidden] { display: none !important; }
 body { background: #F4F4F4; color: #333333; font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; }
 :focus-visible { outline: 3px solid #E58E00; outline-offset: 2px; }
 
