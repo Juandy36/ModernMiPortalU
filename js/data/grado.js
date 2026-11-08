@@ -25,7 +25,7 @@ MPU.grado = {
       { id: 'hl', nombre: 'Horas libres', avance: aHl, estado: estado(aHl),
         detalle: `${hl.cumplidas} de ${hl.meta} horas`, href: 'horas-libres.html' },
       { id: 'ingles', nombre: 'Inglés (requisito de grado)', avance: aIng, estado: estado(aIng),
-        detalle: 'Inglés I, II y III aprobados; falta certificar el nivel requerido (dato de ejemplo)', href: 'cursos.html' },
+        detalle: 'Inglés I, II y III aprobados; falta certificar el nivel requerido (dato de ejemplo)', href: 'apoyo.html#lenguas' },
       { id: 'paz', nombre: 'Paz y salvo financiero', avance: aPaz, estado: estado(aPaz),
         detalle: sinPagar === 0 ? 'Estás al día con tus pagos' : `Tienes ${sinPagar} ${sinPagar === 1 ? 'pago pendiente' : 'pagos pendientes'}`, href: 'pagos.html' },
       { id: 'proyecto', nombre: 'Proyecto de grado', avance: aProy, estado: estado(aProy),

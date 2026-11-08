@@ -10,6 +10,8 @@ const NAV_LINKS = [
       { id: 'cursos', label: 'Cursos y proyección', href: 'pages/cursos.html' },
       { id: 'calificaciones', label: 'Calificaciones', href: 'pages/calificaciones.html' },
       { id: 'cronogramas', label: 'Cronogramas académicos', href: 'pages/cronogramas.html' },
+      { id: 'syllabus', label: 'Syllabus', href: 'pages/syllabus.html' },
+      { id: 'apoyo', label: 'Apoyo académico', href: 'pages/apoyo.html' },
       { id: 'grado', label: 'Mi grado', href: 'pages/grado.html' },
     ],
   },
@@ -63,6 +65,11 @@ const SITE_EXTRA = [
   ['Crea U: cultura (teatro, danzas, guitarra)', 'pages/bienestar.html', 'crea u cultura cursos teatro danzas guitarra origami tamboras'],
   ['Activa U: deportes y acondicionamiento físico', 'pages/bienestar.html', 'activa u deportes baloncesto padel futbol tenis taekwondo ajedrez gimnasio'],
   ['Elecciones UNAB (4 horas libres)', 'pages/bienestar.html', 'elecciones unab votar voto candidatos representantes'],
+  ['Syllabus de los programas', 'pages/syllabus.html', 'syllabus programa cursos contenido guia de catedra socio humanisticos'],
+  ['Mentoría y monitorías (Éxito Estudiantil)', 'pages/apoyo.html#exito', 'exito estudiantil meta mentoria monitor monitoria talleres banco de parciales'],
+  ['Cursos de inglés y otros idiomas', 'pages/apoyo.html#lenguas', 'ingles frances portugues aleman lenguas toefl ielts club de conversacion'],
+  ['Competencias digitales (insignia)', 'pages/apoyo.html#competencias', 'competencias digitales insignia digcomp curso'],
+  ['Intercambio e internacionalización', 'pages/apoyo.html#internacional', 'intercambio internacionalizacion delfin rotaciones movilidad exterior'],
   ['Estado de clases de hoy', 'pages/horario.html', 'horario clases docente salon hoy'],
 ];
 

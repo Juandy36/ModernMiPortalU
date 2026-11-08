@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Syllabus · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="syllabus">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Syllabus</h1>
+      <p class="mt-2">Consulta el contenido de los cursos de cada programa y de Estudios Socio Humanísticos.</p>
+    </div>
+
+    <div class="flex flex-wrap gap-2" role="tablist" aria-label="Tipo de syllabus">
+      <button type="button" role="tab" id="tab-programa" data-tab="programa" aria-selected="true" class="btn btn-primary">Syllabus por programa</button>
+      <button type="button" role="tab" id="tab-socio" data-tab="socio" aria-selected="false" class="btn btn-secondary">Estudios Socio Humanísticos</button>
+    </div>
+
+    <!-- Por programa -->
+    <section id="vista-programa" class="card space-y-4" aria-labelledby="tab-programa">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div><label class="label" for="f-facultad">Facultad</label><select id="f-facultad" class="field"><option value="">Todas</option></select></div>
+        <div><label class="label" for="f-nivel">Nivel</label><select id="f-nivel" class="field"><option value="">Todos</option></select></div>
+        <div><label class="label" for="f-buscar">Programa</label><input id="f-buscar" type="search" class="field" placeholder="Nombre del programa" autocomplete="off"></div>
+      </div>
+      <p id="contador" class="text-small" role="status"></p>
+      <table class="table">
+        <thead><tr><th>Facultad</th><th>Nivel</th><th>Modalidad</th><th>Programa</th><th><span class="sr-only">Acción</span></th></tr></thead>
+        <tbody id="programas"></tbody>
+      </table>
+      <p id="vacio" class="hidden py-6 text-center">No hay programas con esos filtros.</p>
+      <div id="detalle" class="hidden rounded-lg border border-surface p-4" tabindex="-1"></div>
+    </section>
+
+    <!-- Socio humanísticos -->
+    <section id="vista-socio" class="card hidden" aria-labelledby="tab-socio">
+      <h2 class="text-h3 mb-4">Cursos de Estudios Socio Humanísticos</h2>
+      <table class="table">
+        <thead><tr><th>Curso</th><th>Créditos</th></tr></thead>
+        <tbody id="socio"></tbody>
+      </table>
+    </section>
+
+    <p class="text-small">El syllabus oficial completo está en
+      <a href="https://miportalu.unab.edu.co/modulos/calidad/guias2.php" target="_blank" rel="noopener noreferrer" class="font-bold text-unab-text underline">MiPortalU<span class="sr-only"> (abre en otra pestaña)</span></a>.</p>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/cursos.js"></script>
+  <script src="../js/data/apoyo.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/syllabus.js"></script>
+</body>
+</html>

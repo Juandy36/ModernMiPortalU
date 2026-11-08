@@ -44,6 +44,8 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | — | `pages/espacios.html` | Listo (disponibilidad de aulas y reserva de equipos) |
 | — | `pages/ayuda.html` | Listo (preguntas frecuentes, canales y citas de Punto U) |
 | — | `pages/bienestar.html` | Listo (Potencia U, Crea U, Activa U y Elecciones UNAB) |
+| — | `pages/apoyo.html` | Listo (Éxito Estudiantil, Lenguas, Competencias digitales, Internacionalización) |
+| — | `pages/syllabus.html` | Listo (programas con filtros y plan de estudios) |
 
 ## Buscador
 Botón «Buscar» en el header (o tecla `/`) y buscador del inicio: encuentran páginas, trámites y temas (sin importar tildes). El índice vive en `js/components.js` (`SITE_EXTRA`).

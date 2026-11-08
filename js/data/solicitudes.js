@@ -64,9 +64,9 @@ MPU.solicitudes = {
     {
       id: 'tramites', nombre: 'Trámites', grupos: [
         { nombre: 'Gestión', servicios: [
-          { nombre: 'Competencias Digitales', desc: 'Consulta el estado de tus competencias digitales y la guía de cátedra.' },
+          { nombre: 'Competencias Digitales', href: 'apoyo.html#competencias', desc: 'Consulta el estado de tus competencias digitales y la guía de cátedra.' },
           { nombre: 'Consultar turnos de inscripción', href: 'turnos.html', desc: 'Consulta la fecha y hora asignadas para inscribir tus cursos.' },
-          { nombre: 'Cursos de inglés', desc: 'Consulta la información relacionada con tus cursos de inglés.' },
+          { nombre: 'Cursos de inglés', href: 'apoyo.html#lenguas', desc: 'Consulta la información relacionada con tus cursos de inglés.' },
           { nombre: 'Cursos inscritos', href: 'cursos.html', desc: 'Consulta los cursos inscritos en tu periodo, con duración y fechas.' },
           { nombre: 'Proyección de cursos', href: 'cursos.html#proyeccion', desc: 'Consulta tu avance curricular y proyecta la inscripción del próximo periodo.' },
           { nombre: 'Renovación créditos Icetex', desc: 'Gestiona la renovación de tu crédito educativo con Icetex.' },
