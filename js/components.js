@@ -14,6 +14,7 @@ const NAV_LINKS = [
   },
   {
     id: 'bienestar', label: 'Bienestar', items: [
+      { id: 'horaslibres', label: 'Horas libres', href: 'pages/horas-libres.html' },
       { id: 'reservas', label: 'Reservas CSU', href: 'pages/reservas-csu.html' },
       { id: 'parqueadero', label: 'Parqueadero', href: 'pages/parqueadero.html' },
       { id: 'semilleros', label: 'Semilleros', href: 'pages/semilleros.html' },

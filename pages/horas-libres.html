@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Horas libres · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="horaslibres">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Horas libres</h1>
+      <p class="mt-2">Requisito de grado: suma 42 horas asistiendo a las actividades de Bienestar Universitario.</p>
+    </div>
+
+    <!-- Progreso -->
+    <section class="card" aria-labelledby="progreso-titulo">
+      <h2 id="progreso-titulo" class="text-h3 mb-4">Mi progreso</h2>
+      <div class="grid grid-cols-3 gap-4 text-center mb-4">
+        <div><div id="cumplidas" class="text-h2 text-unab-text"></div><div class="text-small">Cumplidas</div></div>
+        <div><div id="meta" class="text-h2"></div><div class="text-small">Meta</div></div>
+        <div><div id="faltan" class="text-h2"></div><div class="text-small">Faltan</div></div>
+      </div>
+      <div id="barra" role="progressbar" aria-label="Avance de horas libres" aria-valuemin="0" aria-valuemax="42"
+        class="h-4 rounded-full bg-surface overflow-hidden">
+        <div id="barra-relleno" class="h-full bg-unab" style="width:0%"></div>
+      </div>
+      <p id="progreso-texto" class="text-small mt-2"></p>
+    </section>
+
+    <!-- Actividades -->
+    <section aria-labelledby="actividades-titulo" class="space-y-4">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2 id="actividades-titulo" class="text-h2">Actividades disponibles</h2>
+          <p id="contador" class="text-small" role="status"></p>
+        </div>
+        <div class="flex flex-wrap gap-3 items-end">
+          <div>
+            <label class="label" for="buscar">Buscar actividad</label>
+            <input id="buscar" type="search" class="field" placeholder="Nombre, lugar o código" autocomplete="off">
+          </div>
+          <div>
+            <label class="label" for="modalidad">Modalidad</label>
+            <select id="modalidad" class="field">
+              <option value="">Todas</option>
+              <option>Presencial</option>
+              <option>Virtual</option>
+            </select>
+          </div>
+          <button type="button" id="limpiar" class="btn btn-secondary">Limpiar</button>
+        </div>
+      </div>
+      <div id="lista" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+    </section>
+
+    <!-- Historial -->
+    <section class="card" aria-labelledby="historial-titulo">
+      <h2 id="historial-titulo" class="text-h3 mb-4">Mi historial de asistencias</h2>
+      <table class="table">
+        <thead><tr><th>Fecha</th><th>Actividad</th><th>Modalidad</th><th>Horas</th><th>Estado</th></tr></thead>
+        <tbody id="historial"></tbody>
+      </table>
+    </section>
+
+    <!-- Cómo funciona -->
+    <section class="card" aria-labelledby="como-titulo">
+      <h2 id="como-titulo" class="text-h3 mb-3">¿Cómo funciona?</h2>
+      <ol class="list-decimal pl-6 space-y-1">
+        <li>Explora las actividades: fecha, horario, modalidad y horas que otorgan.</li>
+        <li>Si es presencial, genera tu código QR. Si es virtual, confirma tu asistencia en línea.</li>
+        <li>Presenta el QR al ingreso para que el organizador lo escanee.</li>
+        <li>Con la asistencia validada, las horas se suman a tu progreso.</li>
+      </ol>
+    </section>
+    <p id="aviso" class="sr-only" role="status"></p>
+  </main>
+
+  <!-- QR de asistencia -->
+  <dialog id="dlg-qr" aria-labelledby="qr-titulo" class="rounded-xl p-6 w-[min(92vw,420px)] shadow-lg backdrop:bg-black/40">
+    <h2 id="qr-titulo" class="text-h3">Código QR de asistencia</h2>
+    <p class="text-small mt-1">Presenta este QR al ingreso.</p>
+    <div id="qr-grafico" class="w-48 h-48 mx-auto my-4"></div>
+    <p id="qr-datos" class="text-center text-small"></p>
+    <div class="mt-5 flex flex-wrap gap-3 justify-end">
+      <button type="button" id="qr-escanear" class="btn btn-primary">Simular escaneo del organizador</button>
+      <button type="button" id="qr-cerrar" class="btn btn-secondary">Cerrar</button>
+    </div>
+    <p class="text-small mt-3">El escaneo es una simulación del rediseño: en el portal real lo hace el organizador.</p>
+  </dialog>
+
+  <div id="app-footer"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/horas-libres.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/horas-libres.js"></script>
+</body>
+</html>

@@ -112,6 +112,7 @@ $('form-clave').addEventListener('submit', async (e) => {
 const tramites = [
   ['Matrícula y turnos', cantidad('turnos:solicitudes'), 'solicitudes', 'turnos.html'],
   ['Reservas CSU', cantidad('reservas:mias'), 'reservas', 'reservas-csu.html'],
+  ['Horas libres', MPU.horasLibres.resumen().cumplidas, `de ${MPU.horasLibres.meta} horas`, 'horas-libres.html'],
   ['Semilleros', cantidad('semilleros:inscritos'), 'inscripciones', 'semilleros.html'],
   ['Parqueadero', cantidad('parqueadero:pagos'), 'pagos', 'parqueadero.html'],
 ];

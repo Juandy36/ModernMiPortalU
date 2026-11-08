@@ -1,0 +1,120 @@
+// Horas libres: progreso hacia las 42 h, actividades con QR / confirmación en línea e historial.
+const $ = (id) => document.getElementById(id);
+const H = MPU.horasLibres;
+const fechaDe = (iso) => MPU.fecha(new Date(iso + 'T00:00:00'));
+const horasTxt = (n) => `${n} ${n === 1 ? 'hora' : 'horas'}`;
+// Para buscar sin importar tildes ni mayúsculas
+const plano = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+function guardar(codigo, estado) {
+  const otros = H.registros().filter((r) => r.codigo !== codigo);
+  MPU.storage.set('horaslibres:registros', [...otros, { codigo, estado }]);
+}
+const anunciar = (msg) => { $('aviso').textContent = msg; };
+
+function pintarProgreso() {
+  const r = H.resumen();
+  $('cumplidas').textContent = r.cumplidas;
+  $('meta').textContent = r.meta;
+  $('faltan').textContent = r.faltan;
+  $('barra').setAttribute('aria-valuenow', Math.min(r.cumplidas, r.meta));
+  $('barra').setAttribute('aria-valuetext', `${r.cumplidas} de ${r.meta} horas`);
+  $('barra-relleno').style.width = r.pct + '%';
+  $('progreso-texto').innerHTML = r.faltan === 0
+    ? `${MPU.badge('Cumplido')} Completaste las ${r.meta} horas libres requeridas para grado.`
+    : `Llevas el ${r.pct} % del requisito. Te faltan ${horasTxt(r.faltan)} para graduarte.`;
+}
+
+function pintarActividades() {
+  const texto = plano($('buscar').value.trim());
+  const mod = $('modalidad').value;
+  const registros = H.registros();
+  const lista = H.actividades.filter((a) =>
+    (!mod || a.modalidad === mod) &&
+    (!texto || plano(`${a.nombre} ${a.lugar} ${a.codigo}`).includes(texto)));
+
+  $('contador').textContent = `${lista.length} ${lista.length === 1 ? 'actividad' : 'actividades'}`;
+  $('lista').innerHTML = lista.length
+    ? lista.map((a) => {
+      const estado = registros.find((r) => r.codigo === a.codigo)?.estado;
+      let accion;
+      if (estado === 'asistio') accion = `${MPU.badge('Asistió')} <span class="text-small">+${horasTxt(a.horas)} sumadas</span>`;
+      else if (estado === 'qr') accion = `${MPU.badge('QR generado')} <button type="button" data-qr="${a.codigo}" class="btn btn-secondary">Ver código QR</button>`;
+      else if (a.modalidad === 'Virtual') accion = `<button type="button" data-confirmar="${a.codigo}" class="btn btn-primary">Confirmar asistencia</button>`;
+      else accion = `<button type="button" data-qr="${a.codigo}" class="btn btn-primary">Generar código QR</button>`;
+      return `<article class="card flex flex-col gap-2">
+        <div class="flex items-start justify-between gap-3">
+          <div class="text-small font-bold text-unab-text">${fechaDe(a.fecha)} · ${a.inicio} – ${a.fin}</div>
+          <span class="badge" style="background:#FFF3D6;color:#A35F00;border:1px solid #FFA400">${a.modalidad}</span>
+        </div>
+        <h3 class="text-h3">${MPU.esc(a.nombre)}</h3>
+        <p class="text-small">${MPU.esc(a.lugar)}</p>
+        <p class="text-small">Código del evento: <strong>${a.codigo}</strong> · Otorga <strong>${horasTxt(a.horas)}</strong></p>
+        <div class="mt-auto pt-2 flex flex-wrap items-center gap-3">${accion}</div>
+      </article>`;
+    }).join('')
+    : '<p class="md:col-span-2 py-6 text-center">No hay actividades que coincidan con tu búsqueda.</p>';
+}
+
+function pintarHistorial() {
+  const r = H.resumen();
+  const filas = [
+    ...H.previas.map((p) => ({ fecha: p.fecha, nombre: p.nombre, modalidad: p.modalidad, horas: p.horas, estado: 'Asistió' })),
+    ...r.nuevas.map((n) => ({
+      fecha: n.act.fecha, nombre: n.act.nombre, modalidad: n.act.modalidad, horas: n.act.horas,
+      estado: n.estado === 'asistio' ? 'Asistió' : 'QR generado',
+    })),
+  ].sort((a, b) => b.fecha.localeCompare(a.fecha));
+  $('historial').innerHTML = filas.map((f) => `<tr>
+    <td>${fechaDe(f.fecha)}</td><td>${MPU.esc(f.nombre)}</td><td>${f.modalidad}</td><td>${f.horas}</td><td>${MPU.badge(f.estado)}</td></tr>`).join('');
+}
+
+function pintarTodo() { pintarProgreso(); pintarActividades(); pintarHistorial(); }
+
+// QR de asistencia
+const dlg = $('dlg-qr');
+let codigoQr = null;
+function abrirQr(codigo) {
+  const a = H.actividades.find((x) => x.codigo === codigo);
+  codigoQr = codigo;
+  if (!H.registros().some((r) => r.codigo === codigo)) guardar(codigo, 'qr');
+  let svg = '';
+  try {
+    const q = qrcode(0, 'M');
+    q.addData(`UNAB|HL|${a.codigo}|${MPU.usuario.usuario}`);
+    q.make();
+    svg = q.createSvgTag({ scalable: true, margin: 0 });
+  } catch { /* sin librería: se muestra solo el texto */ }
+  $('qr-grafico').innerHTML = svg;
+  $('qr-datos').innerHTML = `<strong>${MPU.esc(MPU.usuario.nombre)}</strong><br>Evento ${a.codigo} · ${MPU.esc(a.nombre)}`;
+  const yaAsistio = H.registros().find((r) => r.codigo === codigo)?.estado === 'asistio';
+  $('qr-escanear').hidden = yaAsistio;
+  pintarTodo();
+  dlg.showModal();
+}
+
+$('lista').addEventListener('click', (e) => {
+  const qr = e.target.closest('[data-qr]');
+  const conf = e.target.closest('[data-confirmar]');
+  if (qr) abrirQr(qr.dataset.qr);
+  if (conf) {
+    guardar(conf.dataset.confirmar, 'asistio');
+    const a = H.actividades.find((x) => x.codigo === conf.dataset.confirmar);
+    anunciar(`Asistencia confirmada: ${a.nombre}. Sumaste ${horasTxt(a.horas)}.`);
+    pintarTodo();
+  }
+});
+$('qr-escanear').addEventListener('click', () => {
+  guardar(codigoQr, 'asistio');
+  const a = H.actividades.find((x) => x.codigo === codigoQr);
+  anunciar(`Asistencia validada: ${a.nombre}. Sumaste ${horasTxt(a.horas)}.`);
+  dlg.close();
+  pintarTodo();
+});
+$('qr-cerrar').addEventListener('click', () => dlg.close());
+
+$('buscar').addEventListener('input', pintarActividades);
+$('modalidad').addEventListener('change', pintarActividades);
+$('limpiar').addEventListener('click', () => { $('buscar').value = ''; $('modalidad').value = ''; pintarActividades(); $('buscar').focus(); });
+
+pintarTodo();

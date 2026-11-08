@@ -27,14 +27,3 @@ MPU.horarioSemana = {
 
 // Horario del día en curso (lo usa la pantalla de inicio).
 MPU.horario = MPU.horarioSemana.Lun;
-
-// Horas libres por semana: huecos entre clases del mismo día.
-MPU.horasLibresSemana = function () {
-  const aMin = (t) => { const [h, m] = t.trim().split(':').map(Number); return h * 60 + m; };
-  let libres = 0;
-  for (const clases of Object.values(MPU.horarioSemana)) {
-    const rangos = clases.map((c) => c.hora.split('–').map(aMin)).sort((a, b) => a[0] - b[0]);
-    for (let i = 1; i < rangos.length; i++) libres += Math.max(0, rangos[i][0] - rangos[i - 1][1]);
-  }
-  return libres / 60;
-};

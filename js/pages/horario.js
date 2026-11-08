@@ -30,10 +30,12 @@ document.getElementById('dias').addEventListener('click', (e) => {
   pintarClases();
 });
 
-// Horas libres
-const horas = MPU.horasLibresSemana();
-document.getElementById('horas-libres').textContent =
-  `${String(horas).replace('.', ',')} h por semana (dato de ejemplo)`;
+// Horas libres: progreso hacia el requisito de grado (no depende del horario)
+const hl = MPU.horasLibres.resumen();
+document.getElementById('horas-libres').textContent = `${hl.cumplidas} de ${hl.meta} h`;
+document.getElementById('horas-barra').setAttribute('aria-valuenow', Math.min(hl.cumplidas, hl.meta));
+document.getElementById('horas-barra').setAttribute('aria-valuetext', `${hl.cumplidas} de ${hl.meta} horas`);
+document.getElementById('horas-relleno').style.width = hl.pct + '%';
 
 // Avisos (se recuerda la preferencia)
 const btnAvisos = document.getElementById('btn-avisos');

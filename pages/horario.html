@@ -30,9 +30,13 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <section class="card">
-        <h2 class="text-h3">Horas libres del semestre</h2>
-        <p class="mt-2 text-small">Cálculo de tus horas libres a partir de tu horario de clases.</p>
+        <h2 class="text-h3">Mis horas libres</h2>
+        <p class="mt-2 text-small">Requisito de grado: 42 horas en actividades de Bienestar. No dependen de tu horario de clases.</p>
         <p id="horas-libres" class="mt-4 text-h2 text-unab-text"></p>
+        <div id="horas-barra" role="progressbar" aria-label="Avance de horas libres" aria-valuemin="0" aria-valuemax="42" class="h-3 rounded-full bg-surface overflow-hidden mt-3">
+          <div id="horas-relleno" class="h-full bg-unab" style="width:0%"></div>
+        </div>
+        <a href="horas-libres.html" class="btn btn-secondary mt-4">Ver actividades de horas libres</a>
       </section>
       <section class="card">
         <h2 class="text-h3">Avisos y descarga</h2>
@@ -48,6 +52,7 @@
   <div id="app-footer"></div>
   <script src="../js/storage.js"></script>
   <script src="../js/data/horario.js"></script>
+  <script src="../js/data/horas-libres.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/pages/horario.js"></script>
 </body>
