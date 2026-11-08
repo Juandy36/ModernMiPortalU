@@ -52,14 +52,31 @@ MPU.bienestar = {
     },
   ],
 
+  // Contenido de Elecciones UNAB 2026 tomado de MiPortalU (07-nov-2026)
   elecciones: {
-    que: 'Las Elecciones UNAB son el proceso en el que estudiantes eligen a sus representantes en los órganos de gobierno de la universidad.',
-    organos: ['Comités curriculares', 'Consejos de facultad', 'Consejo académico', 'Junta directiva'],
-    estimulo: 'Los estudiantes que votan reciben 4 horas libres, que se suman a tu requisito de grado.',
-    requisitos: ['Promedio general acumulado (PGA) mínimo de 3,8.', 'Haber aprobado entre el 30 % y el 40 % de los créditos del programa, según el órgano.'],
+    que: 'Es el proceso de participación mediante el cual estudiantes y profesores eligen a quienes representarán sus intereses y perspectivas en diferentes organismos de dirección académica e institucional. Se realiza cada año.',
+    organos: ['Comités Curriculares', 'Consejos de Facultad', 'Consejo Académico', 'Junta Directiva'],
+    estimulo: 'Las personas de la comunidad estudiantil que ejerzan legítimamente su derecho al voto y lo acrediten reciben cuatro (4) horas libres de Bienestar Universitario.',
+    estimuloProfesores: 'Los profesores de tiempo completo y medio tiempo que voten y lo acrediten tienen derecho a media jornada de descanso remunerado, dentro del semestre de las elecciones y previa concertación con su decano, director o coordinador.',
+    requisitos: [
+      'Ser estudiante activo de pregrado: estar matriculado en uno o varios cursos del periodo vigente.',
+      'Para la Junta Directiva, el Consejo Académico o los consejos de facultad: haber aprobado como mínimo el 40 % de los créditos de un programa profesional o el 10 % de uno técnico o tecnológico.',
+      'Para los Comités Curriculares de Programa: haber aprobado como mínimo el 30 % de los créditos de un programa profesional o el 10 % de uno técnico o tecnológico.',
+      'Tener un promedio general acumulado igual o superior a 3,8.',
+      'No haber recibido, por decisión en firme, una sanción por falta grave o gravísima.',
+      'No tener vínculo laboral o contractual con la Universidad.',
+      'No estar cursando los dos últimos semestres del programa.',
+      'Acreditar la participación en los cursos o talleres de la Universidad sobre las funciones de la representación, la normativa y el liderazgo.',
+    ],
+    profesores: 'Los profesores interesados deben acreditar su condición de profesores de planta. La representación profesoral es ante el Consejo Académico, los consejos de facultad y los comités curriculares; la Junta Directiva no está incluida en esta convocatoria.',
     cronograma: [
-      { etapa: 'Inscripción de candidatos', inicio: '2026-08-18', fin: '2026-10-09' },
-      { etapa: 'Jornada electoral', inicio: '2026-10-22', fin: '2026-10-26' },
+      { etapa: 'Inscripción electrónica de listas', texto: '18 de agosto al 9 de octubre', fin: '2026-10-09' },
+      { etapa: 'Modificación de las listas inscritas', texto: '10 de octubre', fin: '2026-10-10' },
+      { etapa: 'Publicación de candidaturas que cumplen los requisitos', texto: '13 de octubre', fin: '2026-10-13' },
+      { etapa: 'Periodo de campaña electoral', texto: '18 de agosto al 21 de octubre', fin: '2026-10-21' },
+      { etapa: 'Diálogos con candidaturas', texto: '22 de octubre, de 10 a. m. a 12 m.', fin: '2026-10-22' },
+      { etapa: 'Jornada electoral', texto: 'desde las 12:00 m. del 22 de octubre hasta las 5:00 p. m. del 26 de octubre', fin: '2026-10-26' },
+      { etapa: 'Escrutinio', texto: 'inmediatamente después del cierre de la jornada electoral', fin: '2026-10-26' },
     ],
   },
 };

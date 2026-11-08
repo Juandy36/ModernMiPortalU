@@ -53,18 +53,22 @@ function pintarPanel() {
 function pintarElecciones() {
   const E = B.elecciones;
   const hoy = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; })();
-  const estado = (e) => (e.fin < hoy ? '<span class="badge" style="background:#F4F4F4;color:#333;border:1px solid #8C8C8C">Finalizada</span>' : e.inicio > hoy ? '<span class="badge badge-pending">Próxima</span>' : '<span class="badge badge-ok">En curso</span>');
+  const estado = (e) => (e.fin < hoy ? '<span class="badge" style="background:#F4F4F4;color:#333;border:1px solid #8C8C8C">Finalizada</span>' : '<span class="badge badge-pending">Pendiente</span>');
   $('panel').innerHTML = `
-    <div class="card"><h2 class="text-h2">Elecciones UNAB</h2><p class="mt-2">${E.que}</p></div>
+    <div class="card"><h2 class="text-h2">Elecciones UNAB 2026</h2><p class="mt-2">${E.que}</p></div>
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <div class="card"><h3 class="text-h3 mb-2">Órganos en los que se elige</h3>
+      <div class="card"><h3 class="text-h3 mb-2">Se eligen representantes ante</h3>
         <ul class="list-disc pl-6 space-y-1">${E.organos.map((o) => `<li>${o}</li>`).join('')}</ul>
-        <h3 class="text-h3 mt-5 mb-2">Estímulo por votar</h3><p>${E.estimulo} <a href="horas-libres.html" class="font-bold text-unab-text underline">Ver mis horas libres</a>.</p></div>
-      <div class="card"><h3 class="text-h3 mb-2">Requisitos para ser candidato</h3>
-        <ul class="list-disc pl-6 space-y-1">${E.requisitos.map((r) => `<li>${r}</li>`).join('')}</ul>
-        <h3 class="text-h3 mt-5 mb-2">Cronograma 2026</h3>
-        <ul class="space-y-2">${E.cronograma.map((c) => `<li><strong>${c.etapa}</strong>: ${fechaDe(c.inicio)} – ${fechaDe(c.fin)} ${estado(c)}</li>`).join('')}</ul></div>
-    </div>`;
+        <h3 class="text-h3 mt-5 mb-2">Estímulos por votar</h3>
+        <p>${E.estimulo} <a href="horas-libres.html" class="font-bold text-unab-text underline">Ver mis horas libres</a>.</p>
+        <p class="mt-2 text-small">${E.estimuloProfesores}</p></div>
+      <div class="card"><h3 class="text-h3 mb-2">Cronograma 2026</h3>
+        <ul class="space-y-2">${E.cronograma.map((c) => `<li><strong>${c.etapa}:</strong> ${c.texto} ${estado(c)}</li>`).join('')}</ul>
+        <p class="text-small mt-3">Las fechas y los horarios de los diálogos, debates y demás espacios de divulgación se comunican por los canales institucionales.</p></div>
+    </div>
+    <div class="card"><h3 class="text-h3 mb-2">Requisitos para las candidaturas estudiantiles</h3>
+      <ul class="list-disc pl-6 space-y-1">${E.requisitos.map((r) => `<li>${r}</li>`).join('')}</ul>
+      <h3 class="text-h3 mt-5 mb-2">Candidaturas profesorales</h3><p>${E.profesores}</p></div>`;
 }
 
 function pintarMis() {
