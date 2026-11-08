@@ -68,7 +68,9 @@ function carneHtml() {
 function pintarDatos() {
   const filas = [
     ['Nombre', u.nombre], ['Usuario', u.usuario], ['Rol', u.rol], ['Programa', u.programa],
-    ['Facultad', u.facultad], ['Nivel', 'Pregrado profesional'], ['Último periodo matriculado', '202660'],
+    ['Facultad', u.facultad], ['Nivel', 'Pregrado profesional'], ['Último periodo matriculado', MPU.cursos.periodoActual],
+    ['Semestre actual', MPU.cursos.semestreActual], ['Créditos aprobados', `${MPU.cursos.resumen().creditosAprobados} de ${MPU.cursos.resumen().creditosTotales}`],
+    ['Promedio (PGA)', String(MPU.cursos.resumen().pga.toFixed(2)).replace('.', ',')],
   ];
   $('datos-lista').innerHTML = filas
     .map(([k, v]) => `<div><dt class="text-small font-bold">${k}</dt><dd>${MPU.esc(v)}</dd></div>`).join('');

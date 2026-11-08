@@ -36,6 +36,7 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | 10 | `pages/deportes.html` | Listo |
 | — | `pages/horas-libres.html` | Listo (requisito de grado de 42 h) |
 | — | `pages/cursos.html` | Listo (avance curricular, cursos inscritos y proyección) |
+| — | `pages/calificaciones.html` | Listo (PGA, cortes, notas por semestre y certificado) |
 
 ## Accesibilidad y guía de estilo
 - Navegación: Servicios (Matrícula y turnos, Becas) y Bienestar (Reservas CSU, Parqueadero, Semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.

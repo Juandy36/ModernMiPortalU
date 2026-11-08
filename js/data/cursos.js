@@ -14,6 +14,13 @@ window.MPU = window.MPU || {};
     9: [['Proyecto de grado II', 4], ['Electiva profesional IV', 3], ['Práctica profesional', 6]],
   };
   const semestreActual = 5;
+  const cortesEjemplo = {
+    'Bases de datos': [4.2, 3.8, null],
+    'Programación web': [4.5, 4.0, null],
+    'Diseño de interfaces': [3.9, 4.1, null],
+    'Sistemas operativos': [3.0, 2.6, null],
+    'Redes de computadores': [3.4, null, null],
+  };
 
   const cursos = [];
   Object.entries(plan).forEach(([sem, lista]) => {
@@ -24,6 +31,8 @@ window.MPU = window.MPU || {};
         nombre, creditos, semestre: s,
         estado: s < semestreActual ? 'aprobado' : s === semestreActual ? 'curso' : 'pendiente',
         nota: s < semestreActual ? nota : null,
+        // Cortes del periodo en curso (ejemplo): null = aún sin calificar
+        cortes: s === semestreActual ? (cortesEjemplo[nombre] || [null, null, null]) : null,
       });
     });
   });
@@ -34,10 +43,25 @@ window.MPU = window.MPU || {};
     periodoActual: '202660',
     periodoSiguiente: '202710',
     semestreActual,
+    pesos: [0.3, 0.3, 0.4], // peso de cada corte
+    notaMinima: 3.0,
     maxCreditos: 18, // tope de créditos por periodo (ejemplo)
     inicio: '2026-08-03',
     fin: '2026-11-28',
     lista: cursos,
+    // Cortes calificados de un curso en curso: acumulado y lo que necesita en lo que resta.
+    avanceCortes(c) {
+      let acum = 0; let pesoCalif = 0;
+      c.cortes.forEach((n, i) => { if (n !== null) { acum += n * this.pesos[i]; pesoCalif += this.pesos[i]; } });
+      const resta = Math.round((1 - pesoCalif) * 100) / 100;
+      const necesita = resta > 0 ? (this.notaMinima - acum) / resta : null;
+      return { acum: Math.round(acum * 100) / 100, pesoCalif, resta, necesita };
+    },
+    // Promedio ponderado por créditos de un semestre ya aprobado
+    promedioSemestre(s) {
+      const l = cursos.filter((c) => c.semestre === s && c.estado === 'aprobado');
+      return l.length ? Math.round((l.reduce((t, c) => t + c.nota * c.creditos, 0) / sum(l)) * 100) / 100 : null;
+    },
     // Totales y promedio ponderado por créditos (solo cursos aprobados)
     resumen() {
       const aprobados = cursos.filter((c) => c.estado === 'aprobado');

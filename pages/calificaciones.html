@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calificaciones · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="calificaciones">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Calificaciones</h1>
+      <p class="mt-2">Consulta tus notas por semestre, tus cortes del periodo actual y tu promedio acumulado.</p>
+    </div>
+
+    <!-- Resumen -->
+    <section class="card" aria-labelledby="resumen-titulo">
+      <h2 id="resumen-titulo" class="text-h3 mb-4">Resumen académico</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div><div id="k-pga" class="text-h2 text-unab-text"></div><div class="text-small">Promedio acumulado (PGA)</div></div>
+        <div><div id="k-creditos" class="text-h2"></div><div class="text-small">Créditos aprobados</div></div>
+        <div><div id="k-mejor" class="text-h2"></div><div class="text-small">Mejor semestre</div></div>
+        <div><div id="k-ultimo" class="text-h2"></div><div class="text-small">Último semestre cerrado</div></div>
+      </div>
+    </section>
+
+    <!-- Promedio por semestre -->
+    <section class="card" aria-labelledby="evolucion-titulo">
+      <h2 id="evolucion-titulo" class="text-h3 mb-4">Promedio por semestre</h2>
+      <ul id="evolucion" class="space-y-2"></ul>
+      <p class="text-small mt-3">La línea marca la nota mínima para aprobar (3,0).</p>
+    </section>
+
+    <!-- Periodo actual: cortes -->
+    <section class="card" aria-labelledby="cortes-titulo">
+      <h2 id="cortes-titulo" class="text-h3 mb-1">Periodo actual · cortes</h2>
+      <p class="text-small mb-4">Corte 1 (30 %), corte 2 (30 %) y corte 3 (40 %). Para aprobar necesitas 3,0 acumulado.</p>
+      <table class="table">
+        <thead><tr><th>Curso</th><th>Corte 1</th><th>Corte 2</th><th>Corte 3</th><th>Acumulado</th><th>Para aprobar</th></tr></thead>
+        <tbody id="cortes"></tbody>
+      </table>
+    </section>
+
+    <!-- Notas por semestre -->
+    <section class="card" aria-labelledby="notas-titulo">
+      <div class="flex flex-wrap items-end justify-between gap-4 mb-4">
+        <h2 id="notas-titulo" class="text-h3">Notas por semestre</h2>
+        <div>
+          <label class="label" for="semestre">Semestre</label>
+          <select id="semestre" class="field"></select>
+        </div>
+      </div>
+      <table class="table">
+        <thead><tr><th>Código</th><th>Curso</th><th>Créditos</th><th>Nota final</th><th>Estado</th></tr></thead>
+        <tbody id="notas"></tbody>
+      </table>
+      <p id="notas-prom" class="font-bold mt-3"></p>
+    </section>
+
+    <!-- Certificado -->
+    <section class="card" aria-labelledby="cert-titulo">
+      <h2 id="cert-titulo" class="text-h3 mb-2">Certificado de notas</h2>
+      <p class="text-small mb-4">Descarga un certificado con todos los cursos aprobados. Es un documento de ejemplo, no tiene validez oficial.</p>
+      <button type="button" id="btn-cert" class="btn btn-secondary">Descargar certificado en PDF</button>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/cursos.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/calificaciones.js"></script>
+</body>
+</html>
