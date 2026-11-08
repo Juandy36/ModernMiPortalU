@@ -59,7 +59,7 @@ document.getElementById('hl-total').textContent = `${hlr.cumplidas} de ${hlr.met
 document.getElementById('hl-barra').setAttribute('aria-valuenow', Math.min(hlr.cumplidas, hlr.meta));
 document.getElementById('hl-barra').setAttribute('aria-valuetext', `${hlr.cumplidas} de ${hlr.meta} horas`);
 document.getElementById('hl-relleno').style.width = hlr.pct + '%';
-const hoyIso = new Date().toISOString().slice(0, 10);
+const hoyIso = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; })();
 document.getElementById('hl-proximas').innerHTML = MPU.horasLibres.actividades
   .filter((a) => a.fecha >= hoyIso).slice(0, 3)
   .map((a) => `<li><strong>${MPU.fecha(new Date(a.fecha + 'T00:00:00'))}</strong> · ${MPU.esc(a.nombre)} · ${a.horas} h (${a.modalidad})</li>`).join('')

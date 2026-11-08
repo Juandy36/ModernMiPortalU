@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aulas y equipos · Modern MiPortalU</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="espacios">
+  <div id="app-navbar"></div>
+
+  <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Aulas y equipos</h1>
+      <p class="mt-2">Consulta la disponibilidad de aulas por campus y bloque, y reserva equipos por sede.</p>
+    </div>
+
+    <!-- Disponibilidad de aulas -->
+    <section class="card scroll-mt-4 space-y-4" id="aulas" aria-labelledby="aulas-titulo">
+      <h2 id="aulas-titulo" class="text-h2">Disponibilidad de aulas</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div><label class="label" for="a-campus">1. Campus</label><select id="a-campus" class="field"></select></div>
+        <div><label class="label" for="a-bloque">2. Bloque</label><select id="a-bloque" class="field"></select></div>
+        <div><label class="label" for="a-tipo">3. Espacios</label><select id="a-tipo" class="field"></select></div>
+        <div><label class="label" for="a-fecha">Fecha</label><input id="a-fecha" type="date" class="field"></div>
+        <div><label class="label" for="a-buscar">Código del espacio</label><input id="a-buscar" type="search" class="field" placeholder="Ej. B-101" autocomplete="off"></div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div><div id="k-total" class="text-h2"></div><div class="text-small">Espacios en el bloque</div></div>
+        <div><div id="k-disp" class="text-h2 text-unab-text"></div><div class="text-small">Disponibles</div></div>
+        <div><div id="k-parcial" class="text-h2"></div><div class="text-small">Parcialmente disponibles</div></div>
+        <div><div id="k-reservado" class="text-h2"></div><div class="text-small">Con reserva</div></div>
+      </div>
+
+      <p class="text-small"><strong>Leyenda:</strong> franja libre <span class="badge badge-ok">Libre</span> · franja ocupada <span class="badge badge-danger">Ocupada</span> · franja ya finalizada <span class="badge" style="background:#F4F4F4;color:#333;border:1px solid #8C8C8C">Finalizada</span></p>
+      <p id="a-contador" class="text-small" role="status"></p>
+      <div id="espacios" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- Reserva de equipos -->
+    <section class="card scroll-mt-4 space-y-4" id="equipos" aria-labelledby="equipos-titulo">
+      <h2 id="equipos-titulo" class="text-h2">Reserva de equipos</h2>
+      <p id="e-aviso" class="hidden px-3 py-2 rounded-md font-semibold" role="status"></p>
+      <form id="form-equipo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end" novalidate>
+        <div><label class="label" for="e-sede">Sede</label><select id="e-sede" class="field"></select></div>
+        <div><label class="label" for="e-equipo">Equipo</label><select id="e-equipo" class="field"></select></div>
+        <div><label class="label" for="e-fecha">Fecha</label><input id="e-fecha" type="date" class="field"></div>
+        <div><label class="label" for="e-franja">Franja</label><select id="e-franja" class="field"></select></div>
+        <button type="submit" class="btn btn-primary">Reservar</button>
+      </form>
+      <h3 class="font-bold">Mis reservas de equipos</h3>
+      <ul id="mis-equipos" class="space-y-3"></ul>
+      <p id="sin-equipos" class="hidden">Aún no tienes reservas de equipos.</p>
+    </section>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/data/espacios.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/espacios.js"></script>
+</body>
+</html>

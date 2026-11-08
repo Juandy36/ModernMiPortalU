@@ -41,6 +41,7 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 | — | `pages/pagos.html` | Listo (cupones, pago simulado, comprobantes, cronograma y financiación) |
 | — | `pages/cronogramas.html` | Listo (filtros por modalidad, nivel y estado) |
 | — | `pages/grado.html` | Listo (requisitos de grado; widget también en el inicio) |
+| — | `pages/espacios.html` | Listo (disponibilidad de aulas y reserva de equipos) |
 
 ## Accesibilidad y guía de estilo
 - Navegación: Académico (horario, cursos, calificaciones, cronogramas, grado), Servicios (turnos, becas, solicitudes, pagos) y Bienestar (horas libres, reservas CSU, parqueadero, semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.

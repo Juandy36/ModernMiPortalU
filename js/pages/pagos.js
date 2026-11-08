@@ -5,7 +5,7 @@ const fechaDe = (iso) => MPU.fecha(new Date(iso + 'T00:00:00'));
 const dinero = (n) => '$' + n.toLocaleString('es-CO');
 const pagados = () => MPU.storage.get('pagos:pagados', []);
 const estaPagado = (id) => pagados().some((p) => p.id === id);
-const hoy = () => new Date().toISOString().slice(0, 10);
+const hoy = () => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; };
 
 function aviso(msg) {
   const el = $('aviso');

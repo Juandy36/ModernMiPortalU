@@ -19,6 +19,7 @@ const NAV_LINKS = [
       { id: 'becas', label: 'Becas y promedio', href: 'pages/becas.html' },
       { id: 'solicitudes', label: 'Solicitudes', href: 'pages/solicitudes.html' },
       { id: 'pagos', label: 'Pagos y fechas', href: 'pages/pagos.html' },
+      { id: 'espacios', label: 'Aulas y equipos', href: 'pages/espacios.html' },
     ],
   },
   {
