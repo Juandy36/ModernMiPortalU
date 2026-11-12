@@ -18,32 +18,48 @@
   <main class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-8">
     <h1 class="text-h1">Quiénes somos</h1>
 
-    <!-- Contenido por definir: la estructura y los estilos ya están listos para rellenar -->
-    <section class="card" aria-labelledby="proyecto-titulo">
-      <h2 id="proyecto-titulo" class="text-h2 mb-3">Sobre el proyecto</h2>
-      <p>Información por definir.</p>
+    <!-- Foto grupal + presentación del proyecto -->
+    <section class="grid grid-cols-1 md:grid-cols-5 gap-6 items-start" aria-labelledby="proyecto-titulo">
+      <figure class="md:col-span-2 card p-3">
+        <img src="../assets/equipo.jpg" width="960" height="1280"
+             alt="Foto grupal del equipo: de izquierda a derecha, Juan Diego Ortiz Mora, Diego Andrés Rueda Campos y Juan David Martínez Cepeda, abrazados frente a una escalera de ladrillo."
+             class="w-full h-auto rounded-md object-cover max-h-[34rem] object-top" loading="eager">
+        <figcaption class="mt-3 text-small text-center">De izquierda a derecha: Juan Diego, Diego Andrés y Juan David.</figcaption>
+      </figure>
+
+      <div class="md:col-span-3 card">
+        <h2 id="proyecto-titulo" class="text-h2 mb-3">Sobre el proyecto</h2>
+        <p>Modern MiPortalU nació de una pregunta sencilla: ¿por qué hacer un trámite universitario tiene que costar tantos clics? Somos tres estudiantes de Ingeniería de Sistemas de la UNAB y decidimos rediseñar el portal desde cero: más claro, más rápido y pensado para usarse igual de bien en el celular que en el computador.</p>
+        <p class="mt-3">Reunimos en un solo lugar el horario, las notas, la proyección de cursos, los pagos, las horas libres y el carné. Cuidamos los detalles que casi nadie ve: textos con buen contraste, formularios que se pueden recorrer con el teclado y mensajes de error que dicen qué pasó y cómo arreglarlo.</p>
+        <dl class="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-4 text-small">
+          <div class="rounded-lg bg-unab-cream p-3"><dt class="font-bold text-unab-text">Misión</dt><dd class="mt-1">Que cada estudiante resuelva lo suyo en minutos, no en filas.</dd></div>
+          <div class="rounded-lg bg-unab-cream p-3"><dt class="font-bold text-unab-text">Enfoque</dt><dd class="mt-1">Diseño sencillo, accesible y con la identidad naranja de la UNAB.</dd></div>
+          <div class="rounded-lg bg-unab-cream p-3"><dt class="font-bold text-unab-text">Origen</dt><dd class="mt-1">Proyecto de clase hecho entre amigos, con mucho café de por medio.</dd></div>
+        </dl>
+      </div>
     </section>
 
+    <!-- Integrantes, en el mismo orden de la foto (izquierda a derecha) -->
     <section aria-labelledby="equipo-titulo">
       <h2 id="equipo-titulo" class="text-h2 mb-4">El equipo</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <article class="card flex flex-col items-center text-center gap-3">
-          <span class="w-24 h-24 rounded-full bg-unab-cream border-2 border-unab flex items-center justify-center text-h2 text-unab-text" aria-hidden="true">?</span>
-          <h3 class="text-h3">Nombre del integrante</h3>
-          <p class="text-small font-bold text-unab-text">Rol por definir</p>
-          <p class="text-small">Descripción por definir.</p>
+          <span role="img" aria-label="Retrato de Juan Diego Ortiz Mora" class="w-24 h-24 rounded-full border-2 border-unab bg-unab-cream bg-no-repeat" style="background-image:url('../assets/equipo.jpg');background-size:400%;background-position:12% 17%"></span>
+          <h3 class="text-h3">Juan Diego Ortiz Mora</h3>
+          <p class="text-small font-bold text-unab-text">Arquitectura y backend</p>
+          <p class="text-small">Se encarga de que todo lo que no se ve funcione: la base de datos, el inicio de sesión y el despliegue. Si algo se cae, él ya lo estaba mirando.</p>
         </article>
         <article class="card flex flex-col items-center text-center gap-3">
-          <span class="w-24 h-24 rounded-full bg-unab-cream border-2 border-unab flex items-center justify-center text-h2 text-unab-text" aria-hidden="true">?</span>
-          <h3 class="text-h3">Nombre del integrante</h3>
-          <p class="text-small font-bold text-unab-text">Rol por definir</p>
-          <p class="text-small">Descripción por definir.</p>
+          <span role="img" aria-label="Retrato de Diego Andrés Rueda Campos" class="w-24 h-24 rounded-full border-2 border-unab bg-unab-cream bg-no-repeat" style="background-image:url('../assets/equipo.jpg');background-size:400%;background-position:47% 22%"></span>
+          <h3 class="text-h3">Diego Andrés Rueda Campos</h3>
+          <p class="text-small font-bold text-unab-text">Diseño de interfaces</p>
+          <p class="text-small">Dibuja las pantallas antes de que existan y no descansa hasta que cada botón quede en el lugar donde uno lo busca por instinto.</p>
         </article>
         <article class="card flex flex-col items-center text-center gap-3">
-          <span class="w-24 h-24 rounded-full bg-unab-cream border-2 border-unab flex items-center justify-center text-h2 text-unab-text" aria-hidden="true">?</span>
-          <h3 class="text-h3">Nombre del integrante</h3>
-          <p class="text-small font-bold text-unab-text">Rol por definir</p>
-          <p class="text-small">Descripción por definir.</p>
+          <span role="img" aria-label="Retrato de Juan David Martínez Cepeda" class="w-24 h-24 rounded-full border-2 border-unab bg-unab-cream bg-no-repeat" style="background-image:url('../assets/equipo.jpg');background-size:400%;background-position:72% 23%"></span>
+          <h3 class="text-h3">Juan David Martínez Cepeda</h3>
+          <p class="text-small font-bold text-unab-text">Calidad y accesibilidad</p>
+          <p class="text-small">Prueba cada pantalla como si fuera su peor usuario: en el celular, con el teclado y a las once de la noche. Lo que sobrevive a eso, se publica.</p>
         </article>
       </div>
     </section>
