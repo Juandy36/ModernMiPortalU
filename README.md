@@ -1,75 +1,104 @@
 # Modern MiPortalU
 
-Rediseño frontend de MiPortalU (UNAB) para el curso de Diseño de Interfaces. Los datos de las pantallas son de ejemplo (estado en `localStorage`); los **usuarios y el login** van contra un backend sencillo con base de datos Postgres (Neon).
+Rediseño de MiPortalU (UNAB) para el curso de Diseño de Interfaces. El frontend es HTML, CSS y JavaScript puro; los **usuarios, el inicio de sesión y la administración de cuentas** van contra un backend sencillo con base de datos Postgres (Neon). Los datos de las pantallas (horario, notas, pagos, etc.) son de ejemplo y su estado se guarda en `localStorage`.
 
-## Despliegue y ejecución
-La versión de referencia es la de Vercel: https://modernmiportalu.vercel.app/ (se redespliega con cada push a `main`).
-
-- **Backend:** funciones serverless en `api/` (`login`, `logout`, `me`, `perfil`, `password`, `usuarios`) con base **Neon Postgres**. Necesita la variable de entorno `DATABASE_URL` (se crea al conectar Neon en Vercel → Storage).
-- **Primer uso:** las tablas y 4 usuarios de prueba (contraseña `Unab2026*`: `jortiz`, `jmartinez`, `drueda`, `estudiante`) se crean solos en la primera petición.
-- **Código institucional:** cada estudiante tiene un código `U00` + 6 dígitos aleatorios (único), que sale en el carné. Los usuarios que no tenían código reciben uno al arrancar.
-- **Administrador:** el usuario `admin` (rol «Administrador») no tiene contraseña en el código. Se crea al primer intento de ingreso (o al arrancar) con `ADMIN_CLAVE` si está definida en Vercel; si no, copia la contraseña de `jortiz`, pero solo cuando `jortiz` ya la cambió de la de ejemplo. Desde el menú de perfil entra a «Administrar usuarios» (`pages/admin.html`), donde crea estudiantes y ve la lista; la API `/api/usuarios` valida el rol en el servidor.
-- **Local:** `vercel link`, `vercel env pull .env.local` y `npm run dev` (usa `vercel dev`, abre http://localhost:3000). Abrir `index.html` directo ya no sirve: las páginas piden sesión a la API.
-- En `login.html` solo se puede ingresar: no hay registro, porque en una universidad las cuentas las crea la institución (los usuarios se cargan en la base). Las contraseñas se guardan con scrypt + sal; la sesión es una cookie `HttpOnly` de 8 horas.
+Versión de referencia: https://modernmiportalu.vercel.app/ (se redespliega con cada push a `main`).
 
 ## Stack
-HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.html` directamente en el navegador.
+- **Frontend:** HTML + CSS + JavaScript sin build, con Tailwind por CDN (`js/tailwind-config.js` tiene la guía de estilo) y la fuente Montserrat.
+- **Backend:** funciones serverless de Vercel en `api/` (Node), con `@neondatabase/serverless`.
+- **Base de datos:** Neon Postgres. Solo los usuarios viven en la base; el resto del estado está en el navegador (prefijo `mpu:`).
+
+## Despliegue y ejecución
+- **Variable de entorno obligatoria:** `DATABASE_URL` (se crea al conectar Neon en Vercel → Storage).
+- **Variable opcional:** `ADMIN_CLAVE`, contraseña de la cuenta `admin` (ver «Administración»).
+- **Primer arranque:** las tablas (`usuarios`, `sesiones`, `intentos`) y los usuarios de prueba se crean solos en la primera petición a la API.
+- **Local:** `vercel link`, `vercel env pull .env.local` y `npm run dev` (usa `vercel dev`, abre http://localhost:3000). Abrir `index.html` directo no sirve: las páginas piden sesión a la API.
+
+## Usuarios y acceso
+- `login.html` solo permite **ingresar**. No hay registro público: en una universidad las cuentas las crea la institución (administración o carga en la base).
+- **Usuarios de prueba** (contraseña inicial `Unab2026*`, que conviene cambiar en Mi perfil): `jortiz`, `jmartinez`, `drueda` y `estudiante`.
+- **Código institucional:** cada estudiante tiene un código `U00` + 6 dígitos aleatorios y únicos, guardado en la base y mostrado en el carné. Los usuarios que no tenían código reciben uno al arrancar. La cuenta de administración usa el prefijo `A00`.
+- **Sesión:** cookie `sid` `HttpOnly; Secure; SameSite=Lax` de 8 horas. `js/auth.js` consulta `/api/me` en el `<head>` de cada página; sin sesión redirige a `login.html?volver=…`.
+- **¿Olvidaste tu contraseña?** Orienta a Punto U (no hay servidor de correo configurado).
+
+## Administración
+La cuenta `admin` (rol «Administrador») **no tiene contraseña en el código**. Se crea sola, al arrancar la API o en el primer intento de ingreso como `admin`, de una de estas formas:
+1. Con la variable `ADMIN_CLAVE`, si está definida (debe cumplir la política de contraseñas).
+2. Si no, copiando la contraseña de `jortiz`, pero **solo cuando `jortiz` ya la cambió** de la de ejemplo. Así nunca queda una contraseña de administrador pública.
+
+Con esa cuenta, el menú de las iniciales muestra **Administrar usuarios** (`pages/admin.html`):
+- **Crear estudiante:** nombre, usuario, programa y contraseña inicial (botón «Generar» para una clave aleatoria válida). Muestra una sola vez el código, el usuario y la contraseña inicial, con botón para copiarlos. El estudiante puede cambiarla en Mi perfil.
+- **Lista de usuarios** con código, usuario, nombre, programa y rol, y buscador.
+- Los usuarios creados desde el panel siempre quedan como estudiantes; el código lo genera el servidor.
+
+## API (`api/`)
+| Ruta | Método | Descripción |
+|---|---|---|
+| `/api/login` | POST | Inicia sesión (usuario y contraseña). Bloquea tras 5 fallos (429). |
+| `/api/logout` | POST | Cierra la sesión. |
+| `/api/me` | GET | Datos del usuario con sesión (incluye `codigo` y `rol`). |
+| `/api/perfil` | POST | Actualiza nombre y programa. |
+| `/api/password` | POST | Cambia la contraseña (exige la actual correcta y que la nueva sea distinta). |
+| `/api/usuarios` | GET, POST | Solo administrador: lista usuarios y crea estudiantes (401 sin sesión, 403 sin rol). |
+
+`api/_lib.js` reúne lo compartido (conexión, creación de tablas, hash, sesiones, límite de intentos y validaciones).
+
+## Seguridad
+- Contraseñas con scrypt + sal; comparación en tiempo constante.
+- Política de contraseña única (cambio de contraseña y alta de usuarios): mínimo 8 caracteres, mayúscula, minúscula y número, sin nombre, apellido ni usuario.
+- Límite de 5 intentos fallidos de login cada 15 minutos por usuario e IP (respuesta 429).
+- Autorización por rol validada en el servidor, no solo en la interfaz.
+- Cuerpos JSON inválidos devuelven 400; los métodos no permitidos, 405.
+- `vercel.json` define `X-Content-Type-Options`, `X-Frame-Options: DENY`, `Referrer-Policy`, `Permissions-Policy` y una **Content-Security-Policy** (scripts propios más Tailwind y cdnjs, `frame-ancestors 'none'`). Las respuestas de `/api` no se guardan en caché.
 
 ## Estructura
-- `index.html` y `pages/`: una página por wireframe (10 en total).
-- `js/tailwind-config.js`: guía de estilo (colores, Montserrat, tamaños de texto).
-- `js/components.js`: navbar, footer y botón de chat compartidos.
-- `js/data/`: datos de ejemplo. `js/pages/`: lógica de cada pantalla.
-- `css/base.css`: estilos que Tailwind no cubre (insignias de estado, foco).
+- `index.html`, `login.html` y `pages/`: una página por pantalla.
+- `api/`: funciones serverless (ver arriba).
+- `js/auth.js`: protección de páginas y `MPU.usuario`.
+- `js/components.js`: navbar, menú de perfil, campana de notificaciones, buscador global, footer y botón de chat.
+- `js/storage.js`: `MPU.storage`, formato de fechas, escape de HTML, impresión de documentos y chips de estado.
+- `js/data/` (datos de ejemplo) y `js/pages/` (lógica de cada pantalla).
+- `css/base.css` y `css/components.css`: estilos que Tailwind no cubre.
+- `assets/`: ícono del sitio (el mismo de MiPortalU) y foto del equipo.
 - `docs/`: documento del proyecto y wireframes.
 
 ## Estado de las pantallas
-| Wireframe | Página | Estado |
-|---|---|---|
-| 1 | `index.html` | Listo |
-| 2 | `pages/chat.html` | Listo |
-| 3 | `pages/noticias.html` | Listo |
-| 4 | `pages/horario.html` | Listo |
-| 5 | `pages/turnos.html` | Listo |
-| 6 | `pages/reservas-csu.html` | Listo |
-| 7 | `pages/becas.html` | Listo |
-| 8 | `pages/parqueadero.html` | Listo |
-| 9 | `pages/semilleros.html` | Listo |
-| 10 | `pages/deportes.html` | Listo |
-| — | `pages/horas-libres.html` | Listo (requisito de grado de 42 h, QR, historial y encuesta de satisfacción) |
-| — | `pages/cursos.html` | Listo (avance curricular, cursos inscritos y proyección) |
-| — | `pages/calificaciones.html` | Listo (PGA, cortes, notas por semestre y certificado) |
-| — | `pages/solicitudes.html` | Listo (CESAF simplificado: catálogo, buscador y seguimiento) |
-| — | `pages/pagos.html` | Listo (cupones, pago simulado, comprobantes, cronograma y financiación) |
-| — | `pages/cronogramas.html` | Listo (filtros por modalidad, nivel y estado) |
-| — | `pages/grado.html` | Listo (requisitos de grado; widget también en el inicio) |
-| — | `pages/espacios.html` | Listo (disponibilidad de aulas y reserva de equipos) |
-| — | `pages/ayuda.html` | Listo (preguntas frecuentes, canales y citas de Punto U) |
-| — | `pages/bienestar.html` | Listo (Potencia U, Crea U, Activa U y Elecciones UNAB) |
-| — | `pages/apoyo.html` | Listo (Éxito Estudiantil, Lenguas, Competencias digitales, Internacionalización) |
-| — | `pages/syllabus.html` | Listo (programas con filtros y plan de estudios) |
-| — | `pages/investigacion.html` | Listo (semilleros, grupos, convocatorias y Apolo) |
+| Página | Estado |
+|---|---|
+| `index.html` | Inicio con accesos rápidos, buscador y avance de grado |
+| `pages/chat.html`, `noticias.html`, `horario.html`, `turnos.html`, `reservas-csu.html`, `becas.html`, `parqueadero.html`, `semilleros.html`, `deportes.html` | Listas (los 10 wireframes originales) |
+| `pages/horas-libres.html` | Requisito de grado de 42 h, actividades reales, QR, historial y encuesta |
+| `pages/cursos.html` | Avance curricular, cursos inscritos y proyección (tope de 18 créditos) |
+| `pages/calificaciones.html` | PGA, cortes (30/30/40), notas por semestre y certificado |
+| `pages/solicitudes.html` | CESAF simplificado: catálogo, buscador y seguimiento |
+| `pages/pagos.html` | Cupones, pago simulado, comprobantes, cronograma y financiación |
+| `pages/cronogramas.html` | Filtros por modalidad, nivel y estado |
+| `pages/grado.html` | Requisitos de grado (también como widget en el inicio) |
+| `pages/espacios.html` | Disponibilidad de aulas por campus y reserva de equipos |
+| `pages/ayuda.html` | Preguntas frecuentes, canales, CLIC y citas de Punto U |
+| `pages/bienestar.html` | Potencia U, Crea U (grupos y clubes), Activa U y Elecciones UNAB |
+| `pages/apoyo.html` | Éxito Estudiantil, Lenguas, Competencias digitales, Internacionalización y Centros |
+| `pages/syllabus.html` | Programas con filtros y plan de estudios |
+| `pages/investigacion.html` | Semilleros, grupos, convocatorias y Apolo |
+| `pages/perfil.html` | Datos, foto, carné UNAB (PDF), cambio de contraseña y resumen de trámites |
+| `pages/quienes-somos.html` | Foto grupal, presentación del proyecto y equipo |
+| `pages/admin.html` | Panel de administración (solo administrador) |
 
-## Cuenta
-- Notificaciones (campana del header): pagos por vencer, proyección sin guardar, cursos en riesgo, actividades de horas libres próximas, solicitudes en trámite y citas.
-- Foto de perfil (se guarda en el navegador) que se ve en el header y en el carné.
-- «¿Olvidaste tu contraseña?» orienta a Punto U (no hay servidor de correo configurado).
-
-## Seguridad (auditoría)
-- Contraseñas con scrypt + sal; la sesión es una cookie `HttpOnly; Secure; SameSite=Lax` de 8 horas.
-- Política de contraseña (cambio en Mi perfil): mínimo 8 caracteres, mayúscula, minúscula y número, sin nombre, apellido ni usuario.
-- Límite de 5 intentos fallidos de login cada 15 minutos por usuario e IP (respuesta 429).
-- Cabeceras en `vercel.json`: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`; las respuestas de `/api` no se guardan en caché.
-- Pendiente a futuro: Content-Security-Policy (hoy Tailwind por CDN exige permitir scripts en línea).
+## Cuenta y perfil
+- **Menú de perfil** (clic en las iniciales): Mi perfil, carné, cambio de contraseña, trámites, accesos UNAB y, para el administrador, «Administrar usuarios».
+- **Foto de perfil:** se guarda solo en el navegador y se ve en el header y en el carné.
+- **Carné UNAB:** réplica del carné real (horizontal, con foto y QR). Las descargas (carné, horario, comprobante) muestran solo el documento.
+- **Notificaciones** (campana): pagos por vencer, proyección sin guardar, cursos en riesgo, actividades de horas libres próximas, solicitudes en trámite y citas.
 
 ## Buscador
-Botón «Buscar» en el header (o tecla `/`) y buscador del inicio: encuentran páginas, trámites y temas (sin importar tildes). El índice vive en `js/components.js` (`SITE_EXTRA`).
+Botón «Buscar» en el header (o tecla `/`) y buscador del inicio: encuentran páginas, trámites y temas sin importar las tildes. El índice vive en `js/components.js` (`SITE_EXTRA`).
 
 ## Accesibilidad y guía de estilo
-- Navegación: Académico (horario, cursos, calificaciones, cronogramas, grado), Servicios (turnos, becas, solicitudes, pagos) y Bienestar (horas libres, reservas CSU, parqueadero, semilleros, ASCUN e Interoscas) son menús desplegables; se abren con clic o teclado y se cierran con Escape.
-- El naranja `#FFA400` se usa en fondos y bordes. Para texto naranja se usa `unab-text` (`#A35F00`), que cumple contraste 4,5:1 sobre blanco y crema. El verde de estado se oscureció a `#23794A` por la misma razón.
+- Navegación: Académico (horario, cursos, calificaciones, cronogramas, grado), Servicios (turnos, becas, solicitudes, pagos) y Bienestar son menús desplegables; se abren con clic o teclado y se cierran con Escape.
+- El naranja `#FFA400` se usa en fondos y bordes. Para texto naranja se usa `unab-text` (`#A35F00`), con contraste 4,5:1 sobre blanco y crema. Colores de estado con contraste ≥ 4,5:1: rojo `#C62828` y verde `#23794A`.
 - Todas las fechas siguen el formato «21 oct 2026».
-- Colores de estado verificados con contraste ≥ 4,5:1: rojo `#C62828`, verde `#23794A`, texto naranja `#A35F00`.
+- Los mensajes de error van dentro de la página con `role="alert"`, no en diálogos del navegador.
 
 ## Responsivo
 La guía de estilo es para escritorio (1280 px), pero el sitio se adapta desde 320 px:
