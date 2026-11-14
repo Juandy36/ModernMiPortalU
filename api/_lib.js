@@ -52,13 +52,7 @@ function iniciar() {
           if (hecho.length) break;
         }
       }
-      // Cuenta de administración: solo existe si se define ADMIN_CLAVE en el entorno (nunca va en el código).
-      const claveAdmin = process.env.ADMIN_CLAVE;
-      if (claveAdmin && !(await buscarPorUsuario('admin'))) {
-        const motivo = validarClave(claveAdmin, 'Administrador', 'admin');
-        if (motivo) console.error('ADMIN_CLAVE no cumple la política de contraseñas: ' + motivo);
-        else await crearUsuario({ usuario: 'admin', nombre: 'Administrador del portal', programa: 'Administración', facultad: 'Administración', rol: 'Administrador', clave: claveAdmin, prefijo: 'A00' });
-      }
+      await asegurarAdmin();
     })().catch((e) => { listo = null; throw e; });
   }
   return listo;
@@ -67,11 +61,11 @@ function iniciar() {
 const generarCodigo = (prefijo) => prefijo + String(crypto.randomInt(0, 1000000)).padStart(6, '0');
 
 // Inserta un usuario con código único. Devuelve {id, codigo}, o null si el usuario ya existe.
-async function crearUsuario({ usuario, nombre, clave, programa = 'Ingeniería de Sistemas', facultad = 'Ingenierías', rol = 'Estudiante', prefijo = 'U00' }) {
+async function crearUsuario({ usuario, nombre, clave, hash, programa = 'Ingeniería de Sistemas', facultad = 'Ingenierías', rol = 'Estudiante', prefijo = 'U00' }) {
   for (let i = 0; i < 20; i++) {
     try {
       const f = await sql`INSERT INTO usuarios (usuario, clave_hash, nombre, programa, facultad, rol, codigo)
-        VALUES (${usuario}, ${hashClave(clave)}, ${nombre}, ${programa}, ${facultad}, ${rol}, ${generarCodigo(prefijo)})
+        VALUES (${usuario}, ${hash || hashClave(clave)}, ${nombre}, ${programa}, ${facultad}, ${rol}, ${generarCodigo(prefijo)})
         ON CONFLICT (codigo) DO NOTHING RETURNING id, codigo`;
       if (f.length) return f[0];
     } catch (e) {
@@ -80,6 +74,23 @@ async function crearUsuario({ usuario, nombre, clave, programa = 'Ingeniería de
     }
   }
   throw new Error('No se pudo generar un código libre.');
+}
+
+// La cuenta «admin» se crea sin contraseñas en el código:
+//  1) con ADMIN_CLAVE, si está definida en el entorno; o
+//  2) copiando la contraseña de «jortiz», pero solo si ya la cambió de la de ejemplo (así nunca queda una clave pública).
+async function asegurarAdmin() {
+  if (await buscarPorUsuario('admin')) return;
+  const base = { usuario: 'admin', nombre: 'Administrador del portal', programa: 'Administración', facultad: 'Administración', rol: 'Administrador', prefijo: 'A00' };
+  const claveAdmin = process.env.ADMIN_CLAVE;
+  if (claveAdmin) {
+    const motivo = validarClave(claveAdmin, 'Administrador', 'admin');
+    if (motivo) console.error('ADMIN_CLAVE no cumple la política de contraseñas: ' + motivo);
+    else await crearUsuario({ ...base, clave: claveAdmin });
+    return;
+  }
+  const dueno = await buscarPorUsuario('jortiz');
+  if (dueno && !verificarClave('Unab2026*', dueno.clave_hash)) await crearUsuario({ ...base, hash: dueno.clave_hash });
 }
 
 function hashClave(clave) {
@@ -165,4 +176,4 @@ async function requerirAdmin(req, res) {
   return u;
 }
 
-module.exports = { sql, crearUsuario, requerirAdmin, validarClave, bloqueado, registrarFallo, limpiarFallos, hashClave, verificarClave, buscarPorUsuario, crearSesion, cookie, tokenDe, usuarioDeSesion, ruta };
+module.exports = { sql, crearUsuario, asegurarAdmin, requerirAdmin, validarClave, bloqueado, registrarFallo, limpiarFallos, hashClave, verificarClave, buscarPorUsuario, crearSesion, cookie, tokenDe, usuarioDeSesion, ruta };
