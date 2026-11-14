@@ -1,14 +1,14 @@
 # Modern MiPortalU
 
-Rediseño frontend de MiPortalU (UNAB) para el curso de Diseño de Interfaces. Los datos de las pantallas son de ejemplo (estado en `localStorage`); los **usuarios, el login y el registro** van contra un backend sencillo con base de datos Postgres (Neon).
+Rediseño frontend de MiPortalU (UNAB) para el curso de Diseño de Interfaces. Los datos de las pantallas son de ejemplo (estado en `localStorage`); los **usuarios y el login** van contra un backend sencillo con base de datos Postgres (Neon).
 
 ## Despliegue y ejecución
 La versión de referencia es la de Vercel: https://modernmiportalu.vercel.app/ (se redespliega con cada push a `main`).
 
-- **Backend:** funciones serverless en `api/` (`login`, `register`, `logout`, `me`, `perfil`, `password`) con base **Neon Postgres**. Necesita la variable de entorno `DATABASE_URL` (se crea al conectar Neon en Vercel → Storage).
+- **Backend:** funciones serverless en `api/` (`login`, `logout`, `me`, `perfil`, `password`) con base **Neon Postgres**. Necesita la variable de entorno `DATABASE_URL` (se crea al conectar Neon en Vercel → Storage).
 - **Primer uso:** las tablas y 4 usuarios de prueba (contraseña `Unab2026*`: `jortiz`, `jmartinez`, `drueda`, `estudiante`) se crean solos en la primera petición.
 - **Local:** `vercel link`, `vercel env pull .env.local` y `npm run dev` (usa `vercel dev`, abre http://localhost:3000). Abrir `index.html` directo ya no sirve: las páginas piden sesión a la API.
-- En `login.html` se puede ingresar o crear cuenta (mínimo 8 caracteres, con letras y números). Las contraseñas se guardan con scrypt + sal; la sesión es una cookie `HttpOnly` de 8 horas.
+- En `login.html` solo se puede ingresar: no hay registro, porque en una universidad las cuentas las crea la institución (los usuarios se cargan en la base). Las contraseñas se guardan con scrypt + sal; la sesión es una cookie `HttpOnly` de 8 horas.
 
 ## Stack
 HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.html` directamente en el navegador.
@@ -55,7 +55,7 @@ HTML + CSS + JavaScript puro, con Tailwind por CDN (sin build). Se abre `index.h
 
 ## Seguridad (auditoría)
 - Contraseñas con scrypt + sal; la sesión es una cookie `HttpOnly; Secure; SameSite=Lax` de 8 horas.
-- Política de contraseña única (registro y cambio): mínimo 8 caracteres, mayúscula, minúscula y número, sin nombre, apellido ni usuario.
+- Política de contraseña (cambio en Mi perfil): mínimo 8 caracteres, mayúscula, minúscula y número, sin nombre, apellido ni usuario.
 - Límite de 5 intentos fallidos de login cada 15 minutos por usuario e IP (respuesta 429).
 - Cabeceras en `vercel.json`: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`; las respuestas de `/api` no se guardan en caché.
 - Pendiente a futuro: Content-Security-Policy (hoy Tailwind por CDN exige permitir scripts en línea).

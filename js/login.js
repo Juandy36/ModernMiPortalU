@@ -1,4 +1,4 @@
-// Pantalla de login / registro: envía los formularios a la API y redirige al entrar.
+// Pantalla de login: envía el formulario a la API y redirige al entrar.
 const $ = (id) => document.getElementById(id);
 const error = $('error');
 
@@ -13,26 +13,11 @@ function mostrarError(msg) {
   error.classList.toggle('hidden', !msg);
 }
 
-function cambiarTab(registro) {
-  $('form-login').hidden = registro;
-  $('form-registro').hidden = !registro;
-  $('tab-login').setAttribute('aria-selected', String(!registro));
-  $('tab-registro').setAttribute('aria-selected', String(registro));
-  $('tab-login').className = 'btn ' + (registro ? 'btn-secondary' : 'btn-primary');
-  $('tab-registro').className = 'btn ' + (registro ? 'btn-primary' : 'btn-secondary');
-  $('titulo').textContent = registro ? 'Crea tu cuenta' : 'Ingresa a tu portal';
-  mostrarError('');
-  $('olvido').hidden = true;
-  $('btn-olvido').setAttribute('aria-expanded', 'false');
-  $(registro ? 'r-nombre' : 'l-usuario').focus();
-}
 $('btn-olvido').addEventListener('click', () => {
   const abrir = $('olvido').hidden;
   $('olvido').hidden = !abrir;
   $('btn-olvido').setAttribute('aria-expanded', String(abrir));
 });
-$('tab-login').addEventListener('click', () => cambiarTab(false));
-$('tab-registro').addEventListener('click', () => cambiarTab(true));
 
 async function enviar(url, datos, boton) {
   mostrarError('');
@@ -57,13 +42,4 @@ $('form-login').addEventListener('submit', (e) => {
   const f = e.target;
   if (!f.usuario.value.trim() || !f.clave.value) return mostrarError('Escribe tu usuario y contraseña.');
   enviar('/api/login', { usuario: f.usuario.value, clave: f.clave.value }, f.querySelector('button'));
-});
-
-$('form-registro').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const f = e.target;
-  if ($('r-clave').value !== $('r-clave2').value) return mostrarError('Las contraseñas no coinciden.');
-  enviar('/api/register', {
-    nombre: f.nombre.value, usuario: f.usuario.value, programa: f.programa.value, clave: f.clave.value,
-  }, f.querySelector('button'));
 });
