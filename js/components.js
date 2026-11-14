@@ -154,6 +154,7 @@ function menuPerfil(u, iniciales) {
         ${item('pages/perfil.html#carne', 'Mi carné UNAB')}
         ${item('pages/perfil.html#clave', 'Cambiar contraseña')}
         ${item('pages/perfil.html#tramites', 'Mis trámites y solicitudes')}
+        ${u.rol === 'Administrador' ? titulo('Administración') + item('pages/admin.html', 'Administrar usuarios') : ''}
         ${titulo('Accesos UNAB')}
         ${item('https://correo.unab.edu.co', 'Correo institucional', true)}
         ${item('https://biblioteca.unab.edu.co', 'Biblioteca', true)}

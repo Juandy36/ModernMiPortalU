@@ -24,7 +24,7 @@ async function api(url, datos) {
 // salga igual en pantalla y al imprimir; las medidas escalan con el ancho del carné (cqw).
 function carneHtml() {
   const foto = MPU.storage.get('perfil:foto', null);
-  const id = 'U' + String(u.id).padStart(8, '0'); // identificador de ejemplo
+  const id = u.codigo || 'U' + String(u.id).padStart(8, '0');
   const palabras = u.nombre.trim().toUpperCase().split(/\s+/);
   const mitad = Math.ceil(palabras.length / 2);
   const lineas = [palabras.slice(0, mitad).join(' '), palabras.slice(mitad).join(' ')].filter(Boolean);

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administración · Modern MiPortalU</title>
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script src="../js/tailwind-config.js"></script>
+  <script src="/js/auth.js"></script>
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body data-root="../" data-active="admin">
+  <div id="app-navbar"></div>
+
+  <main id="contenido" class="max-w-page mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-6">
+    <div>
+      <h1 class="text-h1">Administración de usuarios</h1>
+      <p class="mt-2">Crea las cuentas de estudiantes y consulta quién tiene acceso al portal. El código institucional (U00 y seis dígitos) se asigna automáticamente.</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      <!-- Crear usuario -->
+      <section class="card lg:col-span-1" aria-labelledby="crear-titulo">
+        <h2 id="crear-titulo" class="text-h3 mb-4">Crear estudiante</h2>
+        <p id="error" role="alert" class="hidden mb-4 px-3 py-2 rounded-md font-semibold" style="background:#FDECEA;color:#B42318;"></p>
+        <form id="form-crear" class="space-y-4" novalidate>
+          <div>
+            <label class="label" for="a-nombre">Nombre completo</label>
+            <input id="a-nombre" name="nombre" class="field" autocomplete="off" required>
+          </div>
+          <div>
+            <label class="label" for="a-usuario">Usuario</label>
+            <input id="a-usuario" name="usuario" class="field" autocomplete="off" aria-describedby="ayuda-usuario" required>
+            <p id="ayuda-usuario" class="text-small mt-1">3 a 30 caracteres: letras, números, punto, guion o guion bajo.</p>
+          </div>
+          <div>
+            <label class="label" for="a-programa">Programa académico</label>
+            <input id="a-programa" name="programa" class="field" placeholder="Ingeniería de Sistemas" autocomplete="off">
+          </div>
+          <div>
+            <label class="label" for="a-clave">Contraseña inicial</label>
+            <div class="flex gap-2">
+              <input id="a-clave" name="clave" class="field" autocomplete="off" spellcheck="false" aria-describedby="ayuda-clave" required>
+              <button type="button" id="btn-generar" class="btn btn-secondary shrink-0">Generar</button>
+            </div>
+            <p id="ayuda-clave" class="text-small mt-1">Mínimo 8 caracteres, con mayúscula, minúscula y número, sin el nombre ni el usuario.</p>
+          </div>
+          <button type="submit" class="btn btn-primary w-full">Crear usuario</button>
+        </form>
+
+        <div id="resultado" hidden class="mt-6 rounded-lg p-4" style="background:#E8F5EC;" role="status">
+          <h3 class="font-bold">Usuario creado</h3>
+          <dl class="mt-2 space-y-1 text-small">
+            <div class="flex gap-2"><dt class="font-bold">Código:</dt><dd id="r-codigo"></dd></div>
+            <div class="flex gap-2"><dt class="font-bold">Usuario:</dt><dd id="r-usuario"></dd></div>
+            <div class="flex gap-2"><dt class="font-bold">Contraseña inicial:</dt><dd id="r-clave" class="font-mono break-all"></dd></div>
+          </dl>
+          <p class="text-small mt-2">Entrégale estos datos al estudiante; podrá cambiar la contraseña en Mi perfil. No se vuelve a mostrar.</p>
+          <button type="button" id="btn-copiar" class="btn btn-secondary mt-3">Copiar datos</button>
+          <span id="copiado" class="text-small font-bold ml-2" role="status"></span>
+        </div>
+      </section>
+
+      <!-- Lista de usuarios -->
+      <section class="card lg:col-span-2" aria-labelledby="lista-titulo">
+        <div class="flex flex-wrap items-end justify-between gap-3 mb-4">
+          <h2 id="lista-titulo" class="text-h3">Usuarios <span id="total" class="text-small font-normal"></span></h2>
+          <div class="w-full sm:w-64">
+            <label class="label" for="a-buscar">Buscar</label>
+            <input id="a-buscar" type="search" class="field" placeholder="Nombre, usuario o código" autocomplete="off">
+          </div>
+        </div>
+        <p id="lista-estado" class="text-small" role="status">Cargando…</p>
+        <table class="table" id="tabla" hidden>
+          <thead><tr><th>Código</th><th>Usuario</th><th>Nombre</th><th>Programa</th><th>Rol</th></tr></thead>
+          <tbody id="filas"></tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <div id="app-footer"></div>
+  <script src="../js/storage.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/pages/admin.js"></script>
+</body>
+</html>
